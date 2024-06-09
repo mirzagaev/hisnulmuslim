@@ -1,20 +1,26 @@
 import * as React from 'react';
-import {View, TextField, Text, Button} from 'react-native-ui-lib';
-import { useNavigation } from '@react-navigation/native';
+import {View, Text} from 'react-native-ui-lib';
+import { Button } from 'react-native';
 
-export default function Home() {
-  const navigation = useNavigation();
+export default function Home({ navigation }) {
+  // const linkTo = useLinkTo();
 
   return (
-    <View flex paddingH-25 paddingT-120>
-      <Text blue50 text20>Kategorien</Text>
+    <View marginT-100 center>
+      <Text blue50 text20 marginB-20>Kategorien</Text>
 
-      <View marginT-100 center>
-        <Button text70 white background-orange30
-          label="Go to Kategorie X"
-          onPress={() => navigation.navigate("Kategorie")}
-        />
-      </View>
+      <Button
+        onPress={() => navigation.navigate('Alltag')}
+        title="Alltag"
+      />
+
+      {/* <View marginT-100 center> */}
+      {/* <Link to={{ screen: 'Kategorie', params: { id: '1' } }}>jlnljn</Link> */}
+        {/* <Button
+          label="Go to Kategorie 1"
+          // onPress={() => linkTo("/kategorie/22")}
+        /> */}
+      {/* </View> */}
     </View>
   );
 }

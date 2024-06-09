@@ -10,10 +10,10 @@ export default function Kategorie() {
       <Text blue50 text20>Kategorie X</Text>
 
     <View marginT-100 center>
-      <Button text70 white background-orange30
+      {/* <Button text70 white background-orange30
         label="Go to Bittgebet X"
         onPress={() => navigation.navigate("Bittgebete")}
-      />
+      /> */}
     </View>
     </View>
   );

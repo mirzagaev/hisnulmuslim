@@ -1,59 +1,18 @@
 import * as React from 'react';
-import { Button, View, Text } from 'react-native';
-// import { View, Text, Button } from 'react-native-ui-lib';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './screens/Home';
+import Kategorie0 from './screens/Kategorie0';
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Kategorien</Text>
+const Drawer = createDrawerNavigator();
 
-      <View>
-        <Button
-          title="Go to Kategorie X"
-          onPress={() => navigation.navigate("Kategorie")}
-        />
-      </View>
-    </View>
-  );
-}
-
-function KategorieScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Kategorie X</Text>
-
-      <View>
-        <Button
-          title="Go to Bittgebet X"
-          onPress={() => navigation.navigate("Bittgebete")}
-        />
-      </View>
-    </View>
-  );
-}
-
-function BittgebeteScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Bittgebet X</Text>
-    </View>
-  );
-}
-
-const Stack = createNativeStackNavigator();
-
-function App() {
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Hisnul Muslim" component={HomeScreen} />
-        <Stack.Screen name="Kategorie" component={KategorieScreen} />
-        <Stack.Screen name="Bittgebete" component={BittgebeteScreen} />
-      </Stack.Navigator>
+      <Drawer.Navigator initialRouteName="Home" id={undefined}>
+        <Drawer.Screen name="Hisnul Muslim" component={Home} />
+        <Drawer.Screen name="Alltag" component={Kategorie0} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
-
-export default App;
