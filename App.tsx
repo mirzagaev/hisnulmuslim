@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Kategorie0 from './screens/Kategorie0';
 import Kategorie1 from './screens/Kategorie1';
