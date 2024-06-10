@@ -5,9 +5,11 @@ import { Button } from 'react-native';
 export default function Kategorie({ navigation }) {
   return (
     <View marginT-100 center>
-      <Text blue50 text20 marginB-20>Pilgerfahrt</Text>
+      <Text blue50 text20 marginB-20>Bittgebete zum Schutz</Text>
 
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
+      <View marginT-100 center>
+        <Button onPress={() => navigation.navigate("Bittgebete")} title="Bittgebete öffnen" />
+      </View>
     </View>
   );
 }
