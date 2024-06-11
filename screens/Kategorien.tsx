@@ -100,7 +100,7 @@ function TopTabBar() {
   );
 }
 
-function LeftTabBar() {
+function LeftTabBar({ layout }) {
   const Tab = createBottomTabNavigator();
 
   return (
@@ -108,6 +108,7 @@ function LeftTabBar() {
       id={undefined}
       screenOptions={{
         tabBarPosition: 'left', // 'bottom'
+        // tabBarShowLabel: layout.width < 800 ? false : true,
         headerShown: false
       }}
     >
@@ -190,5 +191,5 @@ function LeftTabBar() {
 
 export default function Kategorien() {
   const layout = useWindowDimensions();
-  return layout.width < 600 ? <TopTabBar /> : <LeftTabBar />;
+  return layout.width < 769 ? <TopTabBar /> : <LeftTabBar layout={layout} />;
 }
