@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Image } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import Kategorie0 from '../screens/Tabs/Kategorie0';
 import Kategorie1 from '../screens/Tabs/Kategorie1';
@@ -10,15 +12,16 @@ import Kategorie4 from '../screens/Tabs/Kategorie4';
 import Kategorie5 from '../screens/Tabs/Kategorie5';
 import Kategorie6 from '../screens/Tabs/Kategorie6';
 
-const Kategorien = () => {
+export default function Kategorien() {
   // Attention, this is a BottomTab
-  const Tab = createBottomTabNavigator()
+  const layout = useWindowDimensions();
+  const Tab = createBottomTabNavigator();
 
   return (
     <Tab.Navigator
       id={undefined}
       screenOptions={{
-        tabBarPosition: 'bottom',   // 'left'
+        tabBarPosition: layout.width < 600 ? 'bottom' : 'left',
         headerShown: false
       }}
     >
@@ -49,6 +52,7 @@ const Kategorien = () => {
           tabBarLabel: 'Reisen',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/03-reise-128x128.png')} style={{height:26, width:26}} />
+            // <MaterialIcons name="card-travel" size={26} color="red" />
           ),
         }}
       />
@@ -97,5 +101,3 @@ const Kategorien = () => {
     </Tab.Navigator>
   );
 }
-
-export default Kategorien
