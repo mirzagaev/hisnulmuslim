@@ -1,20 +1,46 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
+import { Text } from 'react-native';
 
 // Screens we previously created
 import Kategorien from '../screens/Kategorien';
+import Kategorie from '../screens/Kategorie';
 import Bittgebete from '../screens/Bittgebete';
+import NotFound from '../screens/NotFound';
+
+const config = {
+    screens: {
+        "Hisnul Muslim": {
+            // initialRouteName: 'home',
+            screens: {
+                1: 'cat/1',
+                2: 'cat/2',
+                3: 'cat/3',
+                4: 'cat/4',
+                5: 'cat/5',
+                6: 'cat/6',
+                7: 'cat/7',
+            },
+        },
+        Bittgebete: 'dua',
+        NotFound: '*',
+    },
+};
+
+const linking = {
+    prefixes: ['hisnulmuslim://', 'https://hisnulmuslim.de', 'https://*.hisnulmuslim.de'],
+    config,
+};
 
 const AppNavigation = () => {
-    // Attention, this is a Stack
     const Stack = createNativeStackNavigator()
 
-    // Please refer to the Graph2, where all modules are connected
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Kategorien" id={undefined}>
+        <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+            <Stack.Navigator initialRouteName="Hisnul Muslim" id={undefined}>
                 <Stack.Screen name="Hisnul Muslim" component={Kategorien} />
                 <Stack.Screen name="Bittgebete" component={Bittgebete} />
+                <Stack.Screen name="NotFound" component={NotFound} />
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -1,17 +1,8 @@
 import * as React from 'react';
-import { Image } from 'react-native';
-import { View, useWindowDimensions } from 'react-native';
+import { Image, useWindowDimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-// import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
-import Kategorie0 from './Tabs/Kategorie0';
-import Kategorie1 from './Tabs/Kategorie1';
-import Kategorie2 from './Tabs/Kategorie2';
-import Kategorie3 from './Tabs/Kategorie3';
-import Kategorie4 from './Tabs/Kategorie4';
-import Kategorie5 from './Tabs/Kategorie5';
-import Kategorie6 from './Tabs/Kategorie6';
+import Kategorie from './Kategorie';
 
 function TopTabBar() {
   const Tab = createMaterialTopTabNavigator();
@@ -20,22 +11,25 @@ function TopTabBar() {
       id={undefined}
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarStyle: { backgroundColor: 'white' },
+        tabBarStyle: {
+          backgroundColor: '#ffffff'
+        }
       }}
     >
       <Tab.Screen
-        name="Alltag"
-        component={Kategorie0} 
+        name="1"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Alltag',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/01alltag-128x128.png')} style={{height:26, width:26}} />
           ),
+          // tabBarPressColor: '#ff0000',
         }}
       />
       <Tab.Screen
-        name="Gebet"
-        component={Kategorie1}
+        name="2"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Gebet',
           tabBarIcon: ({ color }) => (
@@ -44,8 +38,8 @@ function TopTabBar() {
         }}
       />
       <Tab.Screen
-        name="Reisen"
-        component={Kategorie2}
+        name="3"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Reisen',
           tabBarIcon: ({ color }) => (
@@ -55,8 +49,8 @@ function TopTabBar() {
         }}
       />
       <Tab.Screen
-        name="Schutz"
-        component={Kategorie3}
+        name="4"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Schutz',
           tabBarIcon: ({ color }) => (
@@ -65,8 +59,8 @@ function TopTabBar() {
         }}
       />
       <Tab.Screen
-        name="NotfaelleTod"
-        component={Kategorie4}
+        name="5"
+        component={Kategorie}
         options={{
           title: "Notfälle / Tod",
           tabBarLabel: 'Notfälle / Tod',
@@ -76,8 +70,8 @@ function TopTabBar() {
         }}
       />
       <Tab.Screen
-        name="Befindlichkeit"
-        component={Kategorie5}
+        name="6"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Befindlichkeit',
           tabBarIcon: ({ color }) => (
@@ -86,13 +80,12 @@ function TopTabBar() {
         }}
       />
       <Tab.Screen
-        name="Pilgerfahrt"
-        component={Kategorie6}
+        name="7"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Pilgerfahrt',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/07-Hadsh-umra-128x128.png')} style={{height:26, width:26}} />
-            // <MaterialCommunityIcons name="account" color="#30969b" size={26} />
           ),
         }}
       />
@@ -113,8 +106,8 @@ function LeftTabBar({ layout }) {
       }}
     >
       <Tab.Screen
-        name="Alltag"
-        component={Kategorie0}
+        name="1"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Alltag',
           tabBarIcon: ({ color }) => (
@@ -123,8 +116,8 @@ function LeftTabBar({ layout }) {
         }}
       />
       <Tab.Screen
-        name="Gebet"
-        component={Kategorie1}
+        name="2"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Gebet',
           tabBarIcon: ({ color }) => (
@@ -133,8 +126,8 @@ function LeftTabBar({ layout }) {
         }}
       />
       <Tab.Screen
-        name="Reisen"
-        component={Kategorie2}
+        name="3"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Reisen',
           tabBarIcon: ({ color }) => (
@@ -144,8 +137,8 @@ function LeftTabBar({ layout }) {
         }}
       />
       <Tab.Screen
-        name="Schutz"
-        component={Kategorie3}
+        name="4"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Schutz',
           tabBarIcon: ({ color }) => (
@@ -154,8 +147,8 @@ function LeftTabBar({ layout }) {
         }}
       />
       <Tab.Screen
-        name="NotfaelleTod"
-        component={Kategorie4}
+        name="5"
+        component={Kategorie}
         options={{
           title: "Notfälle / Tod",
           tabBarLabel: 'Notfälle / Tod',
@@ -165,8 +158,8 @@ function LeftTabBar({ layout }) {
         }}
       />
       <Tab.Screen
-        name="Befindlichkeit"
-        component={Kategorie5}
+        name="6"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Befindlichkeit',
           tabBarIcon: ({ color }) => (
@@ -175,13 +168,12 @@ function LeftTabBar({ layout }) {
         }}
       />
       <Tab.Screen
-        name="Pilgerfahrt"
-        component={Kategorie6}
+        name="7"
+        component={Kategorie}
         options={{
           tabBarLabel: 'Pilgerfahrt',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/07-Hadsh-umra-128x128.png')} style={{height:26, width:26}} />
-            // <MaterialCommunityIcons name="account" color="#30969b" size={26} />
           ),
         }}
       />
