@@ -2,9 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { Text } from 'react-native';
 
-// Screens we previously created
-import Kategorien from '../screens/Kategorien';
-import Kategorie from '../screens/Kategorie';
+import Kategorien from './Kategorien';
 import Bittgebete from '../screens/Bittgebete';
 import NotFound from '../screens/NotFound';
 

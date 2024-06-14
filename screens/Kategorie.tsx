@@ -1,7 +1,60 @@
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
-import { List, Headline } from 'react-native-paper';
+import {
+  StyleSheet,
+  Button,
+  Text,
+  View,
+  SectionList,
+  StatusBar,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+const DATA = [
+  {
+    title: 'Gedenken am Morgen und am Abend',
+    data: ['Das Gedenken am Morgen und am Abend'],
+  },
+  {
+    title: 'Aufstehen',
+    data: [
+      'Das Gedenken beim Erwachen aus dem Schlaf',
+      'Das Gedenken beim Einschlafen',
+      'Bittgebete bei unruhigem Schlaf in der Nacht',
+      'Bittgebet bei Angst / Furcht im Schlaf und Leid wg. Einsamkeit'
+    ],
+  },
+];
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    marginHorizontal: 16,
+  },
+  catHeader: {
+    fontSize: 24,
+    fontWeight: '600',
+    backgroundColor: '#fff',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+  },
+  header: {
+    fontSize: 18,
+    paddingTop: 15,
+    paddingBottom: 7,
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
+  },
+  item: {
+    // backgroundColor: '#f9c2ff',
+    paddingVertical: 3,
+    paddingHorizontal: 20,
+    marginVertical: 8,
+  },
+  title: {
+    fontSize: 12,
+  },
+});
 
 function Kategorie({ nav }) {
   const [catId, setCatId] = React.useState<any>();
@@ -19,18 +72,22 @@ function Kategorie({ nav }) {
 
   return (
     <View>
-      {catId && (<Headline>Kategorie: {catId}</Headline>)}
-      <List.Section>
-        <List.Subheader>Gedenken am Morgen und am Abend</List.Subheader>
-        <List.Item onPress={() => nav.navigate("Bittgebete")} title="Das Gedenken am Morgen und am Abend" />
-      </List.Section>
-      <List.Section>
-        <List.Subheader>Aufstehen</List.Subheader>
-        <List.Item title="Das Gedenken beim Erwachen aus dem Schlaf" />
-        <List.Item title="Das Gedenken beim Einschlafen" />
-        <List.Item title="Bittgebete bei unruhigem Schlaf in der Nacht" />
-        <List.Item title="Bittgebet bei Angst / Furcht im Schlaf und Leid wg. Einsamkeit" />
-      </List.Section>
+      {catId && 
+        <Text style={styles.catHeader}>Kategorie: {catId}</Text>
+      }
+
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({item}) => (
+          <View style={styles.item}>
+            <Text style={styles.title}>{item}</Text>
+          </View>
+        )}
+        renderSectionHeader={({section: {title}}) => (
+          <Text style={styles.header}>{title}</Text>
+        )}
+      />
     </View>
   );
 }

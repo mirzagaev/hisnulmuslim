@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Image, useWindowDimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Kategorie from './Kategorie';
+import Kategorie from '../screens/Kategorie';
 
 function TopTabBar() {
   const Tab = createMaterialTopTabNavigator();

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text} from 'react-native-ui-lib';
+import { View, Text } from 'react-native-ui-lib';
 import { Button } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
