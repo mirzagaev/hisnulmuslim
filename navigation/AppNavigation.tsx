@@ -8,7 +8,7 @@ import NotFound from '../screens/NotFound';
 
 const config = {
     screens: {
-        "Hisnul Muslim": {
+        Home: {
             // initialRouteName: 'home',
             screens: {
                 1: 'cat/1',
@@ -35,10 +35,25 @@ const AppNavigation = () => {
 
     return (
         <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
-            <Stack.Navigator initialRouteName="Hisnul Muslim" id={undefined}>
-                <Stack.Screen name="Hisnul Muslim" component={Kategorien} />
-                <Stack.Screen name="Bittgebete" component={Bittgebete} />
-                <Stack.Screen name="NotFound" component={NotFound} />
+            <Stack.Navigator initialRouteName="Home" id={undefined}>
+                <Stack.Screen
+                    name="Home"
+                    component={Kategorien}
+                    options={{
+                        title: 'Hisnul Muslim',
+                    }}
+                />
+                <Stack.Screen
+                    name="Bittgebete"
+                    component={Bittgebete}
+                />
+                <Stack.Screen
+                    name="NotFound"
+                    component={NotFound}
+                    options={{
+                        title: 'Seite nicht gefunden',
+                    }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     )
