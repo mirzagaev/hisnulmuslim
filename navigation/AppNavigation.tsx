@@ -41,6 +41,7 @@ const AppNavigation = () => {
                     component={Kategorien}
                     options={{
                         title: 'Hisnul Muslim',
+                        headerShown: false
                     }}
                 />
                 <Stack.Screen

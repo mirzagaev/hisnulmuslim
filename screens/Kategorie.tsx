@@ -72,9 +72,9 @@ function Kategorie({ nav }) {
 
   return (
     <View>
-      {catId && 
+      {/* {catId && 
         <Text style={styles.catHeader}>Kategorie: {catId}</Text>
-      }
+      } */}
 
       <SectionList
         sections={DATA}
