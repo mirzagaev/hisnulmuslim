@@ -14,15 +14,12 @@ function TabBar({ layout }) {
       initialRouteName='1'
       screenOptions={{
         tabBarPosition: layout.width > 769 ? 'left' : 'bottom',
-        // tabBarShowLabel: layout.width < 769 ? false : true,
+        tabBarShowLabel: layout.width < 769 ? false : true,
         animation: 'shift',
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'white',
         tabBarLabelStyle: { fontWeight: '600' },
         tabBarInactiveBackgroundColor: '#cccccc',
-        tabBarStyle: {
-          display: 'flex'
-        }
       }}
     >
       <Tab.Screen
@@ -30,8 +27,6 @@ function TabBar({ layout }) {
         component={Favoriten}
         options={{
           title: 'Favoriten',
-          tabBarLabel: layout.width > 769 ? 'Favoriten' : '',
-          tabBarShowLabel: true,
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/00fav-128x128.png')} style={{height:26, width:26}} />
           ),
@@ -43,7 +38,6 @@ function TabBar({ layout }) {
         component={Kategorie}
         options={{
           title: 'Alltag',
-          tabBarLabel: layout.width > 769 ? 'Alltag' : '',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/01alltag-128x128.png')} style={{height:26, width:26}} />
           ),
@@ -55,7 +49,6 @@ function TabBar({ layout }) {
         component={Kategorie}
         options={{
           title: 'Gebet',
-          tabBarLabel: layout.width > 769 ? 'Gebet' : '',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/02gebet-128x128.png')} style={{height:26, width:26}} />
           ),
@@ -67,7 +60,6 @@ function TabBar({ layout }) {
         component={Kategorie}
         options={{
           title: 'Reisen',
-          tabBarLabel: layout.width > 769 ? 'Reisen' : '',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/03-reise-128x128.png')} style={{height:26, width:26}} />
           ),
@@ -79,7 +71,6 @@ function TabBar({ layout }) {
         component={Kategorie}
         options={{
           title: 'Schutz',
-          tabBarLabel: layout.width > 769 ? 'Schutz' : '',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/04-schutz-128x128.png')} style={{height:26, width:26}} />
           ),
@@ -91,7 +82,6 @@ function TabBar({ layout }) {
         component={Kategorie}
         options={{
           title: "Notfälle / Tod",
-          tabBarLabel: layout.width > 769 ? 'Notfälle / Tod' : '',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/05-Notfaelle-128x128.png')} style={{height:26, width:26}} />
           ),
@@ -103,7 +93,6 @@ function TabBar({ layout }) {
         component={Kategorie}
         options={{
           title: 'Befindlichkeit',
-          tabBarLabel: layout.width > 769 ? 'Befindlichkeit' : '',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/06-Befindlichkeit-128x128.png')} style={{height:26, width:26}} />
           ),
@@ -115,24 +104,12 @@ function TabBar({ layout }) {
         component={Kategorie}
         options={{
           title: 'Pilgerfahrt',
-          tabBarLabel: layout.width > 769 ? 'Pilgerfahrt' : '',
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/07-Hadsh-umra-128x128.png')} style={{height:26, width:26}} />
           ),
           tabBarActiveBackgroundColor: '#147c1b'
         }}
       />
-      {/* <Tab.Screen
-        name="info"
-        component={Info}
-        options={{
-          title: 'Hisnul Muslim',
-          tabBarIcon: ({ color }) => (
-            <Image source={require('../assets/icons/HM-LOGO-weiss.png')} style={{height:26, width:26}} />
-          ),
-          tabBarActiveBackgroundColor: '#30609e'
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }
