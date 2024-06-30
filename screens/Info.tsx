@@ -7,7 +7,7 @@ export default function Info({ navigation }) {
     <View flex paddingH-25 paddingT-120>
       <Text blue50 text20>was ist Hisnul Muslim?</Text>
 
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
+      <Button onPress={() => navigation.goBack()} title="Go back" />
     </View>
   );
 }

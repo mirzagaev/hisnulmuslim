@@ -1,15 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { Text } from 'react-native';
-
 import Kategorien from './Kategorien';
+import Info from '../screens/Info';
 import Bittgebete from '../screens/Bittgebete';
 import NotFound from '../screens/NotFound';
 
 const config = {
     screens: {
         Home: {
-            // initialRouteName: 'home',
             screens: {
                 1: 'cat/1',
                 2: 'cat/2',
@@ -40,13 +39,20 @@ const AppNavigation = () => {
                     name="Home"
                     component={Kategorien}
                     options={{
-                        title: 'Hisnul Muslim',
-                        headerShown: false
+                        // title: 'Hisnul Muslim',
+                        headerShown: false,
                     }}
                 />
                 <Stack.Screen
                     name="Bittgebete"
                     component={Bittgebete}
+                />
+                <Stack.Screen
+                    name="Info"
+                    component={Info}
+                    options={{
+                        title: 'Über Hisnul Muslim App',
+                    }}
                 />
                 <Stack.Screen
                     name="NotFound"

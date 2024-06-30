@@ -1,11 +1,30 @@
 import * as React from 'react';
-import { Image, useWindowDimensions } from 'react-native';
+import { TouchableHighlight, Button, Image, Text, useWindowDimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Kategorie from '../screens/Kategorie';
-import Info from '../screens/Info';
 import Favoriten from '../screens/Favoriten';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-function TabBar({ layout }) {
+function LogoHM(props: any) {
+  return (
+    <TouchableHighlight onPress={() => props.nav.navigate("Info")}>
+      <Image
+        style={{ width: 32, height: 32 }}
+        source={require('../assets/images/logo.png')}
+      />
+    </TouchableHighlight>
+  );
+}
+
+function Suchbox(props: any) {
+  return (
+    <TouchableHighlight onPress={() => alert("Suche")}>
+      <Ionicons name="search-outline" size={32} />
+    </TouchableHighlight>
+  );
+}
+
+function TabBar({ layout, nav }) {
   const Tab = createBottomTabNavigator();
 
   return (
@@ -22,10 +41,16 @@ function TabBar({ layout }) {
           fontWeight: '600',
           alignItems: 'center'
         },
-        headerTitleStyle: {
-          paddingHorizontal: 5
-        },
         tabBarInactiveBackgroundColor: '#9da3b0',
+        headerLeft: (props) => <LogoHM props={props} nav={nav} />,
+        headerLeftContainerStyle: {
+          paddingLeft: 20,
+          paddingRight: 10
+        },
+        headerRight: (props) => <Suchbox props={props} nav={nav} />,
+        headerRightContainerStyle: {
+          paddingRight: 10
+        }
       }}
     >
       <Tab.Screen
@@ -38,9 +63,6 @@ function TabBar({ layout }) {
           ),
           tabBarActiveBackgroundColor: '#f5b03b',
           tabBarBadge: '1',
-          // tabBarBadgeStyle: {
-          //   backgroundColor: '#f5b03b',
-          // }
         }}
       />
       <Tab.Screen
@@ -124,7 +146,7 @@ function TabBar({ layout }) {
   );
 }
 
-export default function Kategorien() {
+export default function Kategorien({ navigation }) {
   const layout = useWindowDimensions();
-  return <TabBar layout={layout} />;
+  return <TabBar layout={layout} nav={navigation} />;
 }
