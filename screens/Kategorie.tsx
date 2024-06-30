@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   header: {
-    fontSize: 18,
+    fontSize: 14,
+    fontWeight: '600',
     paddingTop: 15,
     paddingBottom: 7,
     paddingHorizontal: 20,
@@ -47,9 +48,10 @@ const styles = StyleSheet.create({
   },
   item: {
     // backgroundColor: '#f9c2ff',
-    paddingVertical: 3,
+    paddingVertical: 10,
     paddingHorizontal: 20,
-    marginVertical: 8,
+    borderTopWidth: 1,
+    borderTopColor: '#9da3b0',
   },
   title: {
     fontSize: 12,

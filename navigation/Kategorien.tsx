@@ -22,7 +22,10 @@ function TabBar({ layout }) {
           fontWeight: '600',
           alignItems: 'center'
         },
-        tabBarInactiveBackgroundColor: '#cccccc',
+        headerTitleStyle: {
+          paddingHorizontal: 5
+        },
+        tabBarInactiveBackgroundColor: '#9da3b0',
       }}
     >
       <Tab.Screen
@@ -34,7 +37,10 @@ function TabBar({ layout }) {
             <Image source={require('../assets/icons/00fav-128x128.png')} style={{height:26, width:26}} />
           ),
           tabBarActiveBackgroundColor: '#f5b03b',
-          tabBarBadge: '1'
+          tabBarBadge: '1',
+          // tabBarBadgeStyle: {
+          //   backgroundColor: '#f5b03b',
+          // }
         }}
       />
       <Tab.Screen
@@ -45,7 +51,7 @@ function TabBar({ layout }) {
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/01alltag-128x128.png')} style={{height:26, width:26}} />
           ),
-          tabBarActiveBackgroundColor: '#3b4398'
+          tabBarActiveBackgroundColor: '#3b4398',
         }}
       />
       <Tab.Screen
@@ -56,7 +62,7 @@ function TabBar({ layout }) {
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/02gebet-128x128.png')} style={{height:26, width:26}} />
           ),
-          tabBarActiveBackgroundColor: '#2f5f9d'
+          tabBarActiveBackgroundColor: '#2f5f9d',
         }}
       />
       <Tab.Screen
