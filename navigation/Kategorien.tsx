@@ -14,11 +14,14 @@ function TabBar({ layout }) {
       initialRouteName='1'
       screenOptions={{
         tabBarPosition: layout.width > 769 ? 'left' : 'bottom',
-        tabBarShowLabel: layout.width < 769 ? false : true,
         animation: 'shift',
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'white',
-        tabBarLabelStyle: { fontWeight: '600' },
+        tabBarLabelStyle: {
+          opacity: layout.width < 769 ? 0 : 100,
+          fontWeight: '600',
+          alignItems: 'center'
+        },
         tabBarInactiveBackgroundColor: '#cccccc',
       }}
     >
@@ -30,7 +33,8 @@ function TabBar({ layout }) {
           tabBarIcon: ({ color }) => (
             <Image source={require('../assets/icons/00fav-128x128.png')} style={{height:26, width:26}} />
           ),
-          tabBarActiveBackgroundColor: '#f5b03b'
+          tabBarActiveBackgroundColor: '#f5b03b',
+          tabBarBadge: '1'
         }}
       />
       <Tab.Screen
@@ -116,6 +120,5 @@ function TabBar({ layout }) {
 
 export default function Kategorien() {
   const layout = useWindowDimensions();
-  // return layout.width < 769 ? <TopTabBar /> : <LeftTabBar layout={layout} />;
   return <TabBar layout={layout} />;
 }
