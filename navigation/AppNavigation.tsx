@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
-import { Text } from 'react-native';
+import { TouchableHighlight, Image, Text } from 'react-native';
+import {View} from 'react-native-ui-lib';
 import Kategorien from './Kategorien';
 import Info from '../screens/Info';
 import Bittgebete from '../screens/Bittgebete';
@@ -29,6 +30,19 @@ const linking = {
     config,
 };
 
+function Suchbox(props: any) {
+    return (
+        <View paddingH-10>
+        <TouchableHighlight onPress={() => alert("Suche")}>
+            <Image
+            style={{ width: 32, height: 32 }}
+            source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-14.svg')}
+            />
+        </TouchableHighlight>
+        </View>
+    );
+  }
+
 const AppNavigation = () => {
     const Stack = createNativeStackNavigator()
 
@@ -39,8 +53,10 @@ const AppNavigation = () => {
                     name="Home"
                     component={Kategorien}
                     options={{
-                        // title: 'Hisnul Muslim',
-                        headerShown: false,
+                        title: 'Hisnul Muslim',
+                        // headerShown: false,
+                        headerRight: (props) => <Suchbox props={props} />,
+                        // headerSearchBarOptions
                     }}
                 />
                 <Stack.Screen

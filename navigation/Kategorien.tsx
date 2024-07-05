@@ -19,7 +19,11 @@ function LogoHM(props: any) {
 function Suchbox(props: any) {
   return (
     <TouchableHighlight onPress={() => alert("Suche")}>
-      <Ionicons name="search-outline" size={32} />
+      <Image
+        style={{ width: 32, height: 32 }}
+        source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-14.svg')}
+      />
+      {/* <Ionicons name="search-outline" size={32} /> */}
     </TouchableHighlight>
   );
 }
@@ -34,14 +38,22 @@ function TabBar({ layout, nav }) {
       screenOptions={{
         tabBarPosition: layout.width > 769 ? 'left' : 'bottom',
         animation: 'shift',
-        tabBarActiveTintColor: 'white',
-        tabBarInactiveTintColor: 'white',
+        tabBarActiveTintColor: '#3f66da',
+        headerShown: false,
+        // headerTintColor: '#3f66da',
+        tabBarActiveBackgroundColor: 'white',
+        tabBarInactiveBackgroundColor: 'white',
+        // tabBarInactiveTintColor: 'white',
+        tabBarShowLabel: true,
         tabBarLabelStyle: {
-          opacity: layout.width < 769 ? 0 : 100,
-          fontWeight: '600',
-          alignItems: 'center'
+          // fontSize: 10,
+          // fontWeight: '600',
+          alignItems: 'center',
         },
-        tabBarInactiveBackgroundColor: '#9da3b0',
+        tabBarItemStyle: {
+          padding: 5
+        },
+        // tabBarInactiveBackgroundColor: '#9da3b0',
         headerLeft: (props) => <LogoHM props={props} nav={nav} />,
         headerLeftContainerStyle: {
           paddingLeft: 20,
@@ -54,26 +66,14 @@ function TabBar({ layout, nav }) {
       }}
     >
       <Tab.Screen
-        name="favorit"
-        component={Favoriten}
-        options={{
-          title: 'Favoriten',
-          tabBarIcon: ({ color }) => (
-            <Image source={require('../assets/icons/00fav-128x128.png')} style={{height:26, width:26}} />
-          ),
-          tabBarActiveBackgroundColor: '#f5b03b',
-          tabBarBadge: '1',
-        }}
-      />
-      <Tab.Screen
         name="1"
         component={Kategorie}
         options={{
           title: 'Alltag',
-          tabBarIcon: ({ color }) => (
-            <Image source={require('../assets/icons/01alltag-128x128.png')} style={{height:26, width:26}} />
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01.svg')} style={{height:30, width:30}} />
           ),
-          tabBarActiveBackgroundColor: '#3b4398',
+          // tabBarActiveBackgroundColor: '#3b4398',
         }}
       />
       <Tab.Screen
@@ -81,10 +81,10 @@ function TabBar({ layout, nav }) {
         component={Kategorie}
         options={{
           title: 'Gebet',
-          tabBarIcon: ({ color }) => (
-            <Image source={require('../assets/icons/02gebet-128x128.png')} style={{height:26, width:26}} />
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02.svg')} style={{height:30, width:30}} />
           ),
-          tabBarActiveBackgroundColor: '#2f5f9d',
+          // tabBarActiveBackgroundColor: '#2f5f9d',
         }}
       />
       <Tab.Screen
@@ -92,10 +92,10 @@ function TabBar({ layout, nav }) {
         component={Kategorie}
         options={{
           title: 'Reisen',
-          tabBarIcon: ({ color }) => (
-            <Image source={require('../assets/icons/03-reise-128x128.png')} style={{height:26, width:26}} />
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03.svg')} style={{height:30, width:30}} />
           ),
-          tabBarActiveBackgroundColor: '#168098'
+          // tabBarActiveBackgroundColor: '#168098'
         }}
       />
       <Tab.Screen
@@ -103,43 +103,42 @@ function TabBar({ layout, nav }) {
         component={Kategorie}
         options={{
           title: 'Schutz',
-          tabBarIcon: ({ color }) => (
-            <Image source={require('../assets/icons/04-schutz-128x128.png')} style={{height:26, width:26}} />
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04.svg')} style={{height:30, width:30}} />
           ),
-          tabBarActiveBackgroundColor: '#30969b'
+          // tabBarActiveBackgroundColor: '#30969b'
         }}
       />
       <Tab.Screen
         name="5"
         component={Kategorie}
         options={{
-          title: "Notfälle / Tod",
-          tabBarIcon: ({ color }) => (
-            <Image source={require('../assets/icons/05-Notfaelle-128x128.png')} style={{height:26, width:26}} />
+          title: "Hilfe",
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05.svg')} style={{height:30, width:30}} />
           ),
-          tabBarActiveBackgroundColor: '#208e67'
+          // tabBarActiveBackgroundColor: '#208e67'
         }}
       />
       <Tab.Screen
         name="6"
         component={Kategorie}
         options={{
-          title: 'Befindlichkeit',
-          tabBarIcon: ({ color }) => (
-            <Image source={require('../assets/icons/06-Befindlichkeit-128x128.png')} style={{height:26, width:26}} />
+          title: 'Trauer',
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06.svg')} style={{height:30, width:30}} />
           ),
-          tabBarActiveBackgroundColor: '#1e843b'
+          // tabBarActiveBackgroundColor: '#1e843b'
         }}
       />
       <Tab.Screen
         name="7"
         component={Kategorie}
         options={{
-          title: 'Pilgerfahrt',
-          tabBarIcon: ({ color }) => (
-            <Image source={require('../assets/icons/07-Hadsh-umra-128x128.png')} style={{height:26, width:26}} />
+          title: 'Hajj',
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07.svg')} style={{height:30, width:30}} />
           ),
-          tabBarActiveBackgroundColor: '#147c1b'
         }}
       />
     </Tab.Navigator>
