@@ -36,10 +36,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#3f66da',
     backgroundColor: '#fff',
-    paddingVertical: 7,
-    paddingHorizontal: 16,
+    paddingTop: 4,
+    paddingBottom: 7,
+    paddingHorizontal: 15,
     borderColor: '#3f66da',
-    // borderTopWidth: 2,
+    borderTopWidth: 0,
     borderBottomWidth: 2,
   },
   header: {
@@ -86,8 +87,6 @@ function renderSwitch(param) {
 function Kategorie({ nav }) {
   const [catId, setCatId] = React.useState<any>();
   const navigation = useNavigation();
-
-  // navigation.setOptions({ title: "Ayyd" });
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', (e) => {
