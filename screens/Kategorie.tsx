@@ -36,20 +36,20 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     backgroundColor: '#fff',
     paddingVertical: 15,
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
   },
   header: {
     fontSize: 14,
     fontWeight: '600',
     paddingTop: 15,
     paddingBottom: 7,
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     backgroundColor: '#fff',
   },
   item: {
     // backgroundColor: '#f9c2ff',
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     borderTopWidth: 1,
     borderTopColor: '#9da3b0',
   },
@@ -74,9 +74,9 @@ function Kategorie({ nav }) {
 
   return (
     <View>
-      {/* {catId && 
+      {catId && 
         <Text style={styles.catHeader}>Kategorie: {catId}</Text>
-      } */}
+      }
 
       <SectionList
         sections={DATA}

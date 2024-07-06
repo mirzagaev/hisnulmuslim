@@ -44,25 +44,25 @@ function TabBar({ layout, nav }) {
         tabBarActiveBackgroundColor: 'white',
         tabBarInactiveBackgroundColor: 'white',
         // tabBarInactiveTintColor: 'white',
-        tabBarShowLabel: true,
+        tabBarShowLabel: false,
         tabBarLabelStyle: {
+          // opacity: layout.width < 769 ? 0 : 100,
           // fontSize: 10,
           // fontWeight: '600',
-          alignItems: 'center',
+          // display: 'none' 
+          // alignItems: 'flex-start',
         },
         tabBarItemStyle: {
-          padding: 5
+          display: 'flex',
+          flexDirection: 'column',
+          alignSelf: 'center'
         },
         // tabBarInactiveBackgroundColor: '#9da3b0',
-        headerLeft: (props) => <LogoHM props={props} nav={nav} />,
-        headerLeftContainerStyle: {
-          paddingLeft: 20,
-          paddingRight: 10
-        },
-        headerRight: (props) => <Suchbox props={props} nav={nav} />,
-        headerRightContainerStyle: {
-          paddingRight: 10
-        }
+        // headerLeft: (props) => <LogoHM props={props} nav={nav} />,
+        // headerLeftContainerStyle: {
+        //   paddingLeft: 20,
+        //   paddingRight: 10
+        // }
       }}
     >
       <Tab.Screen
@@ -71,7 +71,7 @@ function TabBar({ layout, nav }) {
         options={{
           title: 'Alltag',
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01.svg')} style={{height:30, width:30}} />
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01.svg')} style={{height:34, width:34}} />
           ),
           // tabBarActiveBackgroundColor: '#3b4398',
         }}
@@ -82,7 +82,7 @@ function TabBar({ layout, nav }) {
         options={{
           title: 'Gebet',
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02.svg')} style={{height:30, width:30}} />
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02.svg')} style={{height:34, width:34}} />
           ),
           // tabBarActiveBackgroundColor: '#2f5f9d',
         }}
@@ -93,7 +93,7 @@ function TabBar({ layout, nav }) {
         options={{
           title: 'Reisen',
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03.svg')} style={{height:30, width:30}} />
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03.svg')} style={{height:34, width:34}} />
           ),
           // tabBarActiveBackgroundColor: '#168098'
         }}
@@ -104,7 +104,7 @@ function TabBar({ layout, nav }) {
         options={{
           title: 'Schutz',
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04.svg')} style={{height:30, width:30}} />
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04.svg')} style={{height:34, width:34}} />
           ),
           // tabBarActiveBackgroundColor: '#30969b'
         }}
@@ -115,7 +115,7 @@ function TabBar({ layout, nav }) {
         options={{
           title: "Hilfe",
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05.svg')} style={{height:30, width:30}} />
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05.svg')} style={{height:34, width:34}} />
           ),
           // tabBarActiveBackgroundColor: '#208e67'
         }}
@@ -126,7 +126,7 @@ function TabBar({ layout, nav }) {
         options={{
           title: 'Trauer',
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06.svg')} style={{height:30, width:30}} />
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06.svg')} style={{height:34, width:34}} />
           ),
           // tabBarActiveBackgroundColor: '#1e843b'
         }}
@@ -137,7 +137,7 @@ function TabBar({ layout, nav }) {
         options={{
           title: 'Hajj',
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07_active.svg')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07.svg')} style={{height:30, width:30}} />
+            focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07.svg')} style={{height:34, width:34}} />
           ),
         }}
       />

@@ -56,7 +56,7 @@ const AppNavigation = () => {
                         title: 'Hisnul Muslim',
                         // headerShown: false,
                         headerRight: (props) => <Suchbox props={props} />,
-                        // headerSearchBarOptions
+                        
                     }}
                 />
                 <Stack.Screen
