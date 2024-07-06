@@ -1,203 +1,42 @@
 import * as React from 'react';
 import { Image, useWindowDimensions } from 'react-native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Kategorie from '../screens/Kategorie';
 
-// function TabBar({ layout, navigation }) {
-//   const Tab = createMaterialTopTabNavigator();
-
-//   return (
-//     <Tab.Navigator
-//       id={undefined}
-//       initialRouteName='1'
-//       screenOptions={{
-//         tabBarPosition: layout.width > 769 ? 'left' : 'bottom',
-//         animation: 'shift',
-//         tabBarActiveTintColor: '#3f66da',
-//         headerShown: false,
-//         // headerTintColor: '#3f66da',
-//         tabBarActiveBackgroundColor: 'white',
-//         tabBarInactiveBackgroundColor: 'white',
-//         // tabBarInactiveTintColor: 'white',
-//         tabBarShowLabel: layout.width < 769 ? false : true,
-//         tabBarLabelStyle: {
-//           fontSize: 15,
-//           display: 'flex',
-//           flexWrap: 'wrap',
-//           flexDirection: 'row',
-//           alignSelf: 'center',
-//         },
-//         tabBarStyle: {
-//           display: 'flex',
-//           flexWrap: 'wrap',
-//           borderTopColor: '#3f66da',
-//           borderTopWidth: layout.width < 769 ? 2 : 0,
-//           // borderRightWidth: 0,
-//           // shadowColor: 'gray',
-//           // shadowRadius: 10,
-//           // shadowOpacity: 50,
-//         },
-
-//         // Mobile view settings
-//         tabBarItemStyle: {
-//           display: 'flex',
-//           flexWrap: layout.width < 769 ? 'wrap' : 'nowrap',
-//           flexDirection: layout.width < 769 ? 'column' : 'row',
-//           alignSelf: layout.width < 769 ? 'center' : 'flex-start'
-//         }
-//       }}
-//     >
-//       <Tab.Screen
-//         name="1"
-//         component={Kategorie}
-//         options={{
-//           title: 'Alltag',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01.svg')} style={{height:34, width:34}} />
-//           ),
-//           // tabBarLabel({ focused }) {
-//           //   return focused ? "Alltag" : "";
-//           // },
-//         }}
-//       />
-//       <Tab.Screen
-//         name="2"
-//         component={Kategorie}
-//         options={{
-//           title: 'Gebet',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02.svg')} style={{height:34, width:34}} />
-//           ),
-//           // tabBarLabel({ focused }) {
-//           //   return focused ? "Gebet" : "";
-//           // },
-//         }}
-//       />
-//       <Tab.Screen
-//         name="3"
-//         component={Kategorie}
-//         options={{
-//           title: 'Reisen',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03.svg')} style={{height:34, width:34}} />
-//           ),
-//           // tabBarLabel({ focused }) {
-//           //   return focused ? "Reisen" : "";
-//           // },
-//         }}
-//       />
-//       <Tab.Screen
-//         name="4"
-//         component={Kategorie}
-//         options={{
-//           title: 'Schutz',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04.svg')} style={{height:34, width:34}} />
-//           ),
-//           // tabBarLabel({ focused }) {
-//           //   return focused ? "Schutz" : "";
-//           // },
-//         }}
-//       />
-//       <Tab.Screen
-//         name="5"
-//         component={Kategorie}
-//         options={{
-//           title: "Hilfe",
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05.svg')} style={{height:34, width:34}} />
-//           ),
-//           // tabBarLabel({ focused }) {
-//           //   return focused ? "Hilfe" : "";
-//           // },
-//         }}
-//       />
-//       <Tab.Screen
-//         name="6"
-//         component={Kategorie}
-//         options={{
-//           title: 'Trauer',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06.svg')} style={{height:34, width:34}} />
-//           ),
-//           // tabBarLabel({ focused }) {
-//           //   return focused ? "Trauer" : "";
-//           // },
-//         }}
-//       />
-//       <Tab.Screen
-//         name="7"
-//         component={Kategorie}
-//         options={{
-//           title: 'Pilgerfahrt',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07.svg')} style={{height:34, width:34}} />
-//           ),
-//           // tabBarLabel({ focused }) {
-//           //   return focused ? "Hajj" : "";
-//           // },
-//         }}
-//       />
-//     </Tab.Navigator>
-//   );
-// }
-
 function TabBar({ layout, navigation }) {
-  const Tab = createMaterialTopTabNavigator();
+  const Tab = createBottomTabNavigator();
 
   return (
     <Tab.Navigator
       id={undefined}
       initialRouteName='1'
       screenOptions={{
-        // lazy: true,
-        // tabBarScrollEnabled: true,
-        animationEnabled: true,
+        tabBarPosition: layout.width > 769 ? 'left' : 'bottom',
+        animation: 'shift',
         tabBarActiveTintColor: '#3f66da',
-        tabBarInactiveTintColor: 'gray',
-        // tabBarShowLabel: false,
-        tabBarShowLabel: layout.width < 769 ? false : true,
+        headerShown: false,
+        headerTintColor: '#3f66da',
+        tabBarActiveBackgroundColor: 'white',
+        tabBarInactiveBackgroundColor: 'white',
         tabBarLabelStyle: {
-          fontSize: 15,
+          fontSize: layout.width < 769 ? 10 : 15,
           display: 'flex',
           flexWrap: 'wrap',
           flexDirection: 'row',
-          alignSelf: 'center'
+          alignSelf: 'center',
         },
         tabBarStyle: {
           display: 'flex',
-          flexWrap: layout.width < 769 ? 'wrap' : 'nowrap',
-          shadowOffset: {
-            width: 0,
-            height: 0
-          },
-          elevation: 0,
+          flexWrap: 'wrap',
+          borderTopColor: '#3f66da',
+          borderTopWidth: layout.width < 769 ? 3 : 0,
         },
-        // Mobile view settings
         tabBarItemStyle: {
           display: 'flex',
           flexWrap: layout.width < 769 ? 'wrap' : 'nowrap',
           flexDirection: layout.width < 769 ? 'column' : 'row',
           alignSelf: layout.width < 769 ? 'center' : 'flex-start',
-          paddingVertical: 0,
-          backgroundColor: 'white',
-          borderColor: 'white',
-          borderBottomWidth: 0,
-          shadowOffset: {
-            width: 0,
-            height: 0
-          },
-          elevation: 0
-        },
-        tabBarContentContainerStyle: {
-          backgroundColor: 'white',
-          borderColor: 'white',
-          borderWidth: 0,
-          shadowOffset: {
-            width: 0,
-            height: 0
-          },
-          elevation: 0
+          paddingVertical: 5,
         }
       }}
     >
@@ -265,7 +104,7 @@ function TabBar({ layout, navigation }) {
         name="7"
         component={Kategorie}
         options={{
-          title: 'Pilgerfahrt',
+          title: 'Hajj',
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07.svg')} style={{height:34, width:34}} />
           )
@@ -274,6 +113,139 @@ function TabBar({ layout, navigation }) {
     </Tab.Navigator>
   );
 }
+
+// function TabBar({ layout, navigation }) {
+//   const Tab = createMaterialTopTabNavigator();
+
+//   return (
+//     <Tab.Navigator
+//       id={undefined}
+//       initialRouteName='1'
+//       screenOptions={{
+//         // lazy: true,
+//         // tabBarScrollEnabled: true,
+//         animationEnabled: true,
+//         tabBarActiveTintColor: '#3f66da',
+//         tabBarInactiveTintColor: 'gray',
+//         // tabBarShowLabel: false,
+//         tabBarShowLabel: layout.width < 769 ? false : true,
+//         tabBarLabelStyle: {
+//           fontSize: 15,
+//           display: 'flex',
+//           flexWrap: 'wrap',
+//           flexDirection: 'row',
+//           alignSelf: 'center'
+//         },
+//         tabBarStyle: {
+//           display: 'flex',
+//           flexWrap: layout.width < 769 ? 'wrap' : 'nowrap',
+//           shadowOffset: {
+//             width: 0,
+//             height: 0
+//           },
+//           elevation: 0,
+//         },
+//         // Mobile view settings
+//         tabBarItemStyle: {
+//           display: 'flex',
+//           flexWrap: layout.width < 769 ? 'wrap' : 'nowrap',
+//           flexDirection: layout.width < 769 ? 'column' : 'row',
+//           alignSelf: layout.width < 769 ? 'center' : 'flex-start',
+//           paddingVertical: 0,
+//           backgroundColor: 'white',
+//           borderColor: 'white',
+//           borderBottomWidth: 0,
+//           shadowOffset: {
+//             width: 0,
+//             height: 0
+//           },
+//           elevation: 0
+//         },
+//         tabBarContentContainerStyle: {
+//           backgroundColor: 'white',
+//           borderColor: 'white',
+//           borderWidth: 0,
+//           shadowOffset: {
+//             width: 0,
+//             height: 0
+//           },
+//           elevation: 0
+//         }
+//       }}
+//     >
+//       <Tab.Screen
+//         name="1"
+//         component={Kategorie}
+//         options={{
+//           title: 'Alltag',
+//           tabBarIcon: ({ focused }) => (
+//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01.svg')} style={{height:34, width:34}} />
+//           )
+//         }}
+//       />
+//       <Tab.Screen
+//         name="2"
+//         component={Kategorie}
+//         options={{
+//           title: 'Gebet',
+//           tabBarIcon: ({ focused }) => (
+//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02.svg')} style={{height:34, width:34}} />
+//           )
+//         }}
+//       />
+//       <Tab.Screen
+//         name="3"
+//         component={Kategorie}
+//         options={{
+//           title: 'Reisen',
+//           tabBarIcon: ({ focused }) => (
+//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03.svg')} style={{height:34, width:34}} />
+//           )
+//         }}
+//       />
+//       <Tab.Screen
+//         name="4"
+//         component={Kategorie}
+//         options={{
+//           title: 'Schutz',
+//           tabBarIcon: ({ focused }) => (
+//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04.svg')} style={{height:34, width:34}} />
+//           )
+//         }}
+//       />
+//       <Tab.Screen
+//         name="5"
+//         component={Kategorie}
+//         options={{
+//           title: "Hilfe",
+//           tabBarIcon: ({ focused }) => (
+//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05.svg')} style={{height:34, width:34}} />
+//           )
+//         }}
+//       />
+//       <Tab.Screen
+//         name="6"
+//         component={Kategorie}
+//         options={{
+//           title: 'Trauer',
+//           tabBarIcon: ({ focused }) => (
+//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06.svg')} style={{height:34, width:34}} />
+//           )
+//         }}
+//       />
+//       <Tab.Screen
+//         name="7"
+//         component={Kategorie}
+//         options={{
+//           title: 'Pilgerfahrt',
+//           tabBarIcon: ({ focused }) => (
+//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07.svg')} style={{height:34, width:34}} />
+//           )
+//         }}
+//       />
+//     </Tab.Navigator>
+//   );
+// }
 
 export default function Kategorien({ navigation }) {
   const layout = useWindowDimensions();

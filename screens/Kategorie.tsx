@@ -36,12 +36,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#3f66da',
     backgroundColor: '#fff',
-    paddingTop: 4,
-    paddingBottom: 7,
-    paddingHorizontal: 15,
-    borderColor: '#3f66da',
-    borderTopWidth: 0,
-    borderBottomWidth: 2,
+    paddingTop: 10,
+    paddingBottom: 5,
+    paddingHorizontal: 15
   },
   header: {
     fontSize: 14,
