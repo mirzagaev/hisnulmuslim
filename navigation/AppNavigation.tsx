@@ -1,10 +1,10 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { TouchableHighlight, Image, Text } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import {View} from 'react-native-ui-lib';
 import Kategorien from './Kategorien';
 import Info from '../screens/Info';
-import Bittgebete from '../screens/Bittgebete';
+import Favoriten from '../screens/Favoriten';
 import NotFound from '../screens/NotFound';
 
 const config = {
@@ -41,45 +41,65 @@ function Suchbox(props: any) {
         </TouchableHighlight>
         </View>
     );
-  }
+}
 
 const AppNavigation = () => {
-    const Stack = createNativeStackNavigator()
+    const Drawer = createDrawerNavigator();
 
     return (
-        <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
-            <Stack.Navigator initialRouteName="Home" id={undefined}>
-                <Stack.Screen
-                    name="Home"
+        <NavigationContainer
+            // linking={linking}
+            fallback={<Text>Loading...</Text>}
+        >
+            <Drawer.Navigator id={undefined}
+                screenOptions={{
+                    drawerItemStyle: {
+                        borderRadius: 0
+                    }
+                }}
+            >
+                <Drawer.Screen
+                    name="Hisnul Muslim"
                     component={Kategorien}
                     options={{
-                        title: 'Hisnul Muslim',
-                        // headerShown: false,
                         headerRight: (props) => <Suchbox props={props} />,
-                        
+                        // headerShown: false,
+                        drawerIcon: ({ focused }) => (
+                          focused ? <Image source={require('../assets/images/logo.png')} style={{height:34, width:34}} /> : <Image source={require('../assets/images/logo.png')} style={{height:34, width:34}} />
+                        ),
                     }}
                 />
-                <Stack.Screen
-                    name="Bittgebete"
-                    component={Bittgebete}
-                />
-                <Stack.Screen
-                    name="Info"
+                <Drawer.Screen
+                    name="Info über die App"
                     component={Info}
                     options={{
-                        title: 'Über Hisnul Muslim App',
+                        drawerIcon: ({ focused }) => (
+                          focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-15.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-15.svg')} style={{height:34, width:34}} />
+                        ),
                     }}
                 />
-                <Stack.Screen
+                <Drawer.Screen
+                    name="Favoriten"
+                    component={Favoriten}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                          focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00.svg')} style={{height:34, width:34}} />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
                     name="NotFound"
                     component={NotFound}
                     options={{
                         title: 'Seite nicht gefunden',
+                        drawerItemStyle: {
+                            display: 'none'
+                        }
                     }}
                 />
-            </Stack.Navigator>
+            </Drawer.Navigator>
         </NavigationContainer>
-    )
+    );
 }
 
 export default AppNavigation

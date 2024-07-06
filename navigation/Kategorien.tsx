@@ -1,34 +1,9 @@
 import * as React from 'react';
-import { TouchableHighlight, Button, Image, Text, useWindowDimensions } from 'react-native';
+import { Image, useWindowDimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Kategorie from '../screens/Kategorie';
-import Favoriten from '../screens/Favoriten';
-import Ionicons from '@expo/vector-icons/Ionicons';
 
-function LogoHM(props: any) {
-  return (
-    <TouchableHighlight onPress={() => props.nav.navigate("Info")}>
-      <Image
-        style={{ width: 32, height: 32 }}
-        source={require('../assets/images/logo.png')}
-      />
-    </TouchableHighlight>
-  );
-}
-
-function Suchbox(props: any) {
-  return (
-    <TouchableHighlight onPress={() => alert("Suche")}>
-      <Image
-        style={{ width: 32, height: 32 }}
-        source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-14.svg')}
-      />
-      {/* <Ionicons name="search-outline" size={32} /> */}
-    </TouchableHighlight>
-  );
-}
-
-function TabBar({ layout, nav }) {
+function TabBar({ layout, navigation }) {
   const Tab = createBottomTabNavigator();
 
   return (
@@ -47,10 +22,22 @@ function TabBar({ layout, nav }) {
         tabBarShowLabel: false,
         tabBarLabelStyle: {
           // opacity: layout.width < 769 ? 0 : 100,
-          // fontSize: 10,
+          fontSize: 15,
+          display: 'flex',
+          flexWrap: 'wrap',
+          flexDirection: 'row',
+          alignSelf: 'flex-start'
           // fontWeight: '600',
           // display: 'none' 
           // alignItems: 'flex-start',
+        },
+        tabBarStyle: {
+          borderColor: '#3f66da',
+          borderTopWidth: layout.width < 769 ? 2 : 0,
+          borderRightWidth: layout.width > 769 ? 2 : 0,
+          shadowColor: 'gray',
+          shadowRadius: 10,
+          shadowOpacity: 50,
         },
         tabBarItemStyle: {
           display: 'flex',
@@ -73,7 +60,9 @@ function TabBar({ layout, nav }) {
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01.svg')} style={{height:34, width:34}} />
           ),
-          // tabBarActiveBackgroundColor: '#3b4398',
+          // tabBarLabel({ focused }) {
+          //   return focused ? "Alltag" : "";
+          // },
         }}
       />
       <Tab.Screen
@@ -84,7 +73,9 @@ function TabBar({ layout, nav }) {
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02.svg')} style={{height:34, width:34}} />
           ),
-          // tabBarActiveBackgroundColor: '#2f5f9d',
+          // tabBarLabel({ focused }) {
+          //   return focused ? "Gebet" : "";
+          // },
         }}
       />
       <Tab.Screen
@@ -95,7 +86,9 @@ function TabBar({ layout, nav }) {
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03.svg')} style={{height:34, width:34}} />
           ),
-          // tabBarActiveBackgroundColor: '#168098'
+          // tabBarLabel({ focused }) {
+          //   return focused ? "Reisen" : "";
+          // },
         }}
       />
       <Tab.Screen
@@ -106,7 +99,9 @@ function TabBar({ layout, nav }) {
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04.svg')} style={{height:34, width:34}} />
           ),
-          // tabBarActiveBackgroundColor: '#30969b'
+          // tabBarLabel({ focused }) {
+          //   return focused ? "Schutz" : "";
+          // },
         }}
       />
       <Tab.Screen
@@ -117,7 +112,9 @@ function TabBar({ layout, nav }) {
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05.svg')} style={{height:34, width:34}} />
           ),
-          // tabBarActiveBackgroundColor: '#208e67'
+          // tabBarLabel({ focused }) {
+          //   return focused ? "Hilfe" : "";
+          // },
         }}
       />
       <Tab.Screen
@@ -128,24 +125,69 @@ function TabBar({ layout, nav }) {
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06.svg')} style={{height:34, width:34}} />
           ),
-          // tabBarActiveBackgroundColor: '#1e843b'
+          // tabBarLabel({ focused }) {
+          //   return focused ? "Trauer" : "";
+          // },
         }}
       />
       <Tab.Screen
         name="7"
         component={Kategorie}
         options={{
-          title: 'Hajj',
+          title: 'Pilgerfahrt',
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07.svg')} style={{height:34, width:34}} />
           ),
+          // tabBarLabel({ focused }) {
+          //   return focused ? "Hajj" : "";
+          // },
         }}
       />
     </Tab.Navigator>
   );
 }
 
+
+function renderSwitch(param) {
+  switch(param) {
+    case "1":
+      return 'Alltag';
+    case "2":
+      return 'Gebet';
+    case "3":
+      return 'Reisen';
+    case "4":
+      return 'Schutz';
+    case "5":
+      return 'Hilfe';
+    case "6":
+      return 'Trauer';
+    case "7":
+      return 'Pilgerfahrt';
+    default:
+      return 'Nicht gefunden';
+  }
+}
+
 export default function Kategorien({ navigation }) {
+  // const [catId, setCatId] = React.useState<any>();
+  // const [cat, setCat] = React.useState<any>();
+  
+  // React.useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', (e) => {
+  //     const cState: number = navigation.getState().index;
+  //     const cRoute: any = navigation.getState().routes[cState];
+  //     setCatId(cRoute.name);
+  //     console.log(navigation);
+  //     // setCat(renderSwitch(cRoute.name));
+  //     navigation.setOptions({ title: renderSwitch(cRoute.name) });
+  //   });
+  
+  //   return unsubscribe;
+  // }, [catId, navigation]);
+
+  // navigation.setOptions({ title: "Ayyd 2" });
+
   const layout = useWindowDimensions();
-  return <TabBar layout={layout} nav={navigation} />;
+  return <TabBar layout={layout} navigation={navigation} />;
 }
