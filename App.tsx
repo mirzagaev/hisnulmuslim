@@ -1,21 +1,19 @@
 import * as React from 'react';
 import AppNavigation from './navigation/AppNavigation';
-// import { AppRegistry } from 'react-native';
-// import { store } from '.'
-// import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';
+
+// export default function App() {
+//   return <AppNavigation/>
+// }
 
 export default function App() {
-  return <AppNavigation/>
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <AppNavigation />
+      </PersistGate>
+    </Provider>
+  );
 }
-
-// const ConnectedApp = () => {
-//   return (
-//     <Provider store={store}>
-//       <PersistGate persistor={persistor} loading={null}></PersistGate>
-//         <AppNavigation />
-//       </PersistGate>
-//     </Provider>
-//   );
-// };
-
-// AppRegistry.registerComponent(appData.name, () => ConnectedApp);

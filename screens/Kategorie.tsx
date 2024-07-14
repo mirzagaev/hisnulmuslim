@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Button, Text, View, SectionList, StatusBar, FlatList, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { getBittgebete } from '../services/api';
+import { getKategorieData } from '../services/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchItems } from '../redux/slices/itemSlice';
+import { AppDispatch, RootState } from '../redux/store';
 
 const DATA = [
   // {
@@ -75,8 +78,8 @@ function renderSwitch(param) {
   }
 }
 
-function Kategorie({ nav }) {
-  const [bittgebete, setBittgebete] = useState<any[]>([]);
+function KategorieMysql({ nav }) {
+  const [kategorie, setKategorie] = useState<any[]>([]);
   const [catId, setCatId] = useState<any>();
   const navigation = useNavigation();
 
@@ -91,15 +94,14 @@ function Kategorie({ nav }) {
   }, [catId, navigation]);
 
   useEffect(() => {
-    fetchItems();
-  }, []);
+    fetchKategorie(catId);
+  }, [catId]);
 
-  const fetchItems = async () => {
-    const data = await getBittgebete();
-    console.log("Bittgebete", data);
-    setBittgebete(data);
+  const fetchKategorie = async (id: number) => {
+    const data = await getKategorieData(id);
+    // console.log("Kategorie", data["Bittgebete"]);
+    setKategorie(data);
   };
-
 
   return (
     <ScrollView>
@@ -108,7 +110,7 @@ function Kategorie({ nav }) {
       }
 
       <FlatList
-        data={bittgebete}
+        data={kategorie}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({item}) => (
           <View style={styles.item}>
@@ -130,6 +132,26 @@ function Kategorie({ nav }) {
         )}
       /> */}
     </ScrollView>
+  );
+}
+
+function Kategorie() {
+  const [name, setName] = React.useState('');
+  const dispatch = useDispatch<AppDispatch>();
+  const items = useSelector((state: RootState) => state.items.items);
+
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, [dispatch]);
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={items}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <Text>{item.content}</Text>}
+      />
+    </View>
   );
 }
 
