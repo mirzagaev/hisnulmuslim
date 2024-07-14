@@ -3,6 +3,12 @@ import { Image, useWindowDimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Kategorie from '../screens/Kategorie';
 
+// import { createStore } from 'redux'
+// import { persistStore } from 'redux-persist'
+// import persistedReducer from './reducers'
+// const store = createStore(persistedReducer)
+// const persistor = persistStore(store)
+
 function TabBar({ layout, navigation }) {
   const Tab = createBottomTabNavigator();
 

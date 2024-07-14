@@ -1,28 +1,22 @@
-import * as React from 'react';
-import {
-  StyleSheet,
-  Button,
-  Text,
-  View,
-  SectionList,
-  StatusBar,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Button, Text, View, SectionList, StatusBar, FlatList, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { getBittgebete } from '../services/api';
 
 const DATA = [
-  {
-    title: 'Gedenken am Morgen und am Abend',
-    data: ['Das Gedenken am Morgen und am Abend'],
-  },
-  {
-    title: 'Aufstehen',
-    data: [
-      'Das Gedenken beim Erwachen aus dem Schlaf',
-      'Das Gedenken beim Einschlafen',
-      'Bittgebete bei unruhigem Schlaf in der Nacht',
-      'Bittgebet bei Angst / Furcht im Schlaf und Leid wg. Einsamkeit'
-    ],
-  },
+  // {
+  //   title: 'Gedenken am Morgen und am Abend',
+  //   data: ['Das Gedenken am Morgen und am Abend'],
+  // },
+  // {
+  //   title: 'Aufstehen',
+  //   data: [
+  //     'Das Gedenken beim Erwachen aus dem Schlaf',
+  //     'Das Gedenken beim Einschlafen',
+  //     'Bittgebete bei unruhigem Schlaf in der Nacht',
+  //     'Bittgebet bei Angst / Furcht im Schlaf und Leid wg. Einsamkeit'
+  //   ],
+  // },
 ];
 
 const styles = StyleSheet.create({
@@ -82,10 +76,11 @@ function renderSwitch(param) {
 }
 
 function Kategorie({ nav }) {
-  const [catId, setCatId] = React.useState<any>();
+  const [bittgebete, setBittgebete] = useState<any[]>([]);
+  const [catId, setCatId] = useState<any>();
   const navigation = useNavigation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const unsubscribe = navigation.addListener('focus', (e) => {
       const cState: number = navigation.getState().index;
       const cRoute: any = navigation.getState().routes[cState];
@@ -95,13 +90,34 @@ function Kategorie({ nav }) {
     return unsubscribe;
   }, [catId, navigation]);
 
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+  const fetchItems = async () => {
+    const data = await getBittgebete();
+    console.log("Bittgebete", data);
+    setBittgebete(data);
+  };
+
+
   return (
-    <View>
+    <ScrollView>
       {catId && 
         <Text style={styles.catHeader}>{renderSwitch(catId)}</Text>
       }
 
-      <SectionList
+      <FlatList
+        data={bittgebete}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({item}) => (
+          <View style={styles.item}>
+            <Text style={styles.title}>{item.content}</Text>
+          </View>
+        )}
+      />
+
+      {/* <SectionList
         sections={DATA}
         keyExtractor={(item, index) => item + index}
         renderItem={({item}) => (
@@ -112,8 +128,8 @@ function Kategorie({ nav }) {
         renderSectionHeader={({section: {title}}) => (
           <Text style={styles.header}>{title}</Text>
         )}
-      />
-    </View>
+      /> */}
+    </ScrollView>
   );
 }
 

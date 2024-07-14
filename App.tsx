@@ -1,10 +1,21 @@
 import * as React from 'react';
 import AppNavigation from './navigation/AppNavigation';
-import { persistCombineReducers, persistStore } from 'redux-persist';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import reducers from './reducers';
-import 'react-native-gesture-handler';
+// import { AppRegistry } from 'react-native';
+// import { store } from '.'
+// import { Provider } from 'react-redux'
 
 export default function App() {
   return <AppNavigation/>
 }
+
+// const ConnectedApp = () => {
+//   return (
+//     <Provider store={store}>
+//       <PersistGate persistor={persistor} loading={null}></PersistGate>
+//         <AppNavigation />
+//       </PersistGate>
+//     </Provider>
+//   );
+// };
+
+// AppRegistry.registerComponent(appData.name, () => ConnectedApp);
