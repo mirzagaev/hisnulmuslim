@@ -3,7 +3,7 @@ import { StyleSheet, Button, Text, View, SectionList, StatusBar, FlatList, Scrol
 import { useNavigation } from '@react-navigation/native';
 import { getKategorieData } from '../services/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchItems } from '../redux/slices/itemSlice';
+import { fetchKapiteln } from '../redux/slices/kapitelSlice';
 import { AppDispatch, RootState } from '../redux/store';
 
 const DATA = [
@@ -138,18 +138,36 @@ function KategorieMysql({ nav }) {
 function Kategorie() {
   const [name, setName] = React.useState('');
   const dispatch = useDispatch<AppDispatch>();
-  const items = useSelector((state: RootState) => state.items.items);
+  const kapiteln = useSelector((state: RootState) => state.kapiteln.kapiteln);
+  const [kategorie, setKategorie] = useState<any[]>([]);
+  const [catId, setCatId] = useState<any>();
+  const navigation = useNavigation();
 
   useEffect(() => {
-    dispatch(fetchItems());
-  }, [dispatch]);
+    const unsubscribe = navigation.addListener('focus', (e) => {
+      const cState: number = navigation.getState().index;
+      const cRoute: any = navigation.getState().routes[cState];
+      setCatId(cRoute.name);
+    });
+  
+    return unsubscribe;
+  }, [catId, navigation]);
+
+  useEffect(() => {
+    if(catId!==undefined){
+      dispatch(fetchKapiteln(catId));
+    }
+  }, [catId]);
 
   return (
     <View style={styles.container}>
+    {catId && 
+      <Text style={styles.catHeader}>{renderSwitch(catId)}</Text>
+    }
       <FlatList
-        data={items}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <Text>{item.content}</Text>}
+        data={kapiteln}
+        keyExtractor={(kapitel) => kapitel.id.toString()}
+        renderItem={({ item }) => <Text>{item.titel}</Text>}
       />
     </View>
   );

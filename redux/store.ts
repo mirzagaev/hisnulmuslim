@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import itemReducer from './slices/itemSlice';
+import kapitelSlice from './slices/kapitelSlice';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers } from 'redux';
@@ -10,6 +11,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  kapiteln: kapitelSlice,
   items: itemReducer,
 });
 
