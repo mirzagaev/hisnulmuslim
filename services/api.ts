@@ -4,16 +4,20 @@ import NetInfo from '@react-native-community/netinfo';
 
 const API_URL = 'https://admin.hisnulmuslim.de/api/';
 
-export const getKategorieData = async (id: number)  => {
-    // const response = await axios.get(`${API_URL}/?t=kategorien&id=`+id);
-    console.log("kapitel_ID", id);
-    const response = await axios.get(`${API_URL}`);
+// Kapiteln (=hm_kategorien)
+// - Unterkategorienn (=hm_unterkategorien)
+// - - Themen (=hm)
+// - - - Bittgebete (=hm_duas)  [nicht implementiert!]
+
+export const getHMStruktur = async () => {
+    const response = await axios.get(`${API_URL}?structure=1`);
     await AsyncStorage.setItem('kapiteln', JSON.stringify(response.data));
     return response.data;
 };
 
-export const getHMStruktur = async () => {
+export const getKategorieData = async ()  => {
     const response = await axios.get(`${API_URL}`);
+    // const response = await axios.get(`${API_URL}/?t=hm&kategorie=`+id);
     await AsyncStorage.setItem('kapiteln', JSON.stringify(response.data));
     return response.data;
 };

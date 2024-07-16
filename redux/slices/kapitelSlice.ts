@@ -1,12 +1,19 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getHMStruktur, getKategorieData, syncOfflineData } from '../../services/api';
+import { getHMStruktur, syncOfflineData } from '../../services/api';
 
 interface KapitelState {
   kapiteln: Array<{
     id: number,
-    kategorie: number,
-    unterkategorie: number,
-    titel: string
+    kategorie: string,
+    unterkategorien: Array<{
+      id: number,
+      unterkategorie: string,
+      parent: number,
+      themen: Array<{
+        id: number,
+        titel: string,
+      }>
+    }>
   }>;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
@@ -18,9 +25,8 @@ const initialState: KapitelState = {
   error: null,
 };
 
-export const fetchKapiteln = createAsyncThunk('kapiteln/fetchKapiteln', async (id: number) => {
-  const kapiteln = await getKategorieData(id);
-  // const kapiteln = await getHMStruktur();
+export const fetchKapiteln = createAsyncThunk('kapiteln/fetchKapiteln', async () => {
+  const kapiteln = await getHMStruktur();
   return kapiteln;
 });
 

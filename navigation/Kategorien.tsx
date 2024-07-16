@@ -1,13 +1,11 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, useWindowDimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Kategorie from '../screens/Kategorie';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchKapiteln } from '../redux/slices/kapitelSlice';
+import { AppDispatch, RootState } from '../redux/store';
 
-// import { createStore } from 'redux'
-// import { persistStore } from 'redux-persist'
-// import persistedReducer from './reducers'
-// const store = createStore(persistedReducer)
-// const persistor = persistStore(store)
 
 function TabBar({ layout, navigation }) {
   const Tab = createBottomTabNavigator();
@@ -120,140 +118,14 @@ function TabBar({ layout, navigation }) {
   );
 }
 
-// function TabBar({ layout, navigation }) {
-//   const Tab = createMaterialTopTabNavigator();
-
-//   return (
-//     <Tab.Navigator
-//       id={undefined}
-//       initialRouteName='1'
-//       screenOptions={{
-//         // lazy: true,
-//         // tabBarScrollEnabled: true,
-//         animationEnabled: true,
-//         tabBarActiveTintColor: '#3f66da',
-//         tabBarInactiveTintColor: 'gray',
-//         // tabBarShowLabel: false,
-//         tabBarShowLabel: layout.width < 769 ? false : true,
-//         tabBarLabelStyle: {
-//           fontSize: 15,
-//           display: 'flex',
-//           flexWrap: 'wrap',
-//           flexDirection: 'row',
-//           alignSelf: 'center'
-//         },
-//         tabBarStyle: {
-//           display: 'flex',
-//           flexWrap: layout.width < 769 ? 'wrap' : 'nowrap',
-//           shadowOffset: {
-//             width: 0,
-//             height: 0
-//           },
-//           elevation: 0,
-//         },
-//         // Mobile view settings
-//         tabBarItemStyle: {
-//           display: 'flex',
-//           flexWrap: layout.width < 769 ? 'wrap' : 'nowrap',
-//           flexDirection: layout.width < 769 ? 'column' : 'row',
-//           alignSelf: layout.width < 769 ? 'center' : 'flex-start',
-//           paddingVertical: 0,
-//           backgroundColor: 'white',
-//           borderColor: 'white',
-//           borderBottomWidth: 0,
-//           shadowOffset: {
-//             width: 0,
-//             height: 0
-//           },
-//           elevation: 0
-//         },
-//         tabBarContentContainerStyle: {
-//           backgroundColor: 'white',
-//           borderColor: 'white',
-//           borderWidth: 0,
-//           shadowOffset: {
-//             width: 0,
-//             height: 0
-//           },
-//           elevation: 0
-//         }
-//       }}
-//     >
-//       <Tab.Screen
-//         name="1"
-//         component={Kategorie}
-//         options={{
-//           title: 'Alltag',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01.svg')} style={{height:34, width:34}} />
-//           )
-//         }}
-//       />
-//       <Tab.Screen
-//         name="2"
-//         component={Kategorie}
-//         options={{
-//           title: 'Gebet',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02.svg')} style={{height:34, width:34}} />
-//           )
-//         }}
-//       />
-//       <Tab.Screen
-//         name="3"
-//         component={Kategorie}
-//         options={{
-//           title: 'Reisen',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03.svg')} style={{height:34, width:34}} />
-//           )
-//         }}
-//       />
-//       <Tab.Screen
-//         name="4"
-//         component={Kategorie}
-//         options={{
-//           title: 'Schutz',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04.svg')} style={{height:34, width:34}} />
-//           )
-//         }}
-//       />
-//       <Tab.Screen
-//         name="5"
-//         component={Kategorie}
-//         options={{
-//           title: "Hilfe",
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05.svg')} style={{height:34, width:34}} />
-//           )
-//         }}
-//       />
-//       <Tab.Screen
-//         name="6"
-//         component={Kategorie}
-//         options={{
-//           title: 'Trauer',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06.svg')} style={{height:34, width:34}} />
-//           )
-//         }}
-//       />
-//       <Tab.Screen
-//         name="7"
-//         component={Kategorie}
-//         options={{
-//           title: 'Pilgerfahrt',
-//           tabBarIcon: ({ focused }) => (
-//             focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07.svg')} style={{height:34, width:34}} />
-//           )
-//         }}
-//       />
-//     </Tab.Navigator>
-//   );
-// }
-
 export default function Kategorien({ navigation }) {
+  const dispatch = useDispatch<AppDispatch>();
+  const kapiteln = useSelector((state: RootState) => state.kapiteln.kapiteln);
+
+  useEffect(() => {
+    dispatch(fetchKapiteln());
+  }, []);
+
   const layout = useWindowDimensions();
   return <TabBar layout={layout} navigation={navigation} />;
 }
