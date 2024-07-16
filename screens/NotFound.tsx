@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text } from 'react-native-ui-lib';
-import { Button } from 'react-native';
+import { Pressable } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
 export default function NotFound({ navigation }) {
@@ -10,7 +10,7 @@ export default function NotFound({ navigation }) {
   return (
     <View flex paddingH-25 paddingT-120>
       <Text red50 text20 marginB-30>Nicht gefunden</Text>
-      <Button onPress={() => navigation.navigate("Home")} title="Back to home" />
+      <Pressable onPress={() => navigation.navigate("Home")}>Back to home</Pressable>
     </View>
   );
 }

@@ -1,9 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { TouchableHighlight, Image, Text } from 'react-native';
+import { Pressable, Image, Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {View} from 'react-native-ui-lib';
 import Kategorien from './Kategorien';
 import Info from '../screens/Info';
+import Bittgebete from '../screens/Bittgebete';
 import Favoriten from '../screens/Favoriten';
 import NotFound from '../screens/NotFound';
 
@@ -33,12 +34,12 @@ const linking = {
 function Suchbox(props: any) {
     return (
         <View paddingH-10>
-        <TouchableHighlight onPress={() => alert("Suche")}>
-            <Image
-            style={{ width: 32, height: 32 }}
-            source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-14.svg')}
-            />
-        </TouchableHighlight>
+            <Pressable onPress={() => alert("Suche")}>
+                <Image
+                    style={{ width: 32, height: 32 }}
+                    source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-14.svg')}
+                />
+            </Pressable>
         </View>
     );
 }
@@ -85,6 +86,16 @@ const AppNavigation = () => {
                         drawerIcon: ({ focused }) => (
                           focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00.svg')} style={{height:34, width:34}} />
                         ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Bittgebete"
+                    component={Bittgebete}
+                    options={{
+                        title: 'Bittgebete',
+                        drawerItemStyle: {
+                            display: 'none'
+                        }
                     }}
                 />
                 <Drawer.Screen

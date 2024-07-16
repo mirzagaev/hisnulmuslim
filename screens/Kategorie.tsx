@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Button, Text, View, SectionList, StatusBar, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, ScrollView, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    // marginHorizontal: 16,
   },
   catHeader: {
     fontSize: 20,
@@ -64,9 +63,19 @@ function Kategorie() {
         <View key={unterkat.id.toString()}>
           {unterkat.unterkategorie && <Text style={styles.header}>{unterkat.unterkategorie}</Text>}
           {unterkat.themen.map((thema) => (
-            <View style={styles.item} key={thema.id.toString()}>
+            <Pressable
+              onPress={
+                () => {
+                  navigation.navigate('Bittgebete', {
+                    themaId: thema.id
+                  })
+                }
+              }
+              style={styles.item}
+              key={thema.id.toString()}
+            >
               <Text style={styles.title}>{thema.titel}</Text>
-            </View>
+            </Pressable>
           ))}
         </View>
       ))}

@@ -5,26 +5,24 @@ import NetInfo from '@react-native-community/netinfo';
 const API_URL = 'https://admin.hisnulmuslim.de/api/';
 
 // Kapiteln (=hm_kategorien)
-// - Unterkategorienn (=hm_unterkategorien)
-// - - Themen (=hm)
-// - - - Bittgebete (=hm_duas)  [nicht implementiert!]
-
+// -> Unterkategorienn (=hm_unterkategorien)
+//   -> Themen (=hm)
 export const getHMStruktur = async () => {
     const response = await axios.get(`${API_URL}?structure=1`);
     await AsyncStorage.setItem('kapiteln', JSON.stringify(response.data));
     return response.data;
 };
 
-export const getKategorieData = async ()  => {
-    const response = await axios.get(`${API_URL}`);
-    // const response = await axios.get(`${API_URL}/?t=hm&kategorie=`+id);
-    await AsyncStorage.setItem('kapiteln', JSON.stringify(response.data));
+// Bittgebete (=hm_duas)
+export const getBittgebete = async () => {
+    const response = await axios.get(`${API_URL}/?t=hm_duas`);
+    await AsyncStorage.setItem('duas', JSON.stringify(response.data));
     return response.data;
 };
 
-export const getBittgebete = async () => {
-    const response = await axios.get(`${API_URL}/?t=bittgebete`);
-    await AsyncStorage.setItem('items', JSON.stringify(response.data));
+export const getKategorieData = async ()  => {
+    const response = await axios.get(`${API_URL}`);
+    await AsyncStorage.setItem('kapiteln', JSON.stringify(response.data));
     return response.data;
 };
 

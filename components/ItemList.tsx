@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchItems } from '../redux/slices/itemSlice';
+import { fetchItems } from '../redux/slices/duaSlice';
 import { AppDispatch, RootState } from '../redux/store';
 
 export default function ItemList() {

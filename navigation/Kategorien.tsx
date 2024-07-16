@@ -4,8 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Kategorie from '../screens/Kategorie';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchKapiteln } from '../redux/slices/kapitelSlice';
+import { fetchDuas } from '../redux/slices/duaSlice';
 import { AppDispatch, RootState } from '../redux/store';
-
 
 function TabBar({ layout, navigation }) {
   const Tab = createBottomTabNavigator();
@@ -121,9 +121,11 @@ function TabBar({ layout, navigation }) {
 export default function Kategorien({ navigation }) {
   const dispatch = useDispatch<AppDispatch>();
   const kapiteln = useSelector((state: RootState) => state.kapiteln.kapiteln);
+  const duas = useSelector((state: RootState) => state.duas.duas);
 
   useEffect(() => {
     dispatch(fetchKapiteln());
+    dispatch(fetchDuas());
   }, []);
 
   const layout = useWindowDimensions();
