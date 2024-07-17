@@ -3,6 +3,7 @@ import AppNavigation from './navigation/AppNavigation';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
+import { Text, View } from "react-native";
 
 // export default function App() {
 //   return <AppNavigation/>

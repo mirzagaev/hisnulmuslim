@@ -1,15 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getBittgebete, syncOfflineData } from '../../services/api';
+import Bittgebete from "../../interfaces/Bittgebet";
 
 interface DuaState {
-  duas: Array<{
-    id: number,
-    kapitel_id: number,
-    bittgebet_id: number,
-    content: string,
-    arabic: string,
-    latein: string
-  }>;
+  duas: Array<Bittgebete>;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }

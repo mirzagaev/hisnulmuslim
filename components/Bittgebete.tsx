@@ -1,5 +1,5 @@
 import Bittgebete from "../interfaces/Bittgebet";
-import { StyleSheet, StatusBar, View, Text, Pressable } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 const styles = StyleSheet.create({
     dua: {
@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
 function Bittgebet(dua: Bittgebete) {
     return (
         <View style={styles.dua}>
-            <Text style={styles.content}>{dua.content}</Text>
-            <Text style={styles.arabic}>{dua.arabic}</Text>
-            <Text style={styles.latein}>{dua.latein}</Text>
+            {dua.content && <Text style={styles.content}>{dua.content}</Text>}
+            {dua.arabic && <Text style={styles.arabic}>{dua.arabic}</Text>}
+            {dua.latein && <Text style={styles.latein}>{dua.latein}</Text>}
             <Text style={styles.toolbar}>Toolbar...</Text>
         </View>
     );

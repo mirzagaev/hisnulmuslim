@@ -25,7 +25,7 @@
       "package": "de.jfd.hisnulmuslim"
     },
     "web": {
-      "favicon": ""
+      "favicon": "./assets/images/logo.png"
     },
     "scheme": "hisnulmuslim",
     "plugins": [
