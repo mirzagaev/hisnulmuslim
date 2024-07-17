@@ -5,6 +5,7 @@ import Kategorie from '../screens/Kategorie';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchKapiteln } from '../redux/slices/kapitelSlice';
 import { fetchDuas } from '../redux/slices/duaSlice';
+import { fetchThemen } from '../redux/slices/themaSlice';
 import { AppDispatch, RootState } from '../redux/store';
 
 function TabBar({ layout, navigation }) {
@@ -121,10 +122,12 @@ function TabBar({ layout, navigation }) {
 export default function Kategorien({ navigation }) {
   const dispatch = useDispatch<AppDispatch>();
   const kapiteln = useSelector((state: RootState) => state.kapiteln.kapiteln);
+  const themen = useSelector((state: RootState) => state.themen.themen);
   const duas = useSelector((state: RootState) => state.duas.duas);
 
   useEffect(() => {
     dispatch(fetchKapiteln());
+    dispatch(fetchThemen());
     dispatch(fetchDuas());
   }, []);
 

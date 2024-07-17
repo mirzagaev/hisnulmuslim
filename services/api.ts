@@ -20,9 +20,16 @@ export const getBittgebete = async () => {
     return response.data;
 };
 
+// Bittgebete (=hm_duas)
+export const geThemen = async () => {
+    const response = await axios.get(`${API_URL}/?t=hm_duas`);
+    await AsyncStorage.setItem('duas', JSON.stringify(response.data));
+    return response.data;
+};
+
 export const getKategorieData = async ()  => {
     const response = await axios.get(`${API_URL}`);
-    await AsyncStorage.setItem('kapiteln', JSON.stringify(response.data));
+    await AsyncStorage.setItem('themen', JSON.stringify(response.data));
     return response.data;
 };
 
