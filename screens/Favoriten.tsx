@@ -3,14 +3,12 @@ import { View, Text, Pressable, FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store';
 import { removeFavorite } from '../redux/slices/favoriteSlice';
+import { Banner, List } from 'react-native-paper';
 
 export default function Favoriten({ navigation }) {
   const dispatch = useDispatch<AppDispatch>();
   const themen = useSelector((state: RootState) => state.themen.themen);
   const favorites = useSelector((state: RootState) => state.favorites.favorites);
-
-  // dispatch(removeFavorite());
-  // console.log(themen)
 
   const handleRemoveFavorite = (id: number) => {
     dispatch(removeFavorite(id));
@@ -21,30 +19,35 @@ export default function Favoriten({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <View>
       {favorites.length > 0 ? (
         <FlatList
           data={favorites}
           keyExtractor={(item, index) => item.id.toString()+index}
           renderItem={({ item }, thema = getThema(item.id)) => (
-            <View style={styles.item}>
-              <Pressable
-                onPress={
-                  () => {
-                    navigation.navigate('Bittgebete', {
-                      themaId: thema.id
-                    })
-                  }
-                }
-                style={styles.item}
-                key={thema.id.toString()}
-              >{thema.titel}</Pressable>
-              <Pressable onPress={() => handleRemoveFavorite(item.id)}>Remove</Pressable>
-            </View>
+            <List.Item
+              title={thema.titel}
+              description={undefined}
+              right={props => <List.Icon {...props} icon="star" />}
+            />
+            // <View style={styles.item}>
+            //   <Pressable
+            //     onPress={
+            //       () => {
+            //         navigation.navigate('Bittgebete', {
+            //           themaId: thema.id
+            //         })
+            //       }
+            //     }
+            //     style={styles.item}
+            //     key={thema.id.toString()}
+            //   >{thema.titel}</Pressable>
+            //   <Pressable onPress={() => handleRemoveFavorite(item.id)}>Remove</Pressable>
+            // </View>
           )}
         />
       ):(
-        <Text>Keine Favoriten!</Text>
+        <Banner visible={true}>Keine Favoriten gefunden.</Banner>
       )}
     </View>
   );

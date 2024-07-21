@@ -67,7 +67,8 @@ function Kategorie() {
               onPress={
                 () => {
                   navigation.navigate('Bittgebete', {
-                    themaId: thema.id
+                    thema: thema,
+                    kategorie: kapitel.kategorie
                   })
                 }
               }

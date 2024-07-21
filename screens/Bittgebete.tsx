@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Pressable, ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
+import {View} from 'react-native-ui-lib';
 import { AppDispatch, RootState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import Bittgebet from '../components/Bittgebete';
 import { addFavorite, removeFavorite } from '../redux/slices/favoriteSlice';
+import { Button } from 'react-native-paper';
+import { TouchEventType } from 'react-native-gesture-handler/lib/typescript/TouchEventType';
 
 const styles = StyleSheet.create({
   btn: {
@@ -17,14 +20,30 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     color: '#ffffff',
     width: 'auto'
+  },
+  duaHeader: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#3f66da',
+    paddingTop: 12,
+    paddingBottom: 8,
+    paddingHorizontal: 15
   }
 });
 
 export default function Bittgebete({ navigation, route }) {
-  const { themaId } = route.params;
+  const { thema, kategorie } = route.params;
   const dispatch = useDispatch<AppDispatch>();
   const duas = useSelector((state: RootState) => state.duas.duas);
-  let favorite = useSelector((state: RootState) => state.favorites.favorites.find((thema) => thema.id === themaId));
+  const favorites = useSelector((state: RootState) => state.favorites.favorites);
+  const [favorit, setFavorit] = useState<any>();
+
+  useEffect(() => {
+    const favorit = favorites.find((th: any) => th.id === thema.id); 
+    setFavorit(favorit);
+    // console.log("fav f", favorit);
+    // const filtered = favorites.filter(th => th.id.valueOf() === thema.id);
+  }, [favorites, thema]);
 
   const handleAddFavorite = (item: { id: number }) => {
     dispatch(addFavorite(item));
@@ -34,14 +53,35 @@ export default function Bittgebete({ navigation, route }) {
     dispatch(removeFavorite(id));
   };
 
+  useEffect(() => {
+    navigation.setOptions({
+      title: kategorie,
+      headerRight: () => (
+        <View paddingH-10>
+          {favorit ? (
+            <Pressable onPress={() => handleRemoveFavorite(thema.id)}>
+              <Image
+                style={{ width: 32, height: 32 }}
+                source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00_active.svg')}
+              />
+            </Pressable>
+          ):(
+            <Pressable onPress={() => handleAddFavorite({id: thema.id})}>
+              <Image
+                style={{ width: 32, height: 32 }}
+                source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00.svg')}
+              />
+            </Pressable>
+          )}
+        </View>
+      )
+    });
+  }, [navigation, kategorie, favorit, thema]);
+
   return (
     <ScrollView>
-      {favorite ? (
-        <Pressable onPress={() => handleRemoveFavorite(themaId)}>entferne Favorite</Pressable>
-      ):(
-        <Pressable onPress={() => handleAddFavorite({id: themaId})}>Favorite</Pressable>
-      )}
-      {duas.map((dua, index) => (dua.kapitel_id == themaId) && 
+      <Text style={styles.duaHeader}>{thema.titel}</Text>
+      {duas.map((dua, index) => (dua.kapitel_id == thema.id) && 
         <Bittgebet
           key={dua.kapitel_id.toString()+index}
           id={dua.id}
@@ -52,7 +92,12 @@ export default function Bittgebete({ navigation, route }) {
           latein={dua.latein}
         />
       )}
-      <Pressable onPress={() => navigation.goBack()} style={styles.btn}>Zurück</Pressable>
+      <Button onPress={() => navigation.goBack()} mode="contained">Zurück</Button>
     </ScrollView>
   );
 }
+
+// Bittgebete.navigationOptions = {
+//   headerTitle: 'New Task',
+//   headerRight: (props) => <FavoritBtns props={props} />,
+// }
