@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
-import {View} from 'react-native-ui-lib';
+import { View, Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { AppDispatch, RootState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import Bittgebet from '../components/Bittgebete';
@@ -57,7 +56,7 @@ export default function Bittgebete({ navigation, route }) {
     navigation.setOptions({
       title: kategorie,
       headerRight: () => (
-        <View paddingH-10>
+        <View>
           {favorit ? (
             <Pressable onPress={() => handleRemoveFavorite(thema.id)}>
               <Image
