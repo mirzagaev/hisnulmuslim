@@ -40,11 +40,10 @@ const styles = StyleSheet.create({
   },
 });
 
-function Kategorie() {
+function Kategorie({ navigation }) {
   const kapiteln = useSelector((state: RootState) => state.kapiteln.kapiteln);
   const [kategorie, setKategorie] = useState<any[]>([]);
   const [catId, setCatId] = useState<any>();
-  const navigation = useNavigation();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', (e) => {

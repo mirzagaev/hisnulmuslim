@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { View, Pressable, Image, Text } from 'react-native';
+import { Pressable, Image, Text } from 'react-native';
+import { View } from 'react-native-ui-lib';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Kategorien from './Kategorien';
 import Info from '../screens/Info';
@@ -32,7 +33,7 @@ const linking = {
 
 function Suchbox(props: any) {
     return (
-        <View>
+        <View paddingH-10>
             <Pressable onPress={() => alert("Suche")}>
                 <Image
                     style={{ width: 32, height: 32 }}

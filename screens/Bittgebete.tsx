@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { View, Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { View } from 'react-native-ui-lib';
 import { AppDispatch, RootState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import Bittgebet from '../components/Bittgebete';
 import { addFavorite, removeFavorite } from '../redux/slices/favoriteSlice';
 import { Button } from 'react-native-paper';
-import { TouchEventType } from 'react-native-gesture-handler/lib/typescript/TouchEventType';
 
 const styles = StyleSheet.create({
   btn: {
@@ -40,8 +40,6 @@ export default function Bittgebete({ navigation, route }) {
   useEffect(() => {
     const favorit = favorites.find((th: any) => th.id === thema.id); 
     setFavorit(favorit);
-    // console.log("fav f", favorit);
-    // const filtered = favorites.filter(th => th.id.valueOf() === thema.id);
   }, [favorites, thema]);
 
   const handleAddFavorite = (item: { id: number }) => {
@@ -56,7 +54,7 @@ export default function Bittgebete({ navigation, route }) {
     navigation.setOptions({
       title: kategorie,
       headerRight: () => (
-        <View>
+        <View paddingH-10>
           {favorit ? (
             <Pressable onPress={() => handleRemoveFavorite(thema.id)}>
               <Image
@@ -95,8 +93,3 @@ export default function Bittgebete({ navigation, route }) {
     </ScrollView>
   );
 }
-
-// Bittgebete.navigationOptions = {
-//   headerTitle: 'New Task',
-//   headerRight: (props) => <FavoritBtns props={props} />,
-// }
