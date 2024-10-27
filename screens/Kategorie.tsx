@@ -1,44 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, StatusBar, ScrollView, Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
-  },
-  catHeader: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#3f66da',
-    backgroundColor: '#fff',
-    paddingTop: 17,
-    paddingBottom: 15,
-    paddingHorizontal: 15
-  },
-  header: {
-    fontSize: 14,
-    fontWeight: '600',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: '#9da3b0',
-  },
-  item: {
-    backgroundColor: '#F9F9F9',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderTopWidth: 1,
-    borderColor: '#E5E5E5',
-  },
-  title: {
-    fontSize: 12,
-  },
-});
+import tw from 'twrnc';
 
 function Kategorie({ navigation }) {
   const kapiteln = useSelector((state: RootState) => state.kapiteln.kapiteln);
@@ -56,11 +20,11 @@ function Kategorie({ navigation }) {
   }, [catId, navigation]);
 
   return kapiteln.map((kapitel) => (kapitel.id == catId) &&
-    <ScrollView style={styles.container} key={kapitel.id}>
-      <Text style={styles.catHeader} key={kapitel.id.toString()}>{kapitel.kategorie}</Text>
+    <ScrollView style={tw`flex-1`} key={kapitel.id}>
+      <Text key={kapitel.id.toString()} style={tw`text-xl font-title font-medium text-[#3f66da] bg-white p-5`}>{kapitel.kategorie}</Text>
       {kapitel.unterkategorien.map((unterkat) => (
         <View key={unterkat.id.toString()}>
-          {unterkat.unterkategorie && <Text style={styles.header}>{unterkat.unterkategorie}</Text>}
+          {unterkat.unterkategorie && <Text style={tw`text-base font-medium py-3 px-5`}>{unterkat.unterkategorie}</Text>}
           {unterkat.themen.map((thema) => (
             <Pressable
               onPress={
@@ -71,10 +35,10 @@ function Kategorie({ navigation }) {
                   })
                 }
               }
-              style={styles.item}
+              style={tw`bg-white py-2 px-5`}
               key={thema.id.toString()}
             >
-              <Text style={styles.title}>{thema.titel}</Text>
+              <Text>{thema.titel}</Text>
             </Pressable>
           ))}
         </View>
