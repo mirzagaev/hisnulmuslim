@@ -6,29 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Bittgebet from '../components/Bittgebete';
 import { addFavorite, removeFavorite } from '../redux/slices/favoriteSlice';
 import { Button } from 'react-native-paper';
-
-const styles = StyleSheet.create({
-  btn: {
-    backgroundColor: '#3f66da',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    marginVertical: 10,
-    marginHorizontal: 15,
-    fontWeight: '600',
-    fontSize: 12,
-    textTransform: "uppercase",
-    color: '#ffffff',
-    width: 'auto'
-  },
-  duaHeader: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#3f66da',
-    paddingTop: 12,
-    paddingBottom: 8,
-    paddingHorizontal: 15
-  }
-});
+import tw from 'twrnc';
 
 export default function Bittgebete({ navigation, route }) {
   const { thema, kategorie } = route.params;
@@ -76,8 +54,8 @@ export default function Bittgebete({ navigation, route }) {
   }, [navigation, kategorie, favorit, thema]);
 
   return (
-    <ScrollView>
-      <Text style={styles.duaHeader}>{thema.titel}</Text>
+    <ScrollView style={tw`bg-white px-5`}>
+      <Text style={tw`py-5 text-base font-title font-medium`}>{thema.titel}</Text>
       {duas.map((dua, index) => (dua.kapitel_id == thema.id) && 
         <Bittgebet
           key={dua.kapitel_id.toString()+index}

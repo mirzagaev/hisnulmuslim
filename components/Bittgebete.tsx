@@ -1,5 +1,6 @@
 import Bittgebete from "../interfaces/Bittgebet";
 import { StyleSheet, View, Text } from 'react-native';
+import tw from 'twrnc';
 
 const styles = StyleSheet.create({
     dua: {
@@ -11,14 +12,6 @@ const styles = StyleSheet.create({
         fontSize: 13,
         paddingVertical: 15,
         paddingHorizontal: 20
-    },
-    arabic: {
-        fontSize: 14,
-        paddingVertical: 15,
-        paddingHorizontal: 20,
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        borderColor: '#E5E5E5',
     },
     latein: {
         fontSize: 14,
@@ -35,11 +28,11 @@ const styles = StyleSheet.create({
 
 function Bittgebet(dua: Bittgebete) {
     return (
-        <View style={styles.dua}>
-            {dua.content && <Text style={styles.content}>{dua.content}</Text>}
-            {dua.arabic && <Text style={styles.arabic}>{dua.arabic}</Text>}
-            {dua.latein && <Text style={styles.latein}>{dua.latein}</Text>}
-            <Text style={styles.toolbar}>Toolbar...</Text>
+        <View style={tw`mb-5`}>
+            {dua.content && <Text style={tw`bg-gray-100 p-4`}>{dua.content}</Text>}
+            {dua.arabic && <Text style={tw`p-4`}>{dua.arabic}</Text>}
+            {dua.latein && <Text style={tw`p-4 italic`}>{dua.latein}</Text>}
+            <Text style={tw`bg-gray-100 text-xs px-4 py-2`}>Toolbar...</Text>
         </View>
     );
 }
