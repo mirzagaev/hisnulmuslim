@@ -21,7 +21,7 @@ function Kategorie({ navigation }) {
 
   return kapiteln.map((kapitel) => (kapitel.id == catId) &&
     <ScrollView style={tw`flex-1`} key={kapitel.id}>
-      <Text key={kapitel.id.toString()} style={tw`text-xl font-title font-medium text-[#3f66da] bg-white p-5`}>{kapitel.kategorie}</Text>
+      {/* <Text key={kapitel.id.toString()} style={tw`text-xl font-medium text-[#3f66da] bg-white p-5`}>{kapitel.kategorie}</Text> */}
       {kapitel.unterkategorien.map((unterkat) => (
         <View key={unterkat.id.toString()}>
           {unterkat.unterkategorie && <Text style={tw`text-base font-medium py-3 px-5`}>{unterkat.unterkategorie}</Text>}
