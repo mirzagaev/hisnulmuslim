@@ -10,51 +10,7 @@ import { fetchDuas } from '../redux/slices/duaSlice';
 import { fetchThemen } from '../redux/slices/themaSlice';
 import { AppDispatch, RootState } from '../redux/store';
 import tw from 'twrnc';
-
-const tabBarStruktur = {
-  '1': {
-    label: 'Alltag',
-    colorItem: '#0dc9ca',
-    icon: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01.svg'),
-    iconActive: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01_active.svg'),
-  },
-  '2': {
-    label: 'Gebet',
-    colorItem: '#2483d3',
-    icon: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02.svg'),
-    iconActive: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02_active.svg'),
-  },
-  '3': {
-    label: 'Reisen',
-    colorItem: '#7e57d6',
-    icon: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03.svg'),
-    iconActive: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03_active.svg'),
-  },
-  '4': {
-    label: 'Schutz',
-    colorItem: '#b41ed8',
-    icon: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04.svg'),
-    iconActive: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04_active.svg'),
-  },
-  '5': {
-    label: '1. Hilfe',
-    colorItem: '#c61fb7',
-    icon: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05.svg'),
-    iconActive: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05_active.svg'),
-  },
-  '6': {
-    label: 'Trauer',
-    colorItem: '#e21f87',
-    icon: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06.svg'),
-    iconActive: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06_active.svg'),
-  },
-  '7': {
-    label: 'Pilgern',
-    colorItem: '#ef2265',
-    icon: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07.svg'),
-    iconActive: require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07_active.svg'),
-  },
-};
+import { tabBarStruktur } from "../interfaces/KapitelSchema"
 
 function MyTabBar({ state, descriptors, navigation, layout }) {
   const { colors } = useTheme();
@@ -63,7 +19,8 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
   return (
     <View style={[
       tw`flex bg-white`,
-      (layout.width < 769 ? tw`flex-row shadow-lg shadow-gray-900` : tw`flex-col`),
+      tw`flex-row shadow-lg shadow-gray-900`,
+      // (layout.width < 769 ? tw`flex-row shadow-lg shadow-gray-900` : tw`flex-col`),
     ]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
@@ -100,19 +57,24 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
             // style={tw`flex-1 items-center py-2 font-semibold border-t-4 border-[#0dc9ca]`}
             style={[
               tw`flex items-center font-semibold border-t-4`,
-              (layout.width < 769 ? tw`py-2 flex-col flex-1` : tw`px-4 py-2 flex-row`),
-              ((isFocused && layout.width < 769) ? {borderTopColor: tabBarStruktur[route.name].colorItem} : {borderTopColor: "#ffffff"})
+              tw`py-2 flex-col flex-1`,
+              // (layout.width < 769 ? tw`py-2 flex-col flex-1` : tw`px-4 py-2 flex-row`),
+              (isFocused ? {borderTopColor: tabBarStruktur[route.name].colorItem} : {borderTopColor: "#ffffff"})
+              // ((isFocused && layout.width < 769) ? {borderTopColor: tabBarStruktur[route.name].colorItem} : {borderTopColor: "#ffffff"})
             ]}
           >
 
             {isFocused ?
-              <Image source={tabBarStruktur[route.name].iconActive} style={{height:34, width:34}} />
-              : <Image source={tabBarStruktur[route.name].icon} style={{height:34, width:34}} />
+              <Image source={tabBarStruktur[route.name].iconActive} style={layout.width < 350 ? {height:30, width:30} : {height:34, width:34}} />
+              :
+              <Image source={tabBarStruktur[route.name].icon} style={layout.width < 350 ? {height:30, width:30} : {height:34, width:34}} />
             }
 
             <Text style={[
               tw`uppercase`,
-              (layout.width > 769 ? tw`text-lg mx-10` : tw`text-xs`),
+              // tw`text-base`,
+              (layout.width > 769 ? tw`text-md` : tw`text-xs`),
+              // (layout.width > 769 ? tw`text-lg mx-10` : tw`text-xs`),
               { color: isFocused ? tabBarStruktur[route.name].colorItem : "#bcbcbc", fontWeight: 400, paddingTop: 3 }
               ]}>
               {tabBarStruktur[route.name].label}
@@ -132,13 +94,11 @@ function TabBar({ layout, navigation }) {
       id={undefined}
       initialRouteName='1'
       screenOptions={({ route }) => ({
-        tabBarPosition: layout.width > 769 ? 'left' : 'bottom',
         animation: 'shift',
         tabBarActiveTintColor: '#3f66da',
-        // headerShown: false,
-        // headerTintColor: '#3f66da',
+        headerShown: false,
         headerTitleStyle: {
-          paddingHorizontal: 5,
+          paddingHorizontal: 0,
           fontSize: 20
         },
         headerStyle: {

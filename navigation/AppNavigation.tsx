@@ -1,12 +1,16 @@
+import React, { useState, useLayoutEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { filterKapiteln, clearFilteredKapiteln } from '../redux/slices/kapitelSlice';
 import { NavigationContainer } from '@react-navigation/native'
-import { Pressable, Image, Text } from 'react-native';
-import { View } from 'react-native-ui-lib';
+import { Image, Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Kategorien from './Kategorien';
 import Info from '../screens/Info';
 import Bittgebete from '../screens/Bittgebete';
 import Favoriten from '../screens/Favoriten';
 import NotFound from '../screens/NotFound';
+import Suche from '../screens/Suche';
+import tw from 'twrnc';
 
 const config = {
     screens: {
@@ -31,21 +35,10 @@ const linking = {
     config,
 };
 
-function Suchbox(props: any) {
-    return (
-        <View paddingH-10>
-            <Pressable onPress={() => alert("Suche")}>
-                <Image
-                    style={{ width: 32, height: 32 }}
-                    source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-14.svg')}
-                />
-            </Pressable>
-        </View>
-    );
-}
-
 const AppNavigation = () => {
     const Drawer = createDrawerNavigator();
+    const dispatch = useDispatch(); // Redux-Dispatch
+    const [search, setSearch] = useState('');
 
     return (
         <NavigationContainer
@@ -58,17 +51,45 @@ const AppNavigation = () => {
                         borderRadius: 0
                     }
                 }}
+                initialRouteName="Hisnul Muslim"
             >
                 <Drawer.Screen
                     name="Hisnul Muslim"
-                    component={Kategorien}
-                    options={{
-                        headerRight: (props) => <Suchbox props={props} />,
-                        // headerShown: false,
-                        drawerIcon: ({ focused }) => (
-                          focused ? <Image source={require('../assets/images/logo.png')} style={{height:34, width:34}} /> : <Image source={require('../assets/images/logo.png')} style={{height:34, width:34}} />
-                        ),
+                    component={search ? Suche : Kategorien}
+                    options={({ navigation }) => {
+                        useLayoutEffect(() => {
+                            navigation.setOptions({
+                                headerSearchBarOptions: {
+                                    placeholder: 'Hisnul Muslim durchsuchen',
+                                    onChangeText: (event) => {
+                                        const searchTerm = event.nativeEvent.text;
+                                        setSearch(searchTerm);
+                                        if (searchTerm.length >= 2) {
+                                            dispatch(filterKapiteln(searchTerm)); // Redux-Store filtern
+                                        } else {
+                                            dispatch(clearFilteredKapiteln()); // Zurücksetzen, falls Eingabe leer ist
+                                        }
+                                    },
+                                },
+                            });
+                        }, [navigation]);
+
+                        return {
+                            drawerIcon: ({ focused }) =>
+                                focused ? (
+                                    <Image
+                                        source={require('../assets/images/logo.png')}
+                                        style={{ height: 34, width: 34 }}
+                                    />
+                                ) : (
+                                    <Image
+                                        source={require('../assets/images/logo.png')}
+                                        style={{ height: 34, width: 34 }}
+                                    />
+                                ),
+                        };
                     }}
+
                 />
                 <Drawer.Screen
                     name="Info über die App"
@@ -103,6 +124,16 @@ const AppNavigation = () => {
                     component={NotFound}
                     options={{
                         title: 'Seite nicht gefunden',
+                        drawerItemStyle: {
+                            display: 'none'
+                        }
+                    }}
+                />
+                <Drawer.Screen
+                    name="Suche"
+                    component={Suche}
+                    options={{
+                        title: 'Suche',
                         drawerItemStyle: {
                             display: 'none'
                         }
