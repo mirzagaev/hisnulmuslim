@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Platform, Text, Image, useWindowDimensions } from 'react-native';
+import { View, Text, Image, useWindowDimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Kategorie from '../screens/Kategorie';
 import { PlatformPressable } from '@react-navigation/elements';
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchKapiteln } from '../redux/slices/kapitelSlice';
 import { fetchDuas } from '../redux/slices/duaSlice';
 import { fetchThemen } from '../redux/slices/themaSlice';
-import { AppDispatch, RootState } from '../redux/store';
+import { AppDispatch } from '../redux/store';
 import tw from 'twrnc';
 import { tabBarStruktur } from "../interfaces/KapitelSchema"
 
@@ -18,9 +18,8 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
 
   return (
     <View style={[
-      tw`flex bg-white`,
-      tw`flex-row shadow-lg shadow-gray-900`,
-      // (layout.width < 769 ? tw`flex-row shadow-lg shadow-gray-900` : tw`flex-col`),
+      tw`flex bg-white shadow-lg shadow-gray-900`,
+      layout.width < 769 ? tw`flex-row` : tw`flex-col`,
     ]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
@@ -54,13 +53,12 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
             testID={options.tabBarButtonTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            // style={tw`flex-1 items-center py-2 font-semibold border-t-4 border-[#0dc9ca]`}
             style={[
-              tw`flex items-center font-semibold border-t-4`,
-              tw`py-2 flex-col flex-1`,
-              // (layout.width < 769 ? tw`py-2 flex-col flex-1` : tw`px-4 py-2 flex-row`),
-              (isFocused ? {borderTopColor: tabBarStruktur[route.name].colorItem} : {borderTopColor: "#ffffff"})
-              // ((isFocused && layout.width < 769) ? {borderTopColor: tabBarStruktur[route.name].colorItem} : {borderTopColor: "#ffffff"})
+              tw`flex items-center font-semibold `,
+              layout.width < 769 ? tw`flex-1` : tw`p-2 m-2 rounded-lg`,
+              (layout.width > 769 && (isFocused ? tw`bg-gray-100` : tw`hover:bg-gray-100`)),
+              (layout.width < 769 && tw`py-2 border-t-4`),
+              (layout.width < 769 && (isFocused ? {borderTopColor: tabBarStruktur[route.name].colorItem} : {borderTopColor: "#ffffff"}))
             ]}
           >
 
@@ -72,9 +70,7 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
 
             <Text style={[
               tw`uppercase`,
-              // tw`text-base`,
               (layout.width > 769 ? tw`text-md` : tw`text-xs`),
-              // (layout.width > 769 ? tw`text-lg mx-10` : tw`text-xs`),
               { color: isFocused ? tabBarStruktur[route.name].colorItem : "#bcbcbc", fontWeight: 400, paddingTop: 3 }
               ]}>
               {tabBarStruktur[route.name].label}
@@ -96,6 +92,7 @@ function TabBar({ layout, navigation }) {
       screenOptions={({ route }) => ({
         animation: 'shift',
         tabBarActiveTintColor: '#3f66da',
+        tabBarPosition: layout.width < 769 ? 'bottom' : 'left',
         headerShown: false,
         headerTitleStyle: {
           paddingHorizontal: 0,
@@ -132,8 +129,6 @@ function TabBar({ layout, navigation }) {
       }} />
     </Tab.Navigator>
   );
-
-  //     screenOptions={({ route }) => ({
   //       tabBarPosition: layout.width > 769 ? 'left' : 'bottom',
   //       animation: 'shift',
   //       tabBarActiveTintColor: '#3f66da',
@@ -253,9 +248,6 @@ function TabBar({ layout, navigation }) {
 
 export default function Kategorien({ navigation }) {
   const dispatch = useDispatch<AppDispatch>();
-  const kapiteln = useSelector((state: RootState) => state.kapiteln.kapiteln);
-  const themen = useSelector((state: RootState) => state.themen.themen);
-  const duas = useSelector((state: RootState) => state.duas.duas);
 
   useEffect(() => {
     dispatch(fetchKapiteln());
