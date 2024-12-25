@@ -48,8 +48,10 @@ const AppNavigation = () => {
             <Drawer.Navigator id={undefined}
                 screenOptions={{
                     drawerItemStyle: {
-                        borderRadius: 0
-                    }
+                        borderRadius: 5
+                    },
+                    drawerActiveBackgroundColor: "#f3f4f6",
+                    drawerActiveTintColor: "#0084d7",
                 }}
                 initialRouteName="Hisnul Muslim"
             >
@@ -78,13 +80,13 @@ const AppNavigation = () => {
                             drawerIcon: ({ focused }) =>
                                 focused ? (
                                     <Image
-                                        source={require('../assets/images/logo.png')}
-                                        style={{ height: 34, width: 34 }}
+                                        source={require('../assets/images/hm-logo-blau.png')}
+                                        style={{ height: 30, width: 30 }}
                                     />
                                 ) : (
                                     <Image
-                                        source={require('../assets/images/logo.png')}
-                                        style={{ height: 34, width: 34 }}
+                                        source={require('../assets/images/hm-logo-grau.png')}
+                                        style={{ height: 30, width: 30 }}
                                     />
                                 ),
                         };
@@ -92,20 +94,20 @@ const AppNavigation = () => {
 
                 />
                 <Drawer.Screen
-                    name="Info über die App"
-                    component={Info}
-                    options={{
-                        drawerIcon: ({ focused }) => (
-                          focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-15.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-15.svg')} style={{height:34, width:34}} />
-                        ),
-                    }}
-                />
-                <Drawer.Screen
                     name="Favoriten"
                     component={Favoriten}
                     options={{
                         drawerIcon: ({ focused }) => (
                           focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00.svg')} style={{height:34, width:34}} />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Info über die App"
+                    component={Info}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                          focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-15.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-15.svg')} style={{height:34, width:34}} />
                         ),
                     }}
                 />
