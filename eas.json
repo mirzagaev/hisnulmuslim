@@ -1,4 +1,7 @@
 {
+  "cli": {
+    "appVersionSource": "remote"
+  },
   "build": {
     "development": {
       "developmentClient": true,
@@ -9,9 +12,14 @@
       "distribution": "internal",
       "env": {
         "EAS_NO_VCS": "1"
+      },
+      "android": {
+        "buildType": "apk"
       }
     },
-    "production": {}
+    "production": {
+      "autoIncrement": true
+    }
   }
 }
   
