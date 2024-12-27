@@ -55,7 +55,7 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
             onLongPress={onLongPress}
             style={[
               tw`flex items-center font-semibold `,
-              layout.width < 769 ? tw`flex-1` : tw`p-2 m-2 rounded-lg`,
+              layout.width < 769 ? tw`flex-1` : tw`p-1 m-2 rounded-lg`,
               (layout.width > 769 && (isFocused ? tw`bg-gray-100` : tw`hover:bg-gray-100`)),
               (layout.width < 769 && tw`py-2 border-t-4`),
               (layout.width < 769 && (isFocused ? {borderTopColor: tabBarStruktur[route.name].colorItem} : {borderTopColor: "#ffffff"}))
@@ -63,9 +63,9 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
           >
 
             {isFocused ?
-              <Image source={tabBarStruktur[route.name].iconActive} style={layout.width < 350 ? {height:30, width:30} : {height:34, width:34}} />
+              <Image source={tabBarStruktur[route.name].iconActive} style={layout.width < 400 ? {height:30, width:30} : {height:34, width:34}} />
               :
-              <Image source={tabBarStruktur[route.name].icon} style={layout.width < 350 ? {height:30, width:30} : {height:34, width:34}} />
+              <Image source={tabBarStruktur[route.name].icon} style={layout.width < 400 ? {width:30, height:30} : {height:34, width:34}} />
             }
 
             <Text style={[

@@ -98,7 +98,7 @@ const AppNavigation = () => {
                     component={Favoriten}
                     options={{
                         drawerIcon: ({ focused }) => (
-                          focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00.svg')} style={{height:34, width:34}} />
+                          focused ? <Image source={require('../assets/icons/00-active.png')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/00-inactive.png')} style={{height:30, width:30}} />
                         ),
                     }}
                 />
@@ -107,7 +107,7 @@ const AppNavigation = () => {
                     component={Info}
                     options={{
                         drawerIcon: ({ focused }) => (
-                          focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-15.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-15.svg')} style={{height:34, width:34}} />
+                          focused ? <Image source={require('../assets/icons/001-active.png')} style={{height:28, width:28}} /> : <Image source={require('../assets/icons/001-inactive.png')} style={{height:28, width:28}} />
                         ),
                     }}
                 />

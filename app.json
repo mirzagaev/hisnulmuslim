@@ -4,7 +4,7 @@
     "slug": "hisnulmuslim",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/logo.png",
+    "icon": "./assets/images/hm-logo-blau.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -20,13 +20,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/hm-logo-grau.png",
         "backgroundColor": "#ffffff"
       },
       "package": "de.jfd.hisnulmuslim"
     },
     "web": {
-      "favicon": "./assets/images/logo.png"
+      "favicon": "./assets/images/HMlogo-ganzunten.png"
     },
     "scheme": "hisnulmuslim",
     "plugins": [

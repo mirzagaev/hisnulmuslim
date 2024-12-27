@@ -36,15 +36,15 @@ export default function Bittgebete({ navigation, route }) {
           {favorit ? (
             <Pressable onPress={() => handleRemoveFavorite(thema.id)}>
               <Image
-                style={{ width: 32, height: 32 }}
-                source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00_active.svg')}
+                style={{ width: 30, height: 30 }}
+                source={require('../assets/icons/00-active.png')}
               />
             </Pressable>
           ):(
             <Pressable onPress={() => handleAddFavorite({id: thema.id})}>
               <Image
-                style={{ width: 32, height: 32 }}
-                source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-00.svg')}
+                style={{ width: 30, height: 30 }}
+                source={require('../assets/icons/00-inactive.png')}
               />
             </Pressable>
           )}
