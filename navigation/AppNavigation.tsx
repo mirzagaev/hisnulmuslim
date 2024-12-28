@@ -10,7 +10,6 @@ import Bittgebete from '../screens/Bittgebete';
 import Favoriten from '../screens/Favoriten';
 import NotFound from '../screens/NotFound';
 import Suche from '../screens/Suche';
-import tw from 'twrnc';
 
 const config = {
     screens: {
@@ -54,6 +53,7 @@ const AppNavigation = () => {
                     drawerActiveTintColor: "#0084d7",
                 }}
                 initialRouteName="Hisnul Muslim"
+                backBehavior='history'
             >
                 <Drawer.Screen
                     name="Hisnul Muslim"

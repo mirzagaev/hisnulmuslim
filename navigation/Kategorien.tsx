@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Kategorie from '../screens/Kategorie';
 import { PlatformPressable } from '@react-navigation/elements';
 import { useLinkBuilder, useTheme } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchKapiteln } from '../redux/slices/kapitelSlice';
 import { fetchDuas } from '../redux/slices/duaSlice';
 import { fetchThemen } from '../redux/slices/themaSlice';
@@ -17,7 +17,7 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
   const { buildHref } = useLinkBuilder();
 
   return (
-    <View style={[
+    <View key={"fcdsdsdasdf"+state} style={[
       tw`flex bg-white shadow-lg shadow-gray-900`,
       layout.width < 769 ? tw`flex-row` : tw`flex-col`,
     ]}>
@@ -61,14 +61,13 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
               (layout.width < 769 && (isFocused ? {borderTopColor: tabBarStruktur[route.name].colorItem} : {borderTopColor: "#ffffff"}))
             ]}
           >
-
             {isFocused ?
               <Image source={tabBarStruktur[route.name].iconActive} style={layout.width < 400 ? {height:30, width:30} : {height:34, width:34}} />
               :
               <Image source={tabBarStruktur[route.name].icon} style={layout.width < 400 ? {width:30, height:30} : {height:34, width:34}} />
             }
 
-            <Text style={[
+            <Text key={"fcdsdf"+state} style={[
               tw`uppercase`,
               (layout.width > 769 ? tw`text-md` : tw`text-xs`),
               { color: isFocused ? tabBarStruktur[route.name].colorItem : "#bcbcbc", fontWeight: 400, paddingTop: 3 }

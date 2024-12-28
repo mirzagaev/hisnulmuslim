@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "hisnulmuslim",
+    "name": "Hisnul Muslim",
     "slug": "hisnulmuslim",
-    "version": "1.0.0",
+    "version": "3.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/hm-logo-blau.png",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "newArchEnabled": true,
@@ -20,13 +20,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/hm-logo-grau.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "de.jfd.hisnulmuslim"
     },
     "web": {
-      "favicon": "./assets/images/HMlogo-ganzunten.png"
+      "favicon": "./assets/images/logo.png"
     },
     "scheme": "hisnulmuslim",
     "plugins": [
@@ -34,9 +34,9 @@
         "expo-build-properties",
         {
           "android": {
-            "compileSdkVersion": 34,
-            "targetSdkVersion": 34,
-            "buildToolsVersion": "34.0.0"
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0"
           },
           "ios": {
             "deploymentTarget": "15.1"

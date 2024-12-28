@@ -4,7 +4,6 @@ import kapitelSlice from './slices/kapitelSlice';
 import favoriteReducer from './slices/favoriteSlice';
 import themaReducer  from './slices/themaSlice';
 import { persistStore, persistReducer } from 'redux-persist';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
