@@ -16,7 +16,7 @@ export default function Favoriten({ navigation }) {
 
   return (
     <ScrollView>
-      {favorites.length > 0 ? (
+      {favorites.length > 0 && (
         <FlatList
           data={favorites}
           keyExtractor={(item, index) => item.id.toString()+index}
@@ -37,8 +37,6 @@ export default function Favoriten({ navigation }) {
             </Pressable>
           )}
         />
-      ):(
-        <Banner visible={true}>Keine Favoriten gefunden.</Banner>
       )}
     </ScrollView>
   );

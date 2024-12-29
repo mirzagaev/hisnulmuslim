@@ -17,7 +17,7 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
   const { buildHref } = useLinkBuilder();
 
   return (
-    <View key={"fcdsdsdasdf"+state} style={[
+    <View style={[
       tw`flex bg-white shadow-lg shadow-gray-900`,
       layout.width < 769 ? tw`flex-row` : tw`flex-col`,
     ]}>
@@ -57,8 +57,8 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
               tw`flex items-center font-semibold `,
               layout.width < 769 ? tw`flex-1` : tw`p-1 m-2 rounded-lg`,
               (layout.width > 769 && (isFocused ? tw`bg-gray-100` : tw`hover:bg-gray-100`)),
-              (layout.width < 769 && tw`py-2 border-t-4`),
-              (layout.width < 769 && (isFocused ? {borderTopColor: tabBarStruktur[route.name].colorItem} : {borderTopColor: "#ffffff"}))
+              (layout.width < 769 && tw`py-3 border-b-4`),
+              (layout.width < 769 && (isFocused ? {borderBottomColor: tabBarStruktur[route.name].colorItem} : {borderBottomColor: "#ffffff"}))
             ]}
           >
             {isFocused ?
@@ -67,10 +67,10 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
               <Image source={tabBarStruktur[route.name].icon} style={layout.width < 400 ? {width:30, height:30} : {height:34, width:34}} />
             }
 
-            <Text key={"fcdsdf"+state} style={[
-              tw`uppercase`,
+            <Text style={[
+              tw`font-medium`,
               (layout.width > 769 ? tw`text-md` : tw`text-xs`),
-              { color: isFocused ? tabBarStruktur[route.name].colorItem : "#bcbcbc", fontWeight: 400, paddingTop: 3 }
+              { color: isFocused ? tabBarStruktur[route.name].colorItem : "#bcbcbc", paddingTop: 3 }
               ]}>
               {tabBarStruktur[route.name].label}
             </Text>
