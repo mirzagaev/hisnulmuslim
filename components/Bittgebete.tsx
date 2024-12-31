@@ -1,5 +1,5 @@
 import Bittgebete from "../interfaces/Bittgebet";
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
 import tw from 'twrnc';
 
 const styles = StyleSheet.create({
@@ -28,11 +28,13 @@ const styles = StyleSheet.create({
 
 function Bittgebet(dua: Bittgebete) {
     return (
-        <View style={tw`mb-5`}>
-            {dua.content && <Text style={tw`bg-gray-100 p-4`}>{dua.content}</Text>}
-            {dua.arabic && <Text style={tw`p-4`}>{dua.arabic}</Text>}
-            {dua.latein && <Text style={tw`p-4 italic`}>{dua.latein}</Text>}
-            <Text style={tw`bg-gray-100 text-xs px-4 py-2`}>Toolbar...</Text>
+        <View style={tw`py-5 border-t-2 border-gray-200`}>
+            {dua.arabic && <Text style={tw`text-lg px-5`}>{dua.arabic}</Text>}
+            {dua.latein && <Text style={tw`text-[#76787b] text-md mt-3 mb-6 px-5`}>{dua.latein}</Text>}
+            {dua.content && <Text style={tw`text-base font-normal px-5`}>{dua.content}</Text>}
+            <View style={tw`mx-5 mt-6 mb-2 px-4 py-2 bg-gray-200 rounded-full shadow-md`}>
+                <Text style={tw`text-xs font-normal`}>Hisnul Muslim / Kapitel {dua.kapitel_id} / Bittgebet {dua.bittgebet_id}</Text>
+            </View>
         </View>
     );
 }

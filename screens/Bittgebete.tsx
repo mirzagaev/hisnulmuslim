@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, Image, Pressable, ScrollView } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { AppDispatch, RootState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import Bittgebet from '../components/Bittgebete';
 import { addFavorite, removeFavorite } from '../redux/slices/favoriteSlice';
-import { Button } from 'react-native-paper';
 import tw from 'twrnc';
 
 export default function Bittgebete({ navigation, route }) {
@@ -54,8 +53,8 @@ export default function Bittgebete({ navigation, route }) {
   }, [navigation, kategorie, favorit, thema]);
 
   return (
-    <ScrollView style={tw`bg-white px-5`}>
-      <Text style={tw`py-5 text-base font-title font-medium`}>{thema.titel}</Text>
+    <ScrollView style={tw`bg-white`}>
+      <Text style={tw`p-5 text-base font-title font-medium`}>{thema.titel}</Text>
       {duas.map((dua, index) => (dua.kapitel_id == thema.id) && 
         <Bittgebet
           key={dua.kapitel_id.toString()+index}
@@ -67,7 +66,6 @@ export default function Bittgebete({ navigation, route }) {
           latein={dua.latein}
         />
       )}
-      <Button onPress={() => navigation.goBack()} mode="contained">Zurück</Button>
     </ScrollView>
   );
 }

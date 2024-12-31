@@ -53,7 +53,7 @@ const AppNavigation = () => {
                     drawerActiveTintColor: "#0084d7",
                 }}
                 initialRouteName="Hisnul Muslim"
-                backBehavior='history'
+                backBehavior='order'
             >
                 <Drawer.Screen
                     name="Hisnul Muslim"
@@ -106,6 +106,7 @@ const AppNavigation = () => {
                     name="Info über die App"
                     component={Info}
                     options={{
+                        headerTitle: "Hisnul Muslim",
                         drawerIcon: ({ focused }) => (
                           focused ? <Image source={require('../assets/icons/001-active.png')} style={{height:28, width:28}} /> : <Image source={require('../assets/icons/001-inactive.png')} style={{height:28, width:28}} />
                         ),
