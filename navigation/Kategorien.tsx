@@ -9,17 +9,22 @@ import { fetchKapiteln } from '../redux/slices/kapitelSlice';
 import { fetchDuas } from '../redux/slices/duaSlice';
 import { fetchThemen } from '../redux/slices/themaSlice';
 import { AppDispatch } from '../redux/store';
+import { useAppTheme } from "./AppNavigation";
 import tw from 'twrnc';
 import { tabBarStruktur } from "../interfaces/KapitelSchema"
 
 function MyTabBar({ state, descriptors, navigation, layout }) {
   const { colors } = useTheme();
+  const theme = useAppTheme();
   const { buildHref } = useLinkBuilder();
 
   return (
     <View style={[
-      tw`flex bg-white shadow-lg shadow-gray-900`,
-      layout.width < 769 ? tw`flex-row` : tw`flex-col`,
+        tw`flex shadow-lg`,
+        layout.width < 769 ? tw`flex-row` : tw`flex-col`,
+        theme === "dark"
+          ? tw`bg-neutral-900 shadow-black`
+          : tw`bg-fafafa shadow-gray-900`,
     ]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
@@ -55,10 +60,11 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
             onLongPress={onLongPress}
             style={[
               tw`flex items-center font-semibold `,
-              layout.width < 769 ? tw`flex-1` : tw`p-1 m-2 rounded-lg`,
+              layout.width < 769 ? tw`flex-1` : tw`p-2 m-2 rounded-lg`,
               (layout.width > 769 && (isFocused ? tw`bg-gray-100` : tw`hover:bg-gray-100`)),
-              (layout.width < 769 && tw`py-3 border-b-4`),
-              (layout.width < 769 && (isFocused ? {borderBottomColor: tabBarStruktur[route.name].colorItem} : {borderBottomColor: "#ffffff"}))
+              (layout.width < 769 && tw`py-4`),
+              // (layout.width < 769 && tw`border-b-4`),
+              // (layout.width < 769 && (isFocused ? {borderBottomColor: tabBarStruktur[route.name].colorItem} : {borderBottomColor: "#ffffff"}))
             ]}
           >
             {isFocused ?
@@ -67,13 +73,6 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
               <Image source={tabBarStruktur[route.name].icon} style={layout.width < 400 ? {width:30, height:30} : {height:34, width:34}} />
             }
 
-            <Text style={[
-              tw`font-medium`,
-              (layout.width > 769 ? tw`text-md` : tw`text-xs`),
-              { color: isFocused ? tabBarStruktur[route.name].colorItem : "#bcbcbc", paddingTop: 3 }
-              ]}>
-              {tabBarStruktur[route.name].label}
-            </Text>
           </PlatformPressable>
         );
       })}
@@ -83,6 +82,7 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
 
 function TabBar({ layout, navigation }) {
   const Tab = createBottomTabNavigator();
+  const theme = useAppTheme();
   
   return (
     <Tab.Navigator
@@ -90,16 +90,19 @@ function TabBar({ layout, navigation }) {
       initialRouteName='1'
       screenOptions={({ route }) => ({
         animation: 'shift',
-        tabBarActiveTintColor: '#3f66da',
+        // tabBarActiveTintColor: '#3f66da',
         tabBarPosition: layout.width < 769 ? 'bottom' : 'left',
         headerShown: false,
+        // headerTintColor: theme === "dark" ? "#f3f4f6" : "#111827",
         headerTitleStyle: {
           paddingHorizontal: 0,
-          fontSize: 20
+          fontSize: 20,
+          // color: theme === "dark" ? "#f3f4f6" : "#111827",
         },
         headerStyle: {
-          borderBottomColor: tabBarStruktur[route.name].colorItem,
-          borderBottomWidth: 3,
+          // backgroundColor: theme === "dark" ? "#111827" : "#ffffff",
+          // borderBottomColor: tabBarStruktur[route.name].colorItem,
+          // borderBottomWidth: 3,
         },
       })}
       tabBar={(props) => <MyTabBar {...props} layout={layout} />}

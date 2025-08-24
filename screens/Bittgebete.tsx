@@ -3,6 +3,7 @@ import { Text, Image, Pressable, ScrollView } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { AppDispatch, RootState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAppTheme } from "../navigation/AppNavigation";
 import Bittgebet from '../components/Bittgebete';
 import { addFavorite, removeFavorite } from '../redux/slices/favoriteSlice';
 import tw from 'twrnc';
@@ -13,6 +14,7 @@ export default function Bittgebete({ navigation, route }) {
   const duas = useSelector((state: RootState) => state.duas.duas);
   const favorites = useSelector((state: RootState) => state.favorites.favorites);
   const [favorit, setFavorit] = useState<any>();
+  const theme = useAppTheme();
 
   useEffect(() => {
     const favorit = favorites.find((th: any) => th.id === thema.id); 
@@ -53,7 +55,7 @@ export default function Bittgebete({ navigation, route }) {
   }, [navigation, kategorie, favorit, thema]);
 
   return (
-    <ScrollView style={tw`bg-white`}>
+    <ScrollView style={theme === "dark" ? tw`bg-neutral-900 text-white` : tw`bg-white`}>
       <Text style={tw`p-5 text-base font-title font-medium`}>{thema.titel}</Text>
       {duas.map((dua, index) => (dua.kapitel_id == thema.id) && 
         <Bittgebet
