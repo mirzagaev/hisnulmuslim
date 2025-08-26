@@ -23,8 +23,8 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
         tw`flex shadow-lg`,
         layout.width < 769 ? tw`flex-row` : tw`flex-col`,
         theme === "dark"
-          ? tw`bg-neutral-900 shadow-black`
-          : tw`bg-fafafa shadow-gray-900`,
+          ? tw`bg-neutral-900`
+          : tw`bg-white`,
     ]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];

@@ -58,14 +58,13 @@ const AppNavigation = () => {
                     id={undefined}
                     screenOptions={{
                         drawerStyle: {
-                            backgroundColor: colorScheme === "dark" ? "#404040" : "#fafafa", // bg-neutral-900 / white
+                            backgroundColor: colorScheme === "dark" ? "#404040" : "#ffffff", // bg-neutral-900 / white
                         },
                         drawerLabelStyle: {
                             color: colorScheme === "dark" ? "#f3f4f6" : "#111827", // text-gray-100 / gray-900
                         },
                         drawerItemStyle: { borderRadius: 5 },
                         drawerActiveBackgroundColor: "transparent",
-                        // drawerActiveTintColor: "#0084d7",
                         drawerType: 'slide',
                         headerStyle: {
                             backgroundColor: colorScheme === "dark" ? "#171717" : "#ffffff", // bg-gray-900 / white
