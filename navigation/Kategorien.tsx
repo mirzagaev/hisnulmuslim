@@ -20,7 +20,7 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
 
   return (
     <View style={[
-        tw`flex shadow-lg`,
+        tw`flex px-6 py-2`,
         layout.width < 769 ? tw`flex-row` : tw`flex-col`,
         theme === "dark"
           ? tw`bg-neutral-900`
@@ -59,18 +59,24 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
             onPress={onPress}
             onLongPress={onLongPress}
             style={[
-              tw`flex items-center font-semibold `,
-              layout.width < 769 ? tw`flex-1` : tw`p-2 m-2 rounded-lg`,
+              tw`flex items-center font-semibold`,
+              layout.width < 769 ? tw`flex-1` : tw`p-2 rounded-lg`,
               (layout.width > 769 && (isFocused ? tw`bg-gray-100` : tw`hover:bg-gray-100`)),
-              (layout.width < 769 && tw`py-4`),
+              (layout.width < 769 && tw`py-2`),
               // (layout.width < 769 && tw`border-b-4`),
               // (layout.width < 769 && (isFocused ? {borderBottomColor: tabBarStruktur[route.name].colorItem} : {borderBottomColor: "#ffffff"}))
             ]}
           >
             {isFocused ?
+              <>
               <Image source={tabBarStruktur[route.name].iconActive} style={layout.width < 400 ? {height:30, width:30} : {height:34, width:34}} />
+              {/* <Text style={[tw`text-sm font-title font-normal`,{ color: tabBarStruktur[route.name].colorItem }]}>{tabBarStruktur[route.name].label}</Text> */}
+              </>
               :
+              <>
               <Image source={tabBarStruktur[route.name].icon} style={layout.width < 400 ? {width:30, height:30} : {height:34, width:34}} />
+              {/* <Text style={[tw`text-sm font-title font-medium text-neutral-400`]}>{tabBarStruktur[route.name].label}</Text> */}
+              </>
             }
 
           </PlatformPressable>
@@ -131,121 +137,6 @@ function TabBar({ layout, navigation }) {
       }} />
     </Tab.Navigator>
   );
-  //       tabBarPosition: layout.width > 769 ? 'left' : 'bottom',
-  //       animation: 'shift',
-  //       tabBarActiveTintColor: '#3f66da',
-  //       headerShown: false,
-  //       headerTintColor: '#3f66da',
-  //       tabBarActiveBackgroundColor: 'white',
-  //       tabBarInactiveBackgroundColor: 'white',
-  //       tabBarLabelStyle: {
-  //         fontSize: layout.width < 769 ? 10 : 15,
-  //         display: 'flex',
-  //         flexWrap: 'wrap',
-  //         flexDirection: 'row',
-  //         alignSelf: 'center',
-  //         paddingBottom: 0
-  //       },
-  //       tabBarStyle: {
-  //         display: 'flex',
-  //         flexWrap: 'wrap',
-  //         borderTopColor: '#0ccaca',
-  //         borderTopWidth: layout.width < 769 ? 5 : 0,
-  //         paddingVertical: 20,
-  //         marginBottom: 20,
-  //         // height: layout.width < 769 ? 80 : "auto",
-  //         // margin: 0,
-  //         // padding: 0,
-  //       },
-  //       tabBarIconStyle:{
-  //         marginBottom: layout.width < 769 ? 5 : 0,
-  //         // borderBottomColor: '#2483d3',
-  //         // borderBottomWidth: layout.width < 769 ? 2 : 0,
-  //         marginVertical: 10,
-  //       },
-  //       tabBarItemStyle: {
-  //         display: 'flex',
-  //         paddingBottom: 10,
-  //         flexWrap: layout.width < 769 ? 'wrap' : 'nowrap',
-  //         flexDirection: layout.width < 769 ? 'column' : 'row',
-  //         alignSelf: layout.width < 769 ? 'center' : 'flex-start',
-  //       },
-  //     })}
-  //   >
-  //     <Tab.Screen
-  //       name="1"
-  //       component={Kategorie}
-  //       options={{
-  //         // tabBarActiveBackgroundColor: '#0ccaca',
-  //         title: 'ALLTAG',
-  //         tabBarIcon: ({ focused }) => (
-  //           focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-01.svg')} style={{height:34, width:34}} />
-  //         ),
-  //       }}
-  //     />
-  //     <Tab.Screen
-  //       name="2"
-  //       component={Kategorie}
-  //       options={{
-  //         // tabBarActiveBackgroundColor: '#2483d3',
-  //         title: 'GEBET',
-  //         tabBarIcon: ({ focused }) => (
-  //           focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-02.svg')} style={{height:34, width:34}} />
-  //         )
-  //       }}
-  //     />
-  //     <Tab.Screen
-  //       name="3"
-  //       component={Kategorie}
-  //       options={{
-  //         title: 'REISEN',
-  //         tabBarIcon: ({ focused }) => (
-  //           focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-03.svg')} style={{height:34, width:34}} />
-  //         )
-  //       }}
-  //     />
-  //     <Tab.Screen
-  //       name="4"
-  //       component={Kategorie}
-  //       options={{
-  //         title: 'SCHUTZ',
-  //         tabBarIcon: ({ focused }) => (
-  //           focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-04.svg')} style={{height:34, width:34}} />
-  //         )
-  //       }}
-  //     />
-  //     <Tab.Screen
-  //       name="5"
-  //       component={Kategorie}
-  //       options={{
-  //         title: "1. HILFE",
-  //         tabBarIcon: ({ focused }) => (
-  //           focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-05.svg')} style={{height:34, width:34}} />
-  //         )
-  //       }}
-  //     />
-  //     <Tab.Screen
-  //       name="6"
-  //       component={Kategorie}
-  //       options={{
-  //         title: 'TRAUER',
-  //         tabBarIcon: ({ focused }) => (
-  //           focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-06.svg')} style={{height:34, width:34}} />
-  //         )
-  //       }}
-  //     />
-  //     <Tab.Screen
-  //       name="7"
-  //       component={Kategorie}
-  //       options={{
-  //         title: 'PILGERN',
-  //         tabBarIcon: ({ focused }) => (
-  //           focused ? <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07_active.svg')} style={{height:34, width:34}} /> : <Image source={require('../assets/icons/HISNUL-MUSLIM-ICONS-active-inactive-V3-07.svg')} style={{height:34, width:34}} />
-  //         )
-  //       }}
-  //     />
-  //   </Tab.Navigator>
-  // );
 }
 
 export default function Kategorien({ navigation }) {
