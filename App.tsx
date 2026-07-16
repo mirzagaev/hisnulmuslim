@@ -6,14 +6,15 @@ import { store, persistor } from './redux/store';
 import { AppRegistry } from 'react-native';
 import { expo as appData } from './app.json';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { BRAND } from './theme/colors';
 
 const theme = {
   ...DefaultTheme,
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#3498db',
-    accent: '#f1c40f',
+    primary: BRAND.primary,
+    accent: BRAND.secondary,
   },
 };
 

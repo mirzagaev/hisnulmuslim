@@ -1,51 +1,45 @@
+import { CATEGORY_COLORS } from '../theme/colors';
+
 export interface KapitelTabBarSchema {
     label: string;
     colorItem: string;
-    icon: any; // Falls du ein präziseres Typing möchtest, kannst du `ImageSourcePropType` aus `react-native` verwenden.
-    iconActive: any;
+    background: any;
 }
 
 export const tabBarStruktur: Record < string, KapitelTabBarSchema > = {
     '1': {
-        label: 'Alltag',
-        colorItem: '#0dc9ca',
-        icon: require('../assets/icons/01-inactive.png'),
-        iconActive: require('../assets/icons/01-active.png'),
+        label: CATEGORY_COLORS['1'].label,
+        colorItem: CATEGORY_COLORS['1'].base,
+        background: require('../assets/backgrounds/cat1-alltag.jpg'),
     },
     '2': {
-        label: 'Gebet',
-        colorItem: '#2483d3',
-        icon: require('../assets/icons/02-inactive.png'),
-        iconActive: require('../assets/icons/02-active.png'),
+        label: CATEGORY_COLORS['2'].label,
+        colorItem: CATEGORY_COLORS['2'].base,
+        background: require('../assets/backgrounds/cat2-gebet.jpg'),
     },
     '3': {
-        label: 'Reisen',
-        colorItem: '#7e57d6',
-        icon: require('../assets/icons/03-inactive.png'),
-        iconActive: require('../assets/icons/03-active.png'),
+        label: CATEGORY_COLORS['3'].label,
+        colorItem: CATEGORY_COLORS['3'].base,
+        background: require('../assets/backgrounds/cat3-reisen.jpg'),
     },
     '4': {
-        label: 'Schutz',
-        colorItem: '#b41ed8',
-        icon: require('../assets/icons/04-inactive.png'),
-        iconActive: require('../assets/icons/04-active.png'),
+        label: CATEGORY_COLORS['4'].label,
+        colorItem: CATEGORY_COLORS['4'].base,
+        background: require('../assets/backgrounds/cat4-schutz.jpg'),
     },
     '5': {
-        label: '1. Hilfe',
-        colorItem: '#c61fb7',
-        icon: require('../assets/icons/05-inactive.png'),
-        iconActive: require('../assets/icons/05-active.png'),
+        label: CATEGORY_COLORS['5'].label,
+        colorItem: CATEGORY_COLORS['5'].base,
+        background: require('../assets/backgrounds/cat5-hilfe.jpg'),
     },
     '6': {
-        label: 'Trauer',
-        colorItem: '#e21f87',
-        icon: require('../assets/icons/06-inactive.png'),
-        iconActive: require('../assets/icons/06-active.png'),
+        label: CATEGORY_COLORS['6'].label,
+        colorItem: CATEGORY_COLORS['6'].base,
+        background: require('../assets/backgrounds/cat6-wohlsein.jpg'),
     },
     '7': {
-        label: 'Pilgern',
-        colorItem: '#ef2265',
-        icon: require('../assets/icons/07-inactive.png'),
-        iconActive: require('../assets/icons/07-active.png'),
+        label: CATEGORY_COLORS['7'].label,
+        colorItem: CATEGORY_COLORS['7'].base,
+        background: require('../assets/backgrounds/cat7-pilgern.jpg'),
     },
 };

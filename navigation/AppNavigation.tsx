@@ -2,10 +2,12 @@ import React, { useState, useLayoutEffect, createContext, useContext } from 'rea
 import { useDispatch } from 'react-redux';
 import { filterKapiteln, clearFilteredKapiteln } from '../redux/slices/kapitelSlice';
 import { NavigationContainer } from '@react-navigation/native'
-import { Image, Text, Alert, BackHandler } from 'react-native';
+import { Image, Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Kategorien from './Kategorien';
 import Info from '../screens/Info';
+import Impressum from '../screens/Impressum';
+import Datenschutz from '../screens/Datenschutz';
 import Bittgebete from '../screens/Bittgebete';
 import Favoriten from '../screens/Favoriten';
 import NotFound from '../screens/NotFound';
@@ -20,21 +22,12 @@ export const useAppTheme = () => useContext(ThemeContext);
 
 const config = {
     screens: {
-        // Kategorien: {
-        //     screens: {
-        //         1: 'cat/1',
-        //         2: 'cat/2',
-        //         3: 'cat/3',
-        //         4: 'cat/4',
-        //         5: 'cat/5',
-        //         6: 'cat/6',
-        //         7: 'cat/7',
-        //     },
-        // },
         Kategorien: 'kategorien',
         Bittgebete: 'dua',
         Favoriten: 'favorites',
         Info: 'information',
+        Impressum: 'impressum',
+        Datenschutz: 'datenschutz',
         Suche: 'search',
         NotFound: '*',
     },
@@ -49,10 +42,10 @@ const AppNavigation = () => {
     const Drawer = createDrawerNavigator();
     const dispatch = useDispatch(); // Redux-Dispatch
     const [search, setSearch] = useState('');
-    const colorScheme = useColorScheme(); // <- global Dark/Light
+    const colorScheme = useColorScheme() ?? 'light'; // <- global Dark/Light, system-gesteuert
 
     return (
-        <ThemeContext.Provider value={colorScheme ?? "light"}>
+        <ThemeContext.Provider value={colorScheme}>
             <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
                 <Drawer.Navigator
                     id={undefined}
@@ -135,6 +128,22 @@ const AppNavigation = () => {
                             drawerIcon: ({ focused }) => (
                             focused ? <Image source={require('../assets/icons/001-active.png')} style={{height:28, width:28}} /> : <Image source={require('../assets/icons/001-inactive.png')} style={{height:28, width:28}} />
                             ),
+                        }}
+                    />
+                    <Drawer.Screen
+                        name="Impressum"
+                        component={Impressum}
+                        options={{
+                            headerTitle: "Impressum",
+                            drawerLabel: "Impressum",
+                        }}
+                    />
+                    <Drawer.Screen
+                        name="Datenschutz"
+                        component={Datenschutz}
+                        options={{
+                            headerTitle: "Datenschutzerklärung",
+                            drawerLabel: "Datenschutzerklärung",
                         }}
                     />
                     <Drawer.Screen

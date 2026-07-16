@@ -1,59 +1,48 @@
 import React from 'react';
-import { Pressable, FlatList, StyleSheet, ScrollView, Text } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '../redux/store';
-import { Banner } from 'react-native-paper';
+import { View, Text, ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { useAppTheme } from '../navigation/AppNavigation';
+import SubcategoryCard from '../components/SubcategoryCard';
+import { BRAND } from '../theme/colors';
 
 export default function Favoriten({ navigation }) {
-  const dispatch = useDispatch<AppDispatch>();
   const kapiteln = useSelector((state: RootState) => state.kapiteln.kapiteln);
   const themen = useSelector((state: RootState) => state.themen.themen);
   const favorites = useSelector((state: RootState) => state.favorites.favorites);
+  const theme = useAppTheme();
+  const dark = theme === 'dark';
 
-  const getThema = (themaId: number) => {
-    return themen.find((thema) => thema.id === themaId);
-  }
+  const getThema = (themaId: number) => themen.find((thema) => thema.id === themaId);
+
+  const favoriteThemen = favorites
+    .map((f) => getThema(f.id))
+    .filter((thema): thema is NonNullable<typeof thema> => !!thema);
 
   return (
-    <ScrollView>
-      {favorites.length > 0 && (
-        <FlatList
-          data={favorites}
-          keyExtractor={(item, index) => item.id.toString()+index}
-          renderItem={({ item }, thema = getThema(item.id)) => (
-            <Pressable
-              onPress={
-                () => {
-                  navigation.navigate('Bittgebete', {
-                    thema: thema,
-                    kategorie: kapiteln.find((kapitel: any) => kapitel.id === thema.kategorie).kategorie
-                  })
-                }
-              }
-              style={styles.item}
-              key={thema.id.toString()}
-            >
-              <Text style={styles.title}>{thema.titel}</Text>
-            </Pressable>
-          )}
+    <ScrollView style={{ flex: 1, backgroundColor: dark ? '#000000' : '#ffffff' }} contentContainerStyle={{ padding: 20 }}>
+      {favoriteThemen.length > 0 ? (
+        <SubcategoryCard
+          title="Gesammelte Bittgebete"
+          color={BRAND.primary}
+          items={favoriteThemen.map((thema) => ({ key: thema.id, label: thema.titel }))}
+          onSelect={(item) => {
+            const thema = favoriteThemen.find((t) => t.id === item.key);
+            const kapitel = kapiteln.find((k) => k.id === thema.kategorie);
+            navigation.navigate('Bittgebete', {
+              thema,
+              kategorie: kapitel?.kategorie,
+              catId: thema.kategorie,
+            });
+          }}
         />
+      ) : (
+        <View style={{ paddingTop: 48, paddingHorizontal: 16 }}>
+          <Text style={{ textAlign: 'center', fontSize: 14, lineHeight: 22, color: dark ? '#d4d4d4' : '#737373' }}>
+            Noch keine Favoriten.{"\n"}Tippe im Bittgebet auf das Herz, um es hier zu sammeln.
+          </Text>
+        </View>
       )}
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  item: {
-    backgroundColor: '#F9F9F9',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderTopWidth: 1,
-    borderColor: '#E5E5E5',
-  },
-  title: {
-    fontSize: 13,
-  },
-});

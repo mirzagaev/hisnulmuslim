@@ -11,7 +11,7 @@ import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['yourReducer'], // Specify which reducers to persist
+  whitelist: ['favorites'], // Specify which reducers to persist
 };
 
 const rootReducer = combineReducers({

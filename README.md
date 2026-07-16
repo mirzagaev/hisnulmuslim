@@ -1,3 +1,38 @@
+### **Export APK/IOS**
+APK/iOS Export
+Das Projekt ist bereits für EAS Build vorbereitet (eas.json + app.json mit projectId und owner: "mirzagaev") — das ist der Standardweg bei Expo, ganz ohne lokales Android Studio/Xcode-Setup.
+
+Einmalig einrichten:
+
+
+npm install -g eas-cli
+eas login          # mit dem Expo-Account "mirzagaev" (oder Zugriff darauf)
+Android APK zum direkten Herunterladen/Installieren (nicht Play Store):
+
+
+eas build --platform android --profile preview
+Das preview-Profil ist in eurer eas.json schon so konfiguriert, dass es eine .apk statt eines Play-Store-Bundles baut. Nach ca. 10–20 Min. Cloud-Build-Zeit bekommt ihr im Terminal einen Download-Link + QR-Code; die Datei liegt auch dauerhaft unter expo.dev → Projekt „hisnulmuslim" → Builds.
+
+Android für den Play Store (AAB):
+
+
+eas build --platform android --profile production
+iOS:
+
+
+eas build --platform ios --profile preview   # Ad-hoc/interne Verteilung
+eas build --platform ios --profile production # App Store / TestFlight
+Dafür braucht ihr einen Apple-Developer-Account (99 $/Jahr). EAS fragt beim ersten Mal nach den Zertifikaten/Profilen und kann sie automatisch verwalten (eas credentials). Ohne TestFlight muss das Testgerät vorher per UDID registriert werden (eas device:create).
+
+Alternative ohne Cloud-Build (falls Android Studio/Xcode lokal installiert ist):
+
+
+npx expo run:android   # baut & installiert direkt auf Gerät/Emulator
+npx expo run:ios
+Soll ich den ersten eas build-Befehl für dich anstoßen, oder willst du das selbst ausführen (braucht deinen Expo-Login)?
+
+Kurzes Update: der Hintergrundcheck ist durchgelaufen — eas-cli lässt sich über npx eas-cli erfolgreich aufrufen. Das bestätigt, dass die oben beschriebenen Befehle direkt funktionieren sollten, sobald du mit eas login eingeloggt bist. Kein weiterer Handlungsbedarf meinerseits, ich warte auf dein Go, ob ich den Build anstoßen soll.
+
 ### **assets**
 The `assets` directory is where you should put all your static assets, such as fonts and images. It's a good idea to organize these assets into separate subdirectories for each asset type. For example:
 

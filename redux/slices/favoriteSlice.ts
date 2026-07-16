@@ -16,8 +16,7 @@ const favoriteSlice = createSlice({
       state.favorites.push(action.payload);
     },
     removeFavorite: (state, action: PayloadAction<number>) => {
-    //   state.favorites = state.favorites.filter(item => item.id !== action.payload);
-      state.favorites.pop();
+      state.favorites = state.favorites.filter(item => item.id !== action.payload);
     },
   },
 });
