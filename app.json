@@ -25,7 +25,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "transparent"
+        "backgroundColor": "#00000000"
       },
       "package": "de.jfd.hisnulmuslim"
     },
