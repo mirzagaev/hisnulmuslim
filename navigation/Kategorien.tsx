@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, useWindowDimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Kategorie from '../screens/Kategorie';
+import Startseite from '../screens/Startseite';
 import { PlatformPressable } from '@react-navigation/elements';
 import { useLinkBuilder, useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -9,7 +10,7 @@ import { fetchKapiteln } from '../redux/slices/kapitelSlice';
 import { fetchDuas } from '../redux/slices/duaSlice';
 import { fetchThemen } from '../redux/slices/themaSlice';
 import { AppDispatch } from '../redux/store';
-import { useAppTheme } from "./AppNavigation";
+import { useAppTheme } from "../theme/ThemeContext";
 import tw from 'twrnc';
 import { tabBarStruktur } from "../interfaces/KapitelSchema"
 import CategoryStripe from '../components/CategoryStripe';
@@ -22,17 +23,24 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
   const { buildHref } = useLinkBuilder();
   const vertical = layout.width >= 769;
   const activeRoute = state.routes[state.index]?.name;
+  const homeActive = activeRoute === 'home';
+  const { width } = useWindowDimensions();
+  const isWide = width >= 1024;
 
   return (
-    <View style={theme === "dark" ? tw`bg-neutral-900` : tw`bg-white`}>
-      <CategoryStripe active={activeRoute} height={4} />
+    <View style={theme === "dark" ? tw`bg-black` : tw`bg-white`}>
+      {!vertical && <CategoryStripe active={homeActive ? null : activeRoute} height={4} layout={layout} />}
       <View style={[
-          tw`flex py-2`,
-          vertical ? tw`flex-col` : tw`flex-row`,
+        tw`flex py-2`,
+        vertical ? tw`flex-col px-5 py-4` : tw`flex-row`,
+        !isWide && tw`py-3`
       ]}>
         {state.routes.map((route, index) => {
+          if (route.name === 'home') return null;
+
           const { options } = descriptors[route.key];
           const isFocused = state.index === index;
+          const highlighted = homeActive || isFocused;
           const catColor = CATEGORY_COLORS[route.name];
 
           const onPress = () => {
@@ -73,21 +81,21 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
                   padding: 8,
                   borderRadius: 8,
                   borderWidth: 1,
-                  borderColor: isFocused ? catColor.base : (theme === 'dark' ? '#404040' : '#e5e5e5'),
-                  backgroundColor: isFocused ? catColor.base : (theme === 'dark' ? 'rgba(0,0,0,0.6)' : '#f5f5f5'),
+                  borderColor: highlighted ? catColor.base : (theme === 'dark' ? '#404040' : '#e5e5e5'),
+                  backgroundColor: highlighted ? catColor.base : (theme === 'dark' ? 'rgba(0,0,0,0.6)' : '#f5f5f5'),
                 }}
               >
                 <CategoryIcon
                   category={route.name}
-                  active={isFocused}
-                  color={isFocused ? '#ffffff' : (theme === 'dark' ? '#a3a3a3' : '#737373')}
-                  size={layout.width < 400 ? 26 : 30}
+                  active={highlighted}
+                  color={highlighted ? '#ffffff' : (theme === 'dark' ? '#ffffff' : '#737373')}
+                  size={layout.width < 400 ? 26 : 36}
                 />
               </View>
               <Text style={[
-                tw`text-xs pt-1`,
-                theme === "dark" ? tw`text-neutral-200` : tw`text-neutral-700`,
-                isFocused && { color: catColor.base, fontWeight: '600' },
+                tw`pt-1`,
+                !isWide && tw`text-sm`,
+                theme === "dark" ? tw`text-neutral-200` : tw`text-neutral-700`
               ]}>{tabBarStruktur[route.name].label}</Text>
             </PlatformPressable>
           );
@@ -104,7 +112,7 @@ function TabBar({ layout, navigation }) {
   return (
     <Tab.Navigator
       id={undefined}
-      initialRouteName='1'
+      initialRouteName='home'
       screenOptions={({ route }) => ({
         animation: 'shift',
         tabBarPosition: layout.width < 769 ? 'bottom' : 'left',
@@ -117,6 +125,7 @@ function TabBar({ layout, navigation }) {
       })}
       tabBar={(props) => <MyTabBar {...props} layout={layout} />}
     >
+      <Tab.Screen name="home" component={Startseite} options={{ title: 'Die Hisnul Muslim App – das Original, neu gedacht' }} />
       <Tab.Screen name="1" component={Kategorie} options={{
         title: tabBarStruktur["1"].label,
         headerTintColor: tabBarStruktur["1"].colorItem,

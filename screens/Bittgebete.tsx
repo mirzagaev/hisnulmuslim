@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Text, Pressable, ScrollView, View } from 'react-native';
+import { Text, Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
 import { AppDispatch, RootState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { useAppTheme } from "../navigation/AppNavigation";
+import { useAppTheme } from "../theme/ThemeContext";
 import Bittgebet from '../components/Bittgebete';
 import { addFavorite, removeFavorite } from '../redux/slices/favoriteSlice';
 import { tabBarStruktur } from '../interfaces/KapitelSchema';
@@ -16,6 +16,8 @@ export default function Bittgebete({ navigation, route }) {
   const favorites = useSelector((state: RootState) => state.favorites.favorites);
   const [favorit, setFavorit] = useState<any>();
   const theme = useAppTheme();
+  const { width } = useWindowDimensions();
+  const isWide = width >= 1024;
 
   useEffect(() => {
     if (!thema) return;
@@ -64,21 +66,26 @@ export default function Bittgebete({ navigation, route }) {
   }
 
   return (
-    <ScrollView style={theme === "dark" ? tw`bg-black` : tw`bg-white`}>
-      <Text style={[tw`p-5 text-xl font-medium`, { color }, theme === 'dark' && tw`text-white`]}>{thema.titel}</Text>
-      <View style={tw`px-5`}>
-        {duas.map((dua, index) => (dua.kapitel_id == thema.id) &&
-          <Bittgebet
-            key={dua.kapitel_id.toString()+index}
-            id={dua.id}
-            kapitel_id={dua.kapitel_id}
-            bittgebet_id={dua.bittgebet_id}
-            content={dua.content}
-            arabic={dua.arabic}
-            latein={dua.latein}
-            color={color}
-          />
-        )}
+    <ScrollView
+      style={theme === "dark" ? tw`bg-black` : tw`bg-white`}
+      contentContainerStyle={isWide ? { alignItems: 'center' } : undefined}
+    >
+      <View style={{ width: '100%', maxWidth: isWide ? 800 : undefined }}>
+        <Text style={[tw`p-5 text-xl font-medium`, { color }, theme === 'dark' && tw`text-white`]}>{thema.titel}</Text>
+        <View style={tw`px-5`}>
+          {duas.map((dua, index) => (dua.kapitel_id == thema.id) &&
+            <Bittgebet
+              key={dua.kapitel_id.toString()+index}
+              id={dua.id}
+              kapitel_id={dua.kapitel_id}
+              bittgebet_id={dua.bittgebet_id}
+              content={dua.content}
+              arabic={dua.arabic}
+              latein={dua.latein}
+              color={color}
+            />
+          )}
+        </View>
       </View>
     </ScrollView>
   );

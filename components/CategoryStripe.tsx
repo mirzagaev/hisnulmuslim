@@ -5,9 +5,10 @@ import { CATEGORY_COLORS } from '../theme/colors';
 interface CategoryStripeProps {
   active?: string | number | null;
   height?: number;
+  layout?: any;
 }
 
-export default function CategoryStripe({ active, height = 4 }: CategoryStripeProps) {
+export default function CategoryStripe({ active, height = 4, layout }: CategoryStripeProps) {
   const activeId = active != null ? String(active) : null;
   return (
     <View style={{ flexDirection: 'row', width: '100%' }}>

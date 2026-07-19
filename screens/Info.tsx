@@ -1,16 +1,21 @@
 import * as React from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, useWindowDimensions } from 'react-native';
 import tw from 'twrnc';
-import { useAppTheme } from '../navigation/AppNavigation';
+import { useAppTheme } from '../theme/ThemeContext';
 import CategoryStripe from '../components/CategoryStripe';
 
 export default function Info({ navigation }) {
   const theme = useAppTheme();
   const dark = theme === 'dark';
+  const { width } = useWindowDimensions();
+  const isWide = width >= 1024;
 
   return (
-    <ScrollView style={dark ? tw`bg-black` : tw`bg-white`}>
-      <View style={tw`flex-1 items-center font-medium px-10 pt-5 text-center`}>
+    <ScrollView
+      style={dark ? tw`bg-black` : tw`bg-white`}
+      contentContainerStyle={isWide ? { alignItems: 'center' } : undefined}
+    >
+      <View style={[tw`flex-1 items-center font-medium px-10 pt-5 text-center`, { width: '100%', maxWidth: isWide ? 640 : undefined }]}>
         <Image
           source={require('../assets/images/hm-logo-blau.png')}
           style={{ height: 40, width: 40, marginTop: 20 }}

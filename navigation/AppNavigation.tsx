@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, createContext, useContext } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { filterKapiteln, clearFilteredKapiteln } from '../redux/slices/kapitelSlice';
 import { NavigationContainer } from '@react-navigation/native'
@@ -13,16 +13,24 @@ import Favoriten from '../screens/Favoriten';
 import NotFound from '../screens/NotFound';
 import Suche from '../screens/Suche';
 import { useColorScheme } from 'react-native';
-
-// -------------------------
-// Theme Context
-// -------------------------
-export const ThemeContext = createContext<"light" | "dark">("light");
-export const useAppTheme = () => useContext(ThemeContext);
+import HeaderBrand from '../components/HeaderBrand';
+import { ThemeContext } from '../theme/ThemeContext';
 
 const config = {
     screens: {
-        Kategorien: 'kategorien',
+        Kategorien: {
+            path: '',
+            screens: {
+                home: '',
+                '1': 'kategorien/1',
+                '2': 'kategorien/2',
+                '3': 'kategorien/3',
+                '4': 'kategorien/4',
+                '5': 'kategorien/5',
+                '6': 'kategorien/6',
+                '7': 'kategorien/7',
+            },
+        },
         Bittgebete: 'dua',
         Favoriten: 'favorites',
         Info: 'information',
@@ -58,22 +66,30 @@ const AppNavigation = () => {
                         },
                         drawerItemStyle: { borderRadius: 5 },
                         drawerActiveBackgroundColor: "transparent",
-                        drawerType: 'slide',
+                        drawerType: 'front',
                         headerStyle: {
-                            backgroundColor: colorScheme === "dark" ? "#171717" : "#ffffff", // bg-gray-900 / white
+                            backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff", // bg-gray-900 / white
+                            borderBottomColor: "transparent"
                         },
-                        overlayColor: colorScheme === "dark" ? "#171717" : "#ffffff",
+                        overlayColor: "transparent",
                         headerTintColor: colorScheme === "dark" ? "#ffffff" : "#000000",   // Textfarbe
+                        headerTitleAlign: 'center',
                         headerTitleStyle: {
                             color: colorScheme === "dark" ? "#ffffff" : "#171717",
                         }
                     }}
-                    // initialRouteName="Kategorien"
-                    // backBehavior='order'
                 >
                     <Drawer.Screen
                         name="Kategorien"
                         component={search ? Suche : Kategorien}
+                        listeners={({ navigation }) => ({
+                            drawerItemPress: (e) => {
+                                e.preventDefault();
+                                setSearch('');
+                                dispatch(clearFilteredKapiteln());
+                                navigation.navigate('Kategorien', { screen: 'home' });
+                            },
+                        })}
                         options={({ navigation }) => {
                             useLayoutEffect(() => {
                                 navigation.setOptions({
@@ -105,7 +121,7 @@ const AppNavigation = () => {
                                             style={{ height: 30, width: 30 }}
                                         />
                                     ),
-                                headerTitle: "Hisnul Muslim",
+                                headerTitle: () => <HeaderBrand />,
                                 drawerLabel: "Hisnul Muslim"
                             };
                         }}
@@ -124,7 +140,7 @@ const AppNavigation = () => {
                         name="Info über die App"
                         component={Info}
                         options={{
-                            headerTitle: "Hisnul Muslim",
+                            headerTitle: () => <HeaderBrand />,
                             drawerIcon: ({ focused }) => (
                             focused ? <Image source={require('../assets/icons/001-active.png')} style={{height:28, width:28}} /> : <Image source={require('../assets/icons/001-inactive.png')} style={{height:28, width:28}} />
                             ),

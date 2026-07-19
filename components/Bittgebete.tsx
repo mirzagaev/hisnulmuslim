@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Pressable, Share, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Bittgebete from '../interfaces/Bittgebet';
-import { useAppTheme } from '../navigation/AppNavigation';
+import { useAppTheme } from '../theme/ThemeContext';
 import { RADII } from '../theme/colors';
 
 interface DuaCardProps extends Bittgebete {

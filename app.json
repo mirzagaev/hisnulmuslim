@@ -3,7 +3,7 @@
     "name": "Hisnul Muslim",
     "slug": "hisnulmuslim",
     "version": "3.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -16,17 +16,21 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "de.jfd.hisnulmuslim",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "transparent"
       },
       "package": "de.jfd.hisnulmuslim"
     },
     "web": {
-      "favicon": "./assets/images/icon.png"
+      "favicon": "./assets/images/hm-logo-blau.png"
     },
     "scheme": "hisnulmuslim",
     "plugins": [
@@ -43,7 +47,8 @@
             "deploymentTarget": "15.1"
           }
         }
-      ]
+      ],
+      "expo-font"
     ],
     "extra": {
       "eas": {

@@ -5,26 +5,12 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 import { AppRegistry } from 'react-native';
 import { expo as appData } from './app.json';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import { BRAND } from './theme/colors';
-
-const theme = {
-  ...DefaultTheme,
-  roundness: 2,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: BRAND.primary,
-    accent: BRAND.secondary,
-  },
-};
 
 export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <PaperProvider theme={theme}>
-          <AppNavigation />
-        </PaperProvider>
+        <AppNavigation />
       </PersistGate>
     </Provider>
   );
