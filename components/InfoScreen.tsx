@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, Text, View, useWindowDimensions } from 'react-native';
+import tw from 'twrnc';
 import { useAppTheme } from '../theme/ThemeContext';
 
 interface InfoScreenProps {
@@ -14,11 +15,11 @@ export default function InfoScreen({ body }: InfoScreenProps) {
 
   return (
     <ScrollView
-      style={{ flex: 1, backgroundColor: dark ? '#000000' : '#ff0000' }}
-      contentContainerStyle={isWide ? { padding: 24, alignItems: 'center' } : { padding: 24 }}
+      style={dark ? tw`flex-1 bg-black` : tw`flex-1 bg-[#ff0000]`}
+      contentContainerStyle={[tw`p-6`, isWide && tw`items-center`]}
     >
-      <View style={{ width: '100%', maxWidth: isWide ? 700 : undefined }}>
-        <Text style={{ fontSize: 16, lineHeight: 26, color: dark ? '#ffffff' : '#1f2937' }}>
+      <View style={[tw`w-full`, isWide && tw`max-w-[700px]`]}>
+        <Text style={[tw`text-base leading-[26px]`, dark ? tw`text-white` : tw`text-gray-800`]}>
           {body}
         </Text>
       </View>

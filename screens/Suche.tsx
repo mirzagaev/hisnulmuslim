@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, useWindowDimensions } from 'react-native';
+import tw from 'twrnc';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { tabBarStruktur } from "../interfaces/KapitelSchema"
@@ -15,15 +16,15 @@ function Suche({ navigation }) {
 
   return (
     <ScrollView
-      style={{ flex: 1, backgroundColor: dark ? '#000000' : '#ffffff' }}
-      contentContainerStyle={isWide ? { padding: 20, alignItems: 'center' } : { padding: 20, gap: 20 }}
+      style={[tw`flex-1`, dark ? tw`bg-black` : tw`bg-white`]}
+      contentContainerStyle={isWide ? tw`p-5 items-center` : tw`p-5 gap-5`}
     >
-      <View style={{ width: '100%', maxWidth: isWide ? 800 : undefined, gap: 20 }}>
+      <View style={[tw`w-full gap-5`, isWide && tw`max-w-[800px]`]}>
         {filteredKapiteln.map((kategorie) => {
           const color = tabBarStruktur[String(kategorie.id)]?.colorItem ?? '#3f66da';
           return (
-            <View key={kategorie.id} style={{ gap: 16 }}>
-              <Text style={{ fontSize: 18, fontWeight: '500', color }}>{kategorie.kategorie}</Text>
+            <View key={kategorie.id} style={tw`gap-4`}>
+              <Text style={tw`text-lg font-medium text-[${color}]`}>{kategorie.kategorie}</Text>
               {kategorie.unterkategorien.map((unterkat) => (
                 unterkat.themen.length > 0 &&
                 <SubcategoryCard

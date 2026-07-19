@@ -13,16 +13,16 @@ export default function Info({ navigation }) {
   return (
     <ScrollView
       style={dark ? tw`bg-black` : tw`bg-white`}
-      contentContainerStyle={isWide ? { alignItems: 'center' } : undefined}
+      contentContainerStyle={isWide ? tw`items-center` : undefined}
     >
-      <View style={[tw`flex-1 items-center font-medium px-10 pt-5 text-center`, { width: '100%', maxWidth: isWide ? 640 : undefined }]}>
+      <View style={[tw`flex-1 items-center font-medium px-10 pt-5 text-center w-full`, isWide && tw`max-w-[640px]`]}>
         <Image
           source={require('../assets/images/hm-logo-blau.png')}
-          style={{ height: 40, width: 40, marginTop: 20 }}
+          style={tw`h-10 w-10 mt-5`}
         />
         <Text style={tw`italic font-semibold text-[#3f66da] text-lg text-center py-5`}>"Gedenkt Meiner, so gedenke Ich eurer.{"\n"}
         Seid Mir dankbar und seid nicht undankbar gegen Mich."{"\n"}(Sura 2, Vers 152)</Text>
-        <Text style={[tw`font-regular text-center py-2`, { color: '#36054A' }, dark && tw`text-neutral-200`]}>Alle Bittgebete aus dem klassischen Hisnul Muslim {"\n"}neu kategorisiert für einfacheren Zugang.</Text>
+        <Text style={[tw`font-regular text-center py-2 text-[#36054a]`, dark && tw`text-neutral-200`]}>Alle Bittgebete aus dem klassischen Hisnul Muslim {"\n"}neu kategorisiert für einfacheren Zugang.</Text>
 
         <View style={tw`my-5 w-full`}>
           <CategoryStripe height={6} />

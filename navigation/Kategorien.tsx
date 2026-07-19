@@ -77,13 +77,9 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
               ]}
             >
               <View
-                style={{
-                  padding: 8,
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  borderColor: highlighted ? catColor.base : (theme === 'dark' ? '#404040' : '#e5e5e5'),
-                  backgroundColor: highlighted ? catColor.base : (theme === 'dark' ? 'rgba(0,0,0,0.6)' : '#f5f5f5'),
-                }}
+                style={tw`p-2 rounded-lg
+                  border-[${highlighted ? catColor.base : (theme === 'dark' ? '#404040' : '#e5e5e5')}]
+                  bg-[${highlighted ? catColor.base : (theme === 'dark' ? '#1f1e1e' : '#f5f5f5')}]`}
               >
                 <CategoryIcon
                   category={route.name}
@@ -117,10 +113,7 @@ function TabBar({ layout, navigation }) {
         animation: 'shift',
         tabBarPosition: layout.width < 769 ? 'bottom' : 'left',
         headerShown: false,
-        headerTitleStyle: {
-          paddingHorizontal: 0,
-          fontSize: 20,
-        },
+        headerTitleStyle: tw`px-0 text-xl`,
         headerStyle: {},
       })}
       tabBar={(props) => <MyTabBar {...props} layout={layout} />}

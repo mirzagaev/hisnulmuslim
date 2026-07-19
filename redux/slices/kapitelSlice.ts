@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getHMStruktur } from '../../services/api';
+import Bittgebete from '../../interfaces/Bittgebet';
 
 interface KapitelState {
   kapiteln: Array<{
@@ -48,25 +49,47 @@ const kapitelSlice = createSlice({
   name: 'kapiteln',
   initialState,
   reducers: {
-    // Filter-Reducer für die Suche
-    // filterKapiteln: (state, action: PayloadAction<string>) => {
-    //   const searchTerm = action.payload.toLowerCase();
-    //   // console.log(searchTerm);
-    //   state.filteredKapiteln = state.kapiteln.filter((kategorie) =>
-    //     kategorie.kategorie.toLowerCase().includes(searchTerm)
-    //   );
-    // },
-    filterKapiteln: (state, action: PayloadAction<string>) => {
-      const searchTerm = action.payload.toLowerCase();
+    // Filter-Reducer für die Suche: durchsucht Kategorie, Unterkategorie,
+    // Thema-Titel sowie den Bittgebet-Inhalt (content/arabic/latein)
+    filterKapiteln: (
+      state,
+      action: PayloadAction<{ searchTerm: string; duas: Array<Bittgebete> }>
+    ) => {
+      const { searchTerm: rawSearchTerm, duas } = action.payload;
+      const searchTerm = rawSearchTerm.toLowerCase();
+
+      // Ein Thema hat einen Treffer im Inhalt, wenn eines seiner Bittgebete
+      // (verknüpft über kapitel_id) im Text, Arabisch oder Umschrift matcht
+      const themaHasContentMatch = (themaId) =>
+        duas.some(
+          (dua) =>
+            dua.kapitel_id == themaId &&
+            (dua.content?.toLowerCase().includes(searchTerm) ||
+              dua.arabic?.toLowerCase().includes(searchTerm) ||
+              dua.latein?.toLowerCase().includes(searchTerm))
+        );
 
       // Filterlogik: saubere Kopie der Originaldaten
       state.filteredKapiteln = state.kapiteln
         .map((kategorie) => {
-          // Filtere nur Themen, die den Suchbegriff enthalten
+          const kategorieMatches = (kategorie.kategorie ?? '')
+            .toLowerCase()
+            .includes(searchTerm);
+
           const filteredUnterkategorien = kategorie.unterkategorien
             .map((unterkat) => {
-              const filteredThemen = unterkat.themen.filter((thema) =>
-                thema.titel.toLowerCase().includes(searchTerm)
+              const unterkategorieMatches = (unterkat.unterkategorie ?? '')
+                .toLowerCase()
+                .includes(searchTerm);
+
+              // Ein Thema bleibt erhalten, wenn Kategorie, Unterkategorie,
+              // der Thema-Titel selbst oder der Inhalt eines Bittgebets matcht
+              const filteredThemen = unterkat.themen.filter(
+                (thema) =>
+                  kategorieMatches ||
+                  unterkategorieMatches ||
+                  (thema.titel ?? '').toLowerCase().includes(searchTerm) ||
+                  themaHasContentMatch(thema.id)
               );
 
               // Gib nur Unterkategorien zurück, die Treffer haben

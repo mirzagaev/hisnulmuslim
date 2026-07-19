@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, useWindowDimensions } from 'react-native';
+import tw from 'twrnc';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useAppTheme } from '../theme/ThemeContext';
@@ -22,10 +23,10 @@ export default function Favoriten({ navigation }) {
 
   return (
     <ScrollView
-      style={{ flex: 1, backgroundColor: dark ? '#000000' : '#ffffff' }}
-      contentContainerStyle={isWide ? { padding: 20, alignItems: 'center' } : { padding: 20 }}
+      style={[tw`flex-1`, dark ? tw`bg-black` : tw`bg-white`]}
+      contentContainerStyle={isWide ? tw`p-5 items-center` : tw`p-5`}
     >
-      <View style={{ width: '100%', maxWidth: isWide ? 800 : undefined }}>
+      <View style={[tw`w-full`, isWide && tw`max-w-[800px]`]}>
         {favoriteThemen.length > 0 ? (
           <SubcategoryCard
             title="Gesammelte Bittgebete"
@@ -41,8 +42,8 @@ export default function Favoriten({ navigation }) {
             }}
           />
         ) : (
-          <View style={{ paddingTop: 48, paddingHorizontal: 16 }}>
-            <Text style={{ textAlign: 'center', fontSize: 14, lineHeight: 22, color: dark ? '#d4d4d4' : '#737373' }}>
+          <View style={tw`pt-12 px-4`}>
+            <Text style={[tw`text-center text-sm leading-[22px]`, dark ? tw`text-neutral-300` : tw`text-neutral-500`]}>
               Noch keine Favoriten.{"\n"}Tippe im Bittgebet auf das Herz, um es hier zu sammeln.
             </Text>
           </View>

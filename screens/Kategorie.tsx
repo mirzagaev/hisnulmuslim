@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, ImageBackground, useWindowDimensions } from 'react-native';
+import tw from 'twrnc';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { tabBarStruktur } from "../interfaces/KapitelSchema"
@@ -30,11 +31,11 @@ function Kategorie({navigation}) {
 
   const list = (
     <ScrollView
-      style={{ flex: 1 }}
-      contentContainerStyle={isWide ? { paddingHorizontal: 20, gap: 20 } : { padding: 20, gap: 20 }}
+      style={tw`flex-1`}
+      contentContainerStyle={isWide ? tw`px-5 gap-5` : tw`p-5 gap-5`}
     >
       {kapiteln.map((kapitel) => (kapitel.id == catId) &&
-        <View key={catId} style={{ gap: 20 }}>
+        <View key={catId} style={tw`gap-5`}>
           {kapitel.unterkategorien.map((unterkat) => (
             unterkat.themen.length > 0 &&
             <SubcategoryCard
@@ -58,16 +59,16 @@ function Kategorie({navigation}) {
 
   if (isWide) {
     return (
-      <View style={{ flex: 1, flexDirection: 'row', backgroundColor: dark ? '#000000' : '#ffffff' }}>
-        <View style={{ flex: 1 }}>{list}</View>
-        <View style={{ flex: 1, padding: 20 }}>
+      <View style={[tw`flex-1 flex-row`, dark ? tw`bg-black` : tw`bg-white`]}>
+        <View style={tw`flex-1`}>{list}</View>
+        <View style={tw`flex-1 p-5`}>
           <ImageBackground
             source={cat.background}
-            style={{ flex: 1, borderRadius: 16, overflow: 'hidden' }}
-            imageStyle={{ borderRadius: 16 }}
+            style={[tw`flex-1 rounded-2xl overflow-hidden h-full w-full`, { backgroundColor: dark ? catColor.dark : catColor.light }]}
+            imageStyle={tw`rounded-2xl`}
             resizeMode="cover"
           >
-            {dark ? <View style={{ flex: 1, backgroundColor: 'rgba(23,23,23,0.4)' }} /> : null}
+            {dark ? <View style={tw`flex-1 bg-neutral-900/40`} /> : null}
           </ImageBackground>
         </View>
       </View>
@@ -75,13 +76,12 @@ function Kategorie({navigation}) {
   }
 
   return (
-    <ImageBackground source={cat.background} style={{ flex: 1 }} resizeMode="cover">
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: dark ? 'rgba(0,0,0,0.8)' : `${catColor.light}66`,
-        }}
-      >
+    <ImageBackground
+      source={cat.background}
+      style={[tw`flex-1 h-full w-full`, { backgroundColor: dark ? catColor.dark : catColor.light }]}
+      resizeMode="cover"
+    >
+      <View style={dark ? tw`flex-1 bg-black/80` : tw`flex-1 bg-[${catColor.light}66]`}>
         {list}
       </View>
     </ImageBackground>

@@ -40,7 +40,7 @@ export default function Bittgebete({ navigation, route }) {
     navigation.setOptions({
       title: kategorie,
       headerRight: () => (
-        <View style={{ paddingHorizontal: 10 }}>
+        <View style={tw`px-[10px]`}>
           {favorit ? (
             <Pressable onPress={() => handleRemoveFavorite(thema.id)} hitSlop={8}>
               <VectorIcon name="fav" size={24} color={color} />
@@ -68,9 +68,9 @@ export default function Bittgebete({ navigation, route }) {
   return (
     <ScrollView
       style={theme === "dark" ? tw`bg-black` : tw`bg-white`}
-      contentContainerStyle={isWide ? { alignItems: 'center' } : undefined}
+      contentContainerStyle={isWide ? tw`items-center` : undefined}
     >
-      <View style={{ width: '100%', maxWidth: isWide ? 800 : undefined }}>
+      <View style={[tw`w-full`, isWide && tw`max-w-[800px]`]}>
         <Text style={[tw`p-5 text-xl font-medium`, { color }, theme === 'dark' && tw`text-white`]}>{thema.titel}</Text>
         <View style={tw`px-5`}>
           {duas.map((dua, index) => (dua.kapitel_id == thema.id) &&

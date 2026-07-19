@@ -1,6 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterKapiteln, clearFilteredKapiteln } from '../redux/slices/kapitelSlice';
+import { RootState } from '../redux/store';
 import { NavigationContainer } from '@react-navigation/native'
 import { Image, Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -15,6 +16,7 @@ import Suche from '../screens/Suche';
 import { useColorScheme } from 'react-native';
 import HeaderBrand from '../components/HeaderBrand';
 import { ThemeContext } from '../theme/ThemeContext';
+import tw from 'twrnc';
 
 const config = {
     screens: {
@@ -49,6 +51,7 @@ const linking = {
 const AppNavigation = () => {
     const Drawer = createDrawerNavigator();
     const dispatch = useDispatch(); // Redux-Dispatch
+    const duas = useSelector((state: RootState) => state.duas.duas);
     const [search, setSearch] = useState('');
     const colorScheme = useColorScheme() ?? 'light'; // <- global Dark/Light, system-gesteuert
 
@@ -58,25 +61,19 @@ const AppNavigation = () => {
                 <Drawer.Navigator
                     id={undefined}
                     screenOptions={{
-                        drawerStyle: {
-                            backgroundColor: colorScheme === "dark" ? "#404040" : "#ffffff", // bg-neutral-900 / white
-                        },
-                        drawerLabelStyle: {
-                            color: colorScheme === "dark" ? "#f3f4f6" : "#111827", // text-gray-100 / gray-900
-                        },
-                        drawerItemStyle: { borderRadius: 5 },
+                        drawerStyle: colorScheme === "dark" ? tw`bg-neutral-700` : tw`bg-white`,
+                        drawerLabelStyle: colorScheme === "dark" ? tw`text-gray-100` : tw`text-gray-900`,
+                        drawerItemStyle: tw`rounded-[5px]`,
                         drawerActiveBackgroundColor: "transparent",
                         drawerType: 'front',
-                        headerStyle: {
-                            backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff", // bg-gray-900 / white
-                            borderBottomColor: "transparent"
-                        },
+                        headerStyle: [
+                            colorScheme === "dark" ? tw`bg-black` : tw`bg-white`,
+                            tw`border-b-transparent`,
+                        ],
                         overlayColor: "transparent",
                         headerTintColor: colorScheme === "dark" ? "#ffffff" : "#000000",   // Textfarbe
                         headerTitleAlign: 'center',
-                        headerTitleStyle: {
-                            color: colorScheme === "dark" ? "#ffffff" : "#171717",
-                        }
+                        headerTitleStyle: colorScheme === "dark" ? tw`text-white` : tw`text-[#171717]`,
                     }}
                 >
                     <Drawer.Screen
@@ -99,26 +96,26 @@ const AppNavigation = () => {
                                             const searchTerm = event.nativeEvent.text;
                                             setSearch(searchTerm);
                                             if (searchTerm.length >= 2) {
-                                                dispatch(filterKapiteln(searchTerm)); // Redux-Store filtern
+                                                dispatch(filterKapiteln({ searchTerm, duas })); // Redux-Store filtern
                                             } else {
                                                 dispatch(clearFilteredKapiteln()); // Zurücksetzen, falls Eingabe leer ist
                                             }
                                         },
                                     },
                                 });
-                            }, [navigation]);
+                            }, [navigation, duas]);
 
                             return {
                                 drawerIcon: ({ focused }) =>
                                     focused ? (
                                         <Image
                                             source={require('../assets/images/hm-logo-blau.png')}
-                                            style={{ height: 30, width: 30 }}
+                                            style={tw`w-[30px] h-[30px]`}
                                         />
                                     ) : (
                                         <Image
                                             source={require('../assets/images/hm-logo-grau.png')}
-                                            style={{ height: 30, width: 30 }}
+                                            style={tw`w-[30px] h-[30px]`}
                                         />
                                     ),
                                 headerTitle: () => <HeaderBrand />,
@@ -132,7 +129,7 @@ const AppNavigation = () => {
                         component={Favoriten}
                         options={{
                             drawerIcon: ({ focused }) => (
-                            focused ? <Image source={require('../assets/icons/00-active.png')} style={{height:30, width:30}} /> : <Image source={require('../assets/icons/00-inactive.png')} style={{height:30, width:30}} />
+                            focused ? <Image source={require('../assets/icons/00-active.png')} style={tw`w-[30px] h-[30px]`} /> : <Image source={require('../assets/icons/00-inactive.png')} style={tw`w-[30px] h-[30px]`} />
                             ),
                         }}
                     />
@@ -142,7 +139,7 @@ const AppNavigation = () => {
                         options={{
                             headerTitle: () => <HeaderBrand />,
                             drawerIcon: ({ focused }) => (
-                            focused ? <Image source={require('../assets/icons/001-active.png')} style={{height:28, width:28}} /> : <Image source={require('../assets/icons/001-inactive.png')} style={{height:28, width:28}} />
+                            focused ? <Image source={require('../assets/icons/001-active.png')} style={tw`w-7 h-7`} /> : <Image source={require('../assets/icons/001-inactive.png')} style={tw`w-7 h-7`} />
                             ),
                         }}
                     />
