@@ -67,7 +67,7 @@ export default function Bittgebete({ navigation, route }) {
 
   return (
     <ScrollView
-      style={theme === "dark" ? tw`bg-black` : tw`bg-white`}
+      style={theme === "dark" ? tw`bg-neutral-900` : tw`bg-neutral-100`}
       contentContainerStyle={isWide ? tw`items-center` : undefined}
     >
       <View style={[tw`w-full`, isWide && tw`max-w-[800px]`]}>

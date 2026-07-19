@@ -3,6 +3,7 @@ import { View, Text, Pressable, Share, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Bittgebete from '../interfaces/Bittgebet';
 import { useAppTheme } from '../theme/ThemeContext';
+import VectorIcon from './icons/VectorIcon';
 import tw from 'twrnc';
 
 interface DuaCardProps extends Bittgebete {
@@ -20,19 +21,23 @@ function Bittgebet(dua: DuaCardProps) {
   };
 
   return (
-    <View
-      style={[
-        tw`w-full mb-5 border border-[rgba(63,102,218,0.2)] rounded-lg overflow-hidden`,
-        dark ? tw`bg-neutral-800/70` : tw`bg-white`,
-        {
-          shadowColor: '#000',
-          shadowOpacity: dark ? 0 : 0.12,
-          shadowRadius: 12,
-          shadowOffset: { width: 0, height: 8 },
-          elevation: 4,
-        },
-      ]}
-    >
+    <View style={tw`w-full mb-5`}>
+      <View style={tw`w-full items-center my-3`}>
+        <VectorIcon name="logo" size={40} color={dark ? '#ffffff' : dua.color} />
+      </View>
+      <View
+        style={[
+          tw`w-full rounded-lg overflow-hidden`,
+          dark ? tw`bg-black` : tw`bg-white`,
+          {
+            shadowColor: '#000',
+            shadowOpacity: dark ? 0 : 0.12,
+            shadowRadius: 12,
+            shadowOffset: { width: 0, height: 4 },
+            elevation: 4,
+          },
+        ]}
+      >
       {dua.content ? (
         <View style={tw`py-6 px-6 bg-[${dua.color}]`}>
           <Text style={tw`text-white text-lg leading-7`}>{dua.content}</Text>
@@ -40,7 +45,7 @@ function Bittgebet(dua: DuaCardProps) {
       ) : null}
 
       {dua.arabic ? (
-        <View style={[tw`py-6 px-6 border-b`, dark ? tw`border-neutral-700` : tw`border-neutral-200`]}>
+        <View style={tw`py-6 px-6`}>
           <Text
             style={[
               tw`text-[22px] leading-10 text-right`,
@@ -57,14 +62,18 @@ function Bittgebet(dua: DuaCardProps) {
       ) : null}
 
       {dua.latein && showLatein ? (
-        <View style={[tw`py-[18px] px-6 border-b-[3px]`, dark ? tw`border-neutral-700` : tw`border-neutral-300`]}>
-          <Text style={[tw`italic text-sm`, dark ? tw`text-white` : tw`text-gray-800`]}>
+        <View style={tw`py-5 px-6`}>
+          <Text style={[
+            tw`italic text-sm border-t pt-5`,
+            dark ? tw`text-white border-neutral-700` : tw`text-gray-800 border-neutral-200`
+          ]}>
             {dua.latein}
           </Text>
         </View>
       ) : null}
+      </View>
 
-      <View style={tw`flex-row items-center gap-4 py-4 px-6`}>
+      <View style={tw`flex-row items-center gap-4 pt-4 px-6`}>
         <Pressable onPress={handleShare} accessibilityLabel="Teilen" hitSlop={8}>
           <Ionicons name="share-social-outline" size={20} color={dark ? '#ffffff' : '#1f2937'} />
         </Pressable>
