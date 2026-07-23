@@ -1,3 +1,10 @@
+java -jar pepk.jar --keystore=@mirzagaev__hisnulmuslim.jks --alias=a461a01829ff231eebb93180ed95b864 --output=output.zip --include-cert --rsa-aes-encryption --encryption-key-path=encryption_public_key.pem
+
+$ java -jar pepk.jar --keystore=@mirzagaev__hisnulmuslim.jks --alias=a461a01829ff231eebb93180ed95b864 --output=encrypted_private_key_path --rsa-aes-encryption --encryption-key-path=encryption_public_key.pem
+
+keytool -export -rfc -keystore "@mirzagaev__hisnulmuslim.jks" -alias "a461a01829ff231eebb93180ed95b864" -file upload_certificate.pem
+
+
 ### **Export APK/IOS**
 APK/iOS Export
 Das Projekt ist bereits für EAS Build vorbereitet (eas.json + app.json mit projectId und owner: "mirzagaev") — das ist der Standardweg bei Expo, ganz ohne lokales Android Studio/Xcode-Setup.
