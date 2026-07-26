@@ -5,6 +5,7 @@ import { RootState } from '../redux/store';
 import { NavigationContainer } from '@react-navigation/native'
 import { Image, Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Kategorien from './Kategorien';
 import Info from '../screens/Info';
 import Impressum from '../screens/Impressum';
@@ -20,25 +21,30 @@ import tw from 'twrnc';
 
 const config = {
     screens: {
-        Kategorien: {
+        Root: {
             path: '',
             screens: {
-                home: '',
-                '1': 'kategorien/1',
-                '2': 'kategorien/2',
-                '3': 'kategorien/3',
-                '4': 'kategorien/4',
-                '5': 'kategorien/5',
-                '6': 'kategorien/6',
-                '7': 'kategorien/7',
+                Kategorien: {
+                    path: '',
+                    screens: {
+                        home: '',
+                        '1': 'kategorien/1',
+                        '2': 'kategorien/2',
+                        '3': 'kategorien/3',
+                        '4': 'kategorien/4',
+                        '5': 'kategorien/5',
+                        '6': 'kategorien/6',
+                        '7': 'kategorien/7',
+                    },
+                },
+                Favoriten: 'favorites',
+                Info: 'information',
+                Impressum: 'impressum',
+                Datenschutz: 'datenschutz',
+                Suche: 'search',
             },
         },
         Bittgebete: 'dua',
-        Favoriten: 'favorites',
-        Info: 'information',
-        Impressum: 'impressum',
-        Datenschutz: 'datenschutz',
-        Suche: 'search',
         NotFound: '*',
     },
 };
@@ -48,7 +54,7 @@ const linking = {
     config,
 };
 
-const AppNavigation = () => {
+function DrawerNavigator() {
     const Drawer = createDrawerNavigator();
     const dispatch = useDispatch(); // Redux-Dispatch
     const duas = useSelector((state: RootState) => state.duas.duas);
@@ -56,8 +62,6 @@ const AppNavigation = () => {
     const colorScheme = useColorScheme() ?? 'light'; // <- global Dark/Light, system-gesteuert
 
     return (
-        <ThemeContext.Provider value={colorScheme}>
-            <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
                 <Drawer.Navigator
                     id={undefined}
                     screenOptions={{
@@ -72,7 +76,6 @@ const AppNavigation = () => {
                         ],
                         overlayColor: "transparent",
                         headerTintColor: colorScheme === "dark" ? "#ffffff" : "#000000",   // Textfarbe
-                        headerTitleAlign: 'center',
                         headerTitleStyle: colorScheme === "dark" ? tw`text-white` : tw`text-[#171717]`,
                     }}
                 >
@@ -92,8 +95,19 @@ const AppNavigation = () => {
                                 navigation.setOptions({
                                     headerSearchBarOptions: {
                                         placeholder: 'Hisnul Muslim durchsuchen',
+                                        // Setzt den Anfangstext der (unkontrollierten) Sucheingabe.
+                                        // Greift, sobald die Suchleiste neu gemountet wird (z. B. nach
+                                        // Zurückkommen von einem Bittgebet), damit man dort weitermachen
+                                        // kann, ohne den Suchbegriff erneut einzutippen.
+                                        ...({ defaultValue: search } as object),
                                         onChangeText: (event) => {
                                             const searchTerm = event.nativeEvent.text;
+                                            // Beim Navigieren zu einem anderen Screen (z. B. Bittgebete)
+                                            // löscht die native Suchleiste ihren Text automatisch, was
+                                            // hier sonst die Suchergebnisse im Hintergrund zurücksetzen würde.
+                                            if (searchTerm === '' && !navigation.isFocused()) {
+                                                return;
+                                            }
                                             setSearch(searchTerm);
                                             if (searchTerm.length >= 2) {
                                                 dispatch(filterKapiteln({ searchTerm, duas })); // Redux-Store filtern
@@ -103,7 +117,7 @@ const AppNavigation = () => {
                                         },
                                     },
                                 });
-                            }, [navigation, duas]);
+                            }, [navigation, duas, search]);
 
                             return {
                                 drawerIcon: ({ focused }) =>
@@ -119,6 +133,7 @@ const AppNavigation = () => {
                                         />
                                     ),
                                 headerTitle: () => <HeaderBrand />,
+                                headerTitleAlign: 'left',
                                 drawerLabel: "Hisnul Muslim"
                             };
                         }}
@@ -160,26 +175,6 @@ const AppNavigation = () => {
                         }}
                     />
                     <Drawer.Screen
-                        name="Bittgebete"
-                        component={Bittgebete}
-                        options={{
-                            title: 'Bittgebete',
-                            drawerItemStyle: {
-                                display: 'none'
-                            }
-                        }}
-                    />
-                    <Drawer.Screen
-                        name="NotFound"
-                        component={NotFound}
-                        options={{
-                            title: 'Seite nicht gefunden',
-                            drawerItemStyle: {
-                                display: 'none'
-                            }
-                        }}
-                    />
-                    <Drawer.Screen
                         name="Suche"
                         component={Suche}
                         options={{
@@ -190,6 +185,43 @@ const AppNavigation = () => {
                         }}
                     />
                 </Drawer.Navigator>
+    );
+}
+
+const AppNavigation = () => {
+    const RootStack = createNativeStackNavigator();
+    const colorScheme = useColorScheme() ?? 'light'; // <- global Dark/Light, system-gesteuert
+
+    return (
+        <ThemeContext.Provider value={colorScheme}>
+            <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+                <RootStack.Navigator id={undefined} screenOptions={{ headerShown: false }}>
+                    <RootStack.Screen name="Root" component={DrawerNavigator} />
+                    <RootStack.Screen
+                        name="Bittgebete"
+                        component={Bittgebete}
+                        options={{
+                            headerShown: true,
+                            title: 'Bittgebete',
+                            animation: 'slide_from_right',
+                            headerStyle: { backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff" },
+                            headerShadowVisible: false,
+                            headerTintColor: colorScheme === "dark" ? "#ffffff" : "#000000",
+                            headerTitleStyle: colorScheme === "dark" ? tw`text-white` : tw`text-[#171717]`,
+                            contentStyle: { backgroundColor: colorScheme === "dark" ? "#171717" : "#f5f5f5" },
+                        }}
+                    />
+                    <RootStack.Screen
+                        name="NotFound"
+                        component={NotFound}
+                        options={{
+                            headerShown: true,
+                            title: 'Seite nicht gefunden',
+                            headerStyle: { backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff" },
+                            headerTintColor: colorScheme === "dark" ? "#ffffff" : "#000000",
+                        }}
+                    />
+                </RootStack.Navigator>
             </NavigationContainer>
         </ThemeContext.Provider>
     );

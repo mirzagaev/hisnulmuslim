@@ -56,7 +56,10 @@ export default function Bittgebete({ navigation, route }) {
   }, [navigation, kategorie, favorit, thema, theme]);
 
   useEffect(() => {
-    if (!thema) {
+    if (thema) return;
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
       navigation.navigate('Kategorien');
     }
   }, [thema, navigation]);
