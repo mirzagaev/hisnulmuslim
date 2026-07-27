@@ -2,7 +2,7 @@
   "expo": {
     "name": "Hisnul Muslim",
     "slug": "hisnulmuslim",
-    "version": "3.0.0",
+    "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "de.jfd.hisnulmuslim",
+      "bundleIdentifier": "de.webza.hisnulmuslim",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -27,7 +27,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#00000000"
       },
-      "package": "de.jfd.hisnulmuslim"
+      "package": "de.webza.hisnulmuslim"
     },
     "web": {
       "favicon": "./assets/images/hm-logo-blau.png"

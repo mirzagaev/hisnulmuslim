@@ -82,9 +82,7 @@ export default function Bittgebete({ navigation, route }) {
               id={dua.id}
               kapitel_id={dua.kapitel_id}
               bittgebet_id={dua.bittgebet_id}
-              content={dua.content}
-              arabic={dua.arabic}
-              latein={dua.latein}
+              items={dua.items}
               color={color}
             />
           )}

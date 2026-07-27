@@ -12,10 +12,12 @@ import Impressum from '../screens/Impressum';
 import Datenschutz from '../screens/Datenschutz';
 import Bittgebete from '../screens/Bittgebete';
 import Favoriten from '../screens/Favoriten';
+import Transkript from '../screens/Transkript';
 import NotFound from '../screens/NotFound';
 import Suche from '../screens/Suche';
 import { useColorScheme } from 'react-native';
 import HeaderBrand from '../components/HeaderBrand';
+import VectorIcon from '../components/icons/VectorIcon';
 import { ThemeContext } from '../theme/ThemeContext';
 import tw from 'twrnc';
 
@@ -38,6 +40,7 @@ const config = {
                     },
                 },
                 Favoriten: 'favorites',
+                Transkript: 'transkript',
                 Info: 'information',
                 Impressum: 'impressum',
                 Datenschutz: 'datenschutz',
@@ -62,129 +65,144 @@ function DrawerNavigator() {
     const colorScheme = useColorScheme() ?? 'light'; // <- global Dark/Light, system-gesteuert
 
     return (
-                <Drawer.Navigator
-                    id={undefined}
-                    screenOptions={{
-                        drawerStyle: colorScheme === "dark" ? tw`bg-neutral-700` : tw`bg-white`,
-                        drawerLabelStyle: colorScheme === "dark" ? tw`text-gray-100` : tw`text-gray-900`,
-                        drawerItemStyle: tw`rounded-[5px]`,
-                        drawerActiveBackgroundColor: "transparent",
-                        drawerType: 'front',
-                        headerStyle: [
-                            colorScheme === "dark" ? tw`bg-black` : tw`bg-white`,
-                            tw`border-b-transparent`,
-                        ],
-                        overlayColor: "transparent",
-                        headerTintColor: colorScheme === "dark" ? "#ffffff" : "#000000",   // Textfarbe
-                        headerTitleStyle: colorScheme === "dark" ? tw`text-white` : tw`text-[#171717]`,
-                    }}
-                >
-                    <Drawer.Screen
-                        name="Kategorien"
-                        component={search ? Suche : Kategorien}
-                        listeners={({ navigation }) => ({
-                            drawerItemPress: (e) => {
-                                e.preventDefault();
-                                setSearch('');
-                                dispatch(clearFilteredKapiteln());
-                                navigation.navigate('Kategorien', { screen: 'home' });
+        <Drawer.Navigator
+            id={undefined}
+            screenOptions={{
+                drawerStyle: colorScheme === "dark" ? tw`bg-neutral-700` : tw`bg-white`,
+                drawerLabelStyle: colorScheme === "dark" ? tw`text-gray-100` : tw`text-gray-900`,
+                drawerItemStyle: tw`rounded-[5px]`,
+                drawerActiveBackgroundColor: "transparent",
+                drawerType: 'front',
+                headerStyle: [
+                    colorScheme === "dark" ? tw`bg-black` : tw`bg-white`,
+                    tw`border-b-transparent`,
+                ],
+                overlayColor: "transparent",
+                headerTintColor: colorScheme === "dark" ? "#ffffff" : "#000000",   // Textfarbe
+                headerTitleStyle: colorScheme === "dark" ? tw`text-white` : tw`text-[#171717]`,
+            }}
+        >
+            <Drawer.Screen
+                name="Kategorien"
+                component={search ? Suche : Kategorien}
+                listeners={({ navigation }) => ({
+                    drawerItemPress: (e) => {
+                        e.preventDefault();
+                        setSearch('');
+                        dispatch(clearFilteredKapiteln());
+                        navigation.navigate('Kategorien', { screen: 'home' });
+                    },
+                })}
+                options={({ navigation }) => {
+                    useLayoutEffect(() => {
+                        navigation.setOptions({
+                            headerSearchBarOptions: {
+                                placeholder: 'Hisnul Muslim durchsuchen',
+                                // Setzt den Anfangstext der (unkontrollierten) Sucheingabe.
+                                // Greift, sobald die Suchleiste neu gemountet wird (z. B. nach
+                                // Zurückkommen von einem Bittgebet), damit man dort weitermachen
+                                // kann, ohne den Suchbegriff erneut einzutippen.
+                                ...({ defaultValue: search } as object),
+                                onChangeText: (event) => {
+                                    const searchTerm = event.nativeEvent.text;
+                                    // Beim Navigieren zu einem anderen Screen (z. B. Bittgebete)
+                                    // löscht die native Suchleiste ihren Text automatisch, was
+                                    // hier sonst die Suchergebnisse im Hintergrund zurücksetzen würde.
+                                    if (searchTerm === '' && !navigation.isFocused()) {
+                                        return;
+                                    }
+                                    setSearch(searchTerm);
+                                    if (searchTerm.length >= 2) {
+                                        dispatch(filterKapiteln({ searchTerm, duas })); // Redux-Store filtern
+                                    } else {
+                                        dispatch(clearFilteredKapiteln()); // Zurücksetzen, falls Eingabe leer ist
+                                    }
+                                },
                             },
-                        })}
-                        options={({ navigation }) => {
-                            useLayoutEffect(() => {
-                                navigation.setOptions({
-                                    headerSearchBarOptions: {
-                                        placeholder: 'Hisnul Muslim durchsuchen',
-                                        // Setzt den Anfangstext der (unkontrollierten) Sucheingabe.
-                                        // Greift, sobald die Suchleiste neu gemountet wird (z. B. nach
-                                        // Zurückkommen von einem Bittgebet), damit man dort weitermachen
-                                        // kann, ohne den Suchbegriff erneut einzutippen.
-                                        ...({ defaultValue: search } as object),
-                                        onChangeText: (event) => {
-                                            const searchTerm = event.nativeEvent.text;
-                                            // Beim Navigieren zu einem anderen Screen (z. B. Bittgebete)
-                                            // löscht die native Suchleiste ihren Text automatisch, was
-                                            // hier sonst die Suchergebnisse im Hintergrund zurücksetzen würde.
-                                            if (searchTerm === '' && !navigation.isFocused()) {
-                                                return;
-                                            }
-                                            setSearch(searchTerm);
-                                            if (searchTerm.length >= 2) {
-                                                dispatch(filterKapiteln({ searchTerm, duas })); // Redux-Store filtern
-                                            } else {
-                                                dispatch(clearFilteredKapiteln()); // Zurücksetzen, falls Eingabe leer ist
-                                            }
-                                        },
-                                    },
-                                });
-                            }, [navigation, duas, search]);
+                        });
+                    }, [navigation, duas, search]);
 
-                            return {
-                                drawerIcon: ({ focused }) =>
-                                    focused ? (
-                                        <Image
-                                            source={require('../assets/images/hm-logo-blau.png')}
-                                            style={tw`w-[30px] h-[30px]`}
-                                        />
-                                    ) : (
-                                        <Image
-                                            source={require('../assets/images/hm-logo-grau.png')}
-                                            style={tw`w-[30px] h-[30px]`}
-                                        />
-                                    ),
-                                headerTitle: () => <HeaderBrand />,
-                                headerTitleAlign: 'left',
-                                drawerLabel: "Hisnul Muslim"
-                            };
-                        }}
+                    return {
+                        drawerIcon: ({ focused }) =>
+                            focused ? (
+                                <Image
+                                    source={require('../assets/images/hm-logo-blau.png')}
+                                    style={tw`w-[30px] h-[30px]`}
+                                />
+                            ) : (
+                                <Image
+                                    source={require('../assets/images/hm-logo-grau.png')}
+                                    style={tw`w-[30px] h-[30px]`}
+                                />
+                            ),
+                        headerTitle: () => <HeaderBrand />,
+                        headerTitleAlign: 'left',
+                        drawerLabel: "Hisnul Muslim"
+                    };
+                }}
 
-                    />
-                    <Drawer.Screen
-                        name="Favoriten"
-                        component={Favoriten}
-                        options={{
-                            drawerIcon: ({ focused }) => (
-                            focused ? <Image source={require('../assets/icons/00-active.png')} style={tw`w-[30px] h-[30px]`} /> : <Image source={require('../assets/icons/00-inactive.png')} style={tw`w-[30px] h-[30px]`} />
-                            ),
-                        }}
-                    />
-                    <Drawer.Screen
-                        name="Info über die App"
-                        component={Info}
-                        options={{
-                            headerTitle: () => <HeaderBrand />,
-                            drawerIcon: ({ focused }) => (
-                            focused ? <Image source={require('../assets/icons/001-active.png')} style={tw`w-7 h-7`} /> : <Image source={require('../assets/icons/001-inactive.png')} style={tw`w-7 h-7`} />
-                            ),
-                        }}
-                    />
-                    <Drawer.Screen
-                        name="Impressum"
-                        component={Impressum}
-                        options={{
-                            headerTitle: "Impressum",
-                            drawerLabel: "Impressum",
-                        }}
-                    />
-                    <Drawer.Screen
-                        name="Datenschutz"
-                        component={Datenschutz}
-                        options={{
-                            headerTitle: "Datenschutzerklärung",
-                            drawerLabel: "Datenschutzerklärung",
-                        }}
-                    />
-                    <Drawer.Screen
-                        name="Suche"
-                        component={Suche}
-                        options={{
-                            title: 'Suche',
-                            drawerItemStyle: {
-                                display: 'none'
-                            }
-                        }}
-                    />
-                </Drawer.Navigator>
+            />
+            <Drawer.Screen
+                name="Favoriten"
+                component={Favoriten}
+                options={{
+                    drawerIcon: ({ focused }) => (
+                    focused ? <Image source={require('../assets/icons/00-active.png')} style={tw`w-[30px] h-[30px]`} /> : <Image source={require('../assets/icons/00-inactive.png')} style={tw`w-[30px] h-[30px]`} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Transkript"
+                component={Transkript}
+                options={{
+                    headerTitle: "Transkript",
+                    drawerLabel: "Transkript",
+                    drawerIcon: ({ focused }) => (
+                        <VectorIcon
+                            name="transkript"
+                            size={26}
+                            color={focused ? '#023c69' : colorScheme === 'dark' ? '#a3a3a3' : '#737373'}
+                        />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Info über die App"
+                component={Info}
+                options={{
+                    headerTitle: () => <HeaderBrand />,
+                    drawerIcon: ({ focused }) => (
+                    focused ? <Image source={require('../assets/icons/001-active.png')} style={tw`w-7 h-7`} /> : <Image source={require('../assets/icons/001-inactive.png')} style={tw`w-7 h-7`} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Impressum"
+                component={Impressum}
+                options={{
+                    headerTitle: "Impressum",
+                    drawerLabel: "Impressum",
+                }}
+            />
+            <Drawer.Screen
+                name="Datenschutz"
+                component={Datenschutz}
+                options={{
+                    headerTitle: "Datenschutzerklärung",
+                    drawerLabel: "Datenschutzerklärung",
+                }}
+            />
+            <Drawer.Screen
+                name="Suche"
+                component={Suche}
+                options={{
+                    title: 'Suche',
+                    drawerItemStyle: {
+                        display: 'none'
+                    }
+                }}
+            />
+        </Drawer.Navigator>
     );
 }
 

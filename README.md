@@ -4,6 +4,7 @@ $ java -jar pepk.jar --keystore=@mirzagaev__hisnulmuslim.jks --alias=a461a01829f
 
 keytool -export -rfc -keystore "@mirzagaev__hisnulmuslim.jks" -alias "a461a01829ff231eebb93180ed95b864" -file upload_certificate.pem
 
+$ java -jar pepk.jar --keystore=foo.keystore --alias=a461a01829ff231eebb93180ed95b864 --output=encrypted_private_key_path --rsa-aes-encryption --encryption-key-path=encryption_public_key.pem
 
 ### **Export APK/IOS**
 APK/iOS Export

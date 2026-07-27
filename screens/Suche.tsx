@@ -26,7 +26,8 @@ function Suche({ navigation }) {
   }
 
   return (
-    <View style={[tw`w-full h-full overflow-hidden relative`, dark ? tw`bg-black` : tw`bg-white`]}>
+    <View style={[tw`w-full h-full`, isWide && tw`py-5 pr-5`, dark ? tw`bg-black` : tw`bg-white`]}>
+    <View style={[tw`w-full h-full overflow-hidden relative bg-white`, isWide && tw`rounded-2xl`]}>
       {isWide ? (
         <Image
           source={require('../assets/backgrounds/startseite_xl.jpg')}
@@ -81,6 +82,7 @@ function Suche({ navigation }) {
           })}
         </View>
       </ScrollView>
+    </View>
     </View>
   );
 }

@@ -59,14 +59,13 @@ const kapitelSlice = createSlice({
       const searchTerm = rawSearchTerm.toLowerCase();
 
       // Ein Thema hat einen Treffer im Inhalt, wenn eines seiner Bittgebete
-      // (verknüpft über kapitel_id) im Text, Arabisch oder Umschrift matcht
+      // (verknüpft über kapitel_id) in einem seiner Items (Arabisch, Übersetzung,
+      // Umschrift, Hinweis, Quelle, ...) matcht
       const themaHasContentMatch = (themaId) =>
         duas.some(
           (dua) =>
             dua.kapitel_id == themaId &&
-            (dua.content?.toLowerCase().includes(searchTerm) ||
-              dua.arabic?.toLowerCase().includes(searchTerm) ||
-              dua.latein?.toLowerCase().includes(searchTerm))
+            dua.items?.some((item) => item.content?.toLowerCase().includes(searchTerm))
         );
 
       // Filterlogik: saubere Kopie der Originaldaten

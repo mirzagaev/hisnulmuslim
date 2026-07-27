@@ -77,7 +77,7 @@ export default function Startseite() {
             isWide && tw`max-w-[640px]`,
           ]}
         >
-          Alle Bittgebete aus dem klassischen Hisnul Muslim,{"\n"}neu kategorisiert für einfachen Zugang.
+          Alle Bittgebete aus dem klassischen Hisnul Muslim, neu kategorisiert für einfachen Zugang.
         </Text>
       </ScrollView>
     </View>

@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { fetchKapiteln } from '../redux/slices/kapitelSlice';
 import { fetchDuas } from '../redux/slices/duaSlice';
 import { fetchThemen } from '../redux/slices/themaSlice';
+import { purgeLegacyCache } from '../services/api';
 import { AppDispatch } from '../redux/store';
 import { useAppTheme } from "../theme/ThemeContext";
 import tw from 'twrnc';
@@ -149,9 +150,11 @@ export default function Kategorien({ navigation }) {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchKapiteln());
-    dispatch(fetchThemen());
-    dispatch(fetchDuas());
+    purgeLegacyCache().finally(() => {
+      dispatch(fetchKapiteln());
+      dispatch(fetchThemen());
+      dispatch(fetchDuas());
+    });
   }, []);
 
   const layout = useWindowDimensions();
