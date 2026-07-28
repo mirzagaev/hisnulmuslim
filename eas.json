@@ -24,11 +24,11 @@
   "submit": {
     "production": {
       "android": {
-        "serviceAccountKeyPath": "../Google-Play-Console/service-account.json",
+        "serviceAccountKeyPath": "../Google-Play-Console/webza-466713-f327d69b91bf.json",
         "track": "internal"
       },
       "ios": {
-        "ascAppId": "6794078375"
+        "ascAppId": "6795291080"
       }
     }
   }

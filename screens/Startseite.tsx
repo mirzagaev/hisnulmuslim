@@ -50,12 +50,17 @@ export default function Startseite() {
       {dark ? (
         <LinearGradient
           colors={['rgba(23,23,23,0.95)', 'rgba(23,23,23,0.8)']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
+          start={isWide ? { x: 0, y: 0 } : { x: 0, y: 0 }}
+          end={isWide ? { x: 1, y: 0 } : { x: 0, y: 1 }}
           style={tw`absolute inset-0`}
         />
       ) : (
-        <View style={tw`absolute inset-0 bg-neutral-100/55`} />
+        <LinearGradient
+          colors={['rgba(241, 241, 241, 0.95)', 'rgba(226, 226, 226, 0.5)']}
+          start={isWide ? { x: 0, y: 0 } : { x: 0, y: 1 }}
+          end={isWide ? { x: 1, y: 0 } : { x: 0, y: 0 }}
+          style={tw`absolute inset-0`}
+        />
       )}
       <ScrollView
         style={tw`w-full h-full`}

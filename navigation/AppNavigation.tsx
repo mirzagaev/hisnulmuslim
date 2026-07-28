@@ -68,9 +68,11 @@ function DrawerNavigator() {
         <Drawer.Navigator
             id={undefined}
             screenOptions={{
-                drawerStyle: colorScheme === "dark" ? tw`bg-neutral-700` : tw`bg-white`,
+                drawerStyle: [
+                    colorScheme === "dark" ? tw`bg-neutral-700` : tw`bg-white shadow-xl`,
+                    { borderTopRightRadius: 0, borderBottomRightRadius: 0 },
+                ],
                 drawerLabelStyle: colorScheme === "dark" ? tw`text-gray-100` : tw`text-gray-900`,
-                drawerItemStyle: tw`rounded-[5px]`,
                 drawerActiveBackgroundColor: "transparent",
                 drawerType: 'front',
                 headerStyle: [

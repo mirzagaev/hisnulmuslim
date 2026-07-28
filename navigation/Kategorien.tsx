@@ -91,7 +91,7 @@ function MyTabBar({ state, descriptors, navigation, layout }) {
               </View>
               <Text style={[
                 tw`pt-1`,
-                !isWide && tw`text-sm`,
+                !isWide && tw`text-xs sm:text-sm`,
                 theme === "dark" ? tw`text-neutral-200` : tw`text-neutral-700`
               ]}>{tabBarStruktur[route.name].label}</Text>
             </PlatformPressable>
