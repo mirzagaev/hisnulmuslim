@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterKapiteln, clearFilteredKapiteln } from '../redux/slices/kapitelSlice';
 import { RootState } from '../redux/store';
 import { NavigationContainer } from '@react-navigation/native'
-import { Image, Text } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Image, Text, View } from 'react-native';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Kategorien from './Kategorien';
 import Info from '../screens/Info';
@@ -64,12 +64,51 @@ function DrawerNavigator() {
     const [search, setSearch] = useState('');
     const colorScheme = useColorScheme() ?? 'light'; // <- global Dark/Light, system-gesteuert
 
+    // Impressum & Datenschutz werden aus der scrollbaren Liste ausgeblendet
+    // (siehe drawerItemStyle: { display: 'none' } weiter unten) und stattdessen
+    // hier unterhalb der ScrollView fest ("fixiert") am unteren Rand gerendert.
+    const renderDrawerContent = (props: any) => (
+        <View style={tw`flex-1`}>
+            <DrawerContentScrollView {...props}>
+                <Text
+                    style={[
+                        tw`text-xl font-bold px-4 pb-6 pt-3`,
+                        colorScheme === "dark" ? tw`text-white` : tw`text-[#171717]`,
+                    ]}
+                >
+                    Hisnul Muslim
+                </Text>
+                <DrawerItemList {...props} />
+            </DrawerContentScrollView>
+            <View
+                style={[
+                    tw`border-t px-2`,
+                    colorScheme === "dark"
+                        ? tw`border-neutral-800 bg-neutral-900`
+                        : tw`border-gray-100 bg-white`,
+                ]}
+            >
+                <DrawerItem
+                    label="Impressum"
+                    labelStyle={colorScheme === "dark" ? tw`text-gray-100` : tw`text-gray-900`}
+                    onPress={() => props.navigation.navigate('Impressum')}
+                />
+                <DrawerItem
+                    label="Datenschutzerklärung"
+                    labelStyle={colorScheme === "dark" ? tw`text-gray-100` : tw`text-gray-900`}
+                    onPress={() => props.navigation.navigate('Datenschutz')}
+                />
+            </View>
+        </View>
+    );
+
     return (
         <Drawer.Navigator
             id={undefined}
+            drawerContent={renderDrawerContent}
             screenOptions={{
                 drawerStyle: [
-                    colorScheme === "dark" ? tw`bg-neutral-700` : tw`bg-white shadow-xl`,
+                    colorScheme === "dark" ? tw`bg-neutral-900` : tw`bg-white shadow-xl`,
                     { borderTopRightRadius: 0, borderBottomRightRadius: 0 },
                 ],
                 drawerLabelStyle: colorScheme === "dark" ? tw`text-gray-100` : tw`text-gray-900`,
@@ -139,7 +178,7 @@ function DrawerNavigator() {
                             ),
                         headerTitle: () => <HeaderBrand />,
                         headerTitleAlign: 'left',
-                        drawerLabel: "Hisnul Muslim"
+                        drawerLabel: "Gliederung"
                     };
                 }}
 
@@ -163,7 +202,7 @@ function DrawerNavigator() {
                         <VectorIcon
                             name="transkript"
                             size={26}
-                            color={focused ? '#023c69' : colorScheme === 'dark' ? '#a3a3a3' : '#737373'}
+                            color={focused ? colorScheme === 'dark' ? '#fff' : '#023c69' : colorScheme === 'dark' ? '#a3a3a3' : '#737373'}
                         />
                     ),
                 }}
@@ -184,6 +223,8 @@ function DrawerNavigator() {
                 options={{
                     headerTitle: "Impressum",
                     drawerLabel: "Impressum",
+                    // wird stattdessen fest unten im Footer gerendert, siehe renderDrawerContent
+                    drawerItemStyle: { display: 'none' },
                 }}
             />
             <Drawer.Screen
@@ -192,6 +233,8 @@ function DrawerNavigator() {
                 options={{
                     headerTitle: "Datenschutzerklärung",
                     drawerLabel: "Datenschutzerklärung",
+                    // wird stattdessen fest unten im Footer gerendert, siehe renderDrawerContent
+                    drawerItemStyle: { display: 'none' },
                 }}
             />
             <Drawer.Screen
