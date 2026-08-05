@@ -7,6 +7,7 @@ import { Image, Text, View } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Kategorien from './Kategorien';
+import CategoryTabShell from './CategoryTabShell';
 import Info from '../screens/Info';
 import Impressum from '../screens/Impressum';
 import Datenschutz from '../screens/Datenschutz';
@@ -19,6 +20,7 @@ import { useColorScheme } from 'react-native';
 import HeaderBrand from '../components/HeaderBrand';
 import VectorIcon from '../components/icons/VectorIcon';
 import { ThemeContext } from '../theme/ThemeContext';
+import { CATEGORY_SLUGS } from '../interfaces/KapitelSchema';
 import tw from 'twrnc';
 
 const config = {
@@ -30,13 +32,13 @@ const config = {
                     path: '',
                     screens: {
                         home: '',
-                        '1': 'kategorien/1',
-                        '2': 'kategorien/2',
-                        '3': 'kategorien/3',
-                        '4': 'kategorien/4',
-                        '5': 'kategorien/5',
-                        '6': 'kategorien/6',
-                        '7': 'kategorien/7',
+                        '1': `kategorie/${CATEGORY_SLUGS['1']}`,
+                        '2': `kategorie/${CATEGORY_SLUGS['2']}`,
+                        '3': `kategorie/${CATEGORY_SLUGS['3']}`,
+                        '4': `kategorie/${CATEGORY_SLUGS['4']}`,
+                        '5': `kategorie/${CATEGORY_SLUGS['5']}`,
+                        '6': `kategorie/${CATEGORY_SLUGS['6']}`,
+                        '7': `kategorie/${CATEGORY_SLUGS['7']}`,
                     },
                 },
                 Favoriten: 'favorites',
@@ -47,7 +49,12 @@ const config = {
                 Suche: 'search',
             },
         },
-        Bittgebete: 'dua',
+        Bittgebete: {
+            path: 'kategorie/:catSlug/:themaId',
+            parse: {
+                themaId: (themaId: string) => Number(themaId),
+            },
+        },
         NotFound: '*',
     },
 };
@@ -125,7 +132,11 @@ function DrawerNavigator() {
         >
             <Drawer.Screen
                 name="Kategorien"
-                component={search ? Suche : Kategorien}
+                children={(props) =>
+                    search
+                        ? <CategoryTabShell contentName="Suche" content={Suche} navigation={props.navigation} />
+                        : <Kategorien {...props} />
+                }
                 listeners={({ navigation }) => ({
                     drawerItemPress: (e) => {
                         e.preventDefault();
@@ -176,16 +187,25 @@ function DrawerNavigator() {
                                     style={tw`w-[30px] h-[30px]`}
                                 />
                             ),
-                        headerTitle: () => <HeaderBrand />,
+                        headerTitle: () => (
+                            <HeaderBrand
+                                href="/"
+                                onPress={() => {
+                                    setSearch('');
+                                    dispatch(clearFilteredKapiteln());
+                                    navigation.navigate('Kategorien', { screen: 'home' });
+                                }}
+                            />
+                        ),
                         headerTitleAlign: 'left',
-                        drawerLabel: "Gliederung"
+                        drawerLabel: "Themenübersicht"
                     };
                 }}
 
             />
             <Drawer.Screen
                 name="Favoriten"
-                component={Favoriten}
+                children={(props) => <CategoryTabShell contentName="Favoriten" content={Favoriten} navigation={props.navigation} />}
                 options={{
                     drawerIcon: ({ focused }) => (
                     focused ? <Image source={require('../assets/icons/00-active.png')} style={tw`w-[30px] h-[30px]`} /> : <Image source={require('../assets/icons/00-inactive.png')} style={tw`w-[30px] h-[30px]`} />
@@ -194,7 +214,7 @@ function DrawerNavigator() {
             />
             <Drawer.Screen
                 name="Transkript"
-                component={Transkript}
+                children={(props) => <CategoryTabShell contentName="Transkript" content={Transkript} navigation={props.navigation} />}
                 options={{
                     headerTitle: "Transkript",
                     drawerLabel: "Transkript",
@@ -209,13 +229,22 @@ function DrawerNavigator() {
             />
             <Drawer.Screen
                 name="Info über die App"
-                component={Info}
-                options={{
-                    headerTitle: () => <HeaderBrand />,
+                children={(props) => <CategoryTabShell contentName="Info" content={Info} navigation={props.navigation} />}
+                options={({ navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderBrand
+                            href="/"
+                            onPress={() => {
+                                setSearch('');
+                                dispatch(clearFilteredKapiteln());
+                                navigation.navigate('Kategorien', { screen: 'home' });
+                            }}
+                        />
+                    ),
                     drawerIcon: ({ focused }) => (
                     focused ? <Image source={require('../assets/icons/001-active.png')} style={tw`w-7 h-7`} /> : <Image source={require('../assets/icons/001-inactive.png')} style={tw`w-7 h-7`} />
                     ),
-                }}
+                })}
             />
             <Drawer.Screen
                 name="Impressum"
@@ -239,7 +268,7 @@ function DrawerNavigator() {
             />
             <Drawer.Screen
                 name="Suche"
-                component={Suche}
+                children={(props) => <CategoryTabShell contentName="Suche" content={Suche} navigation={props.navigation} />}
                 options={{
                     title: 'Suche',
                     drawerItemStyle: {

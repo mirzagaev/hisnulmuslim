@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import tw from 'twrnc';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { tabBarStruktur } from "../interfaces/KapitelSchema"
+import { tabBarStruktur, buildDuaRouteParams } from "../interfaces/KapitelSchema"
 import { useAppTheme } from "../theme/ThemeContext";
 import SubcategoryCard from '../components/SubcategoryCard';
 
@@ -69,11 +69,7 @@ function Suche({ navigation }) {
                     items={unterkat.themen.map((thema) => ({ key: thema.id, label: thema.titel }))}
                     onSelect={(item) => {
                       const thema = unterkat.themen.find((t) => t.id === item.key);
-                      navigation.navigate('Bittgebete', {
-                        thema,
-                        kategorie: kategorie.kategorie,
-                        catId: kategorie.id,
-                      });
+                      navigation.navigate('Bittgebete', buildDuaRouteParams(thema, kategorie.kategorie, kategorie.id));
                     }}
                   />
                 ))}

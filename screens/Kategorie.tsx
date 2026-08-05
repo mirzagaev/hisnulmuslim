@@ -3,7 +3,7 @@ import { View, ScrollView, ImageBackground, useWindowDimensions } from 'react-na
 import tw from 'twrnc';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { tabBarStruktur } from "../interfaces/KapitelSchema"
+import { tabBarStruktur, buildDuaRouteParams } from "../interfaces/KapitelSchema"
 import { CATEGORY_COLORS } from '../theme/colors';
 import { useAppTheme } from "../theme/ThemeContext";
 import SubcategoryCard from '../components/SubcategoryCard';
@@ -44,11 +44,7 @@ function Kategorie({navigation}) {
               items={unterkat.themen.map((thema) => ({ key: thema.id, label: thema.titel }))}
               onSelect={(item) => {
                 const thema = unterkat.themen.find((t) => t.id === item.key);
-                navigation.navigate('Bittgebete', {
-                  thema,
-                  kategorie: kapitel.kategorie,
-                  catId: kapitel.id,
-                });
+                navigation.navigate('Bittgebete', buildDuaRouteParams(thema, kapitel.kategorie, kapitel.id));
               }}
             />
           ))}

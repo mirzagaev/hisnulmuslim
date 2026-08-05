@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getKategorieData, syncOfflineData } from '../../services/api';
+import { getKategorieData } from '../../services/api';
 import Thema from '../../interfaces/Thema';
 
 interface ThemaState {

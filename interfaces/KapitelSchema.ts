@@ -6,6 +6,44 @@ export interface KapitelTabBarSchema {
     background: any;
 }
 
+// URL-Slug aus dem Kategorie-Label ableiten, z. B. "Alltag" -> "alltag",
+// "1. Hilfe" -> "1_hilfe". Wird für das lesbare Routen-Schema
+// "kategorie/<slug>" (statt der bisherigen numerischen "kategorien/<id>") genutzt.
+function slugify(label: string): string {
+    return label
+        .toLowerCase()
+        .replace(/\./g, '')
+        .trim()
+        .replace(/\s+/g, '_');
+}
+
+// Kategorie-ID ("1" … "7") -> URL-Slug ("alltag", "1_hilfe", …)
+export const CATEGORY_SLUGS: Record<string, string> = Object.fromEntries(
+    Object.entries(CATEGORY_COLORS).map(([id, { label }]) => [id, slugify(label)])
+);
+
+// Umkehrung für das Parsen von Deep-Links: Slug -> Kategorie-ID
+export const CATEGORY_IDS_BY_SLUG: Record<string, string> = Object.fromEntries(
+    Object.entries(CATEGORY_SLUGS).map(([id, slug]) => [slug, id])
+);
+
+// Baut die Navigations-Params für den "Bittgebete"-Screen, inkl. catSlug/themaId,
+// damit react-navigation im Web auch bei interner Navigation (Kategorie, Suche,
+// Favoriten) die passende "kategorie/<slug>/<themaId>"-URL in die Adresszeile schreibt.
+export function buildDuaRouteParams(
+    thema: { id: number; titel: string },
+    kategorie: string,
+    catId: number | string
+) {
+    return {
+        thema,
+        kategorie,
+        catId,
+        catSlug: CATEGORY_SLUGS[String(catId)],
+        themaId: thema.id,
+    };
+}
+
 export const tabBarStruktur: Record < string, KapitelTabBarSchema > = {
     '1': {
         label: CATEGORY_COLORS['1'].label,

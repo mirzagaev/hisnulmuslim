@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getBittgebete, syncOfflineData } from '../../services/api';
+import { getBittgebete } from '../../services/api';
 import Bittgebete from "../../interfaces/Bittgebet";
 
 interface DuaState {

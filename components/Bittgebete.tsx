@@ -169,7 +169,12 @@ function Bittgebet(dua: DuaCardProps) {
           <VectorIcon name="share" size={20} color={dark ? '#ffffff' : '#1f2937'} strokeWidth={2} />
         </Pressable>
         {hasUmschrift ? (
-          <Pressable onPress={() => setShowLatein((v) => !v)} accessibilityLabel="Transliteration" hitSlop={8}>
+          <Pressable
+            onPress={() => setShowLatein((v) => !v)}
+            style={showLatein ? tw`opacity-100` : tw`opacity-50`}
+            accessibilityLabel="Transliteration"
+            hitSlop={8}
+          >
             <VectorIcon name="transkript" size={20} color={dark ? '#ffffff' : '#1f2937'} />
           </Pressable>
         ) : null}

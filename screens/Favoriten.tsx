@@ -5,6 +5,7 @@ import tw from 'twrnc';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useAppTheme } from '../theme/ThemeContext';
+import { buildDuaRouteParams } from '../interfaces/KapitelSchema';
 import SubcategoryCard from '../components/SubcategoryCard';
 
 export default function Favoriten({ navigation }) {
@@ -69,11 +70,7 @@ export default function Favoriten({ navigation }) {
               onSelect={(item) => {
                 const thema = favoriteThemen.find((t) => t.id === item.key);
                 const kapitel = kapiteln.find((k) => k.id === thema.kategorie);
-                navigation.navigate('Bittgebete', {
-                  thema,
-                  kategorie: kapitel?.kategorie,
-                  catId: thema.kategorie,
-                });
+                navigation.navigate('Bittgebete', buildDuaRouteParams(thema, kapitel?.kategorie, thema.kategorie));
               }}
             />
           ) : (

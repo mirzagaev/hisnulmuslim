@@ -1,6 +1,5 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import NetInfo from '@react-native-community/netinfo';
 import Thema from '../interfaces/Thema';
 import Bittgebete from '../interfaces/Bittgebet';
 
@@ -193,21 +192,3 @@ export const getBittgebete = async (): Promise<Bittgebete[]> => loadWithOfflineF
   const response = await axios.get<ApiDuasResponse>(`${API_URL}duas`);
   return response.data.duas.map(mapDuaToBittgebet);
 });
-
-// Themen (=hm)
-export const geThemen = getKategorieData;
-
-export const syncOfflineData = async () => {
-  const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
-
-  if (isConnected) {
-    const offlineItems = await AsyncStorage.getItem('offlineItems');
-    if (offlineItems) {
-      const items = JSON.parse(offlineItems);
-      // for (const item of items) {
-      //     await addItem(item.name);
-      // }
-      await AsyncStorage.removeItem('offlineItems');
-    }
-  }
-};

@@ -2,15 +2,10 @@
   "expo": {
     "name": "Hisnul Muslim",
     "slug": "hisnulmuslim",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
-    },
     "newArchEnabled": true,
     "assetBundlePatterns": [
       "**/*"
@@ -38,9 +33,9 @@
         "expo-build-properties",
         {
           "android": {
-            "compileSdkVersion": 35,
-            "targetSdkVersion": 35,
-            "buildToolsVersion": "35.0.0"
+            "compileSdkVersion": 36,
+            "targetSdkVersion": 36,
+            "buildToolsVersion": "36.0.0"
           },
           "ios": {
             "deploymentTarget": "15.1"
@@ -54,6 +49,6 @@
         "projectId": "db66e2ea-564f-424f-b767-36e849da049a"
       }
     },
-    "owner": "mirzagaev"
+    "owner": "webza.dev"
   }
 }

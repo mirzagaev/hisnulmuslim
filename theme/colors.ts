@@ -22,28 +22,3 @@ export const CATEGORY_COLORS: Record<string, CategoryColor> = {
   '6': { id: 6, label: 'Wohlsein', base: '#de2187', dark: '#4c0631', light: '#f4bde3' },
   '7': { id: 7, label: 'Pilgern', base: '#ef2266', dark: '#60072b', light: '#f9c5dd' },
 };
-
-export const NEUTRAL = {
-  gray100: '#f3f4f6',
-  gray200: '#e5e7eb',
-  gray800: '#1f2937',
-  neutral100: '#f5f5f5',
-  neutral200: '#e5e5e5',
-  neutral300: '#d4d4d4',
-  neutral400: '#a3a3a3',
-  neutral500: '#737373',
-  neutral600: '#525252',
-  neutral700: '#404040',
-  neutral800: '#262626',
-  neutral900: '#171717',
-};
-
-export const RADII = {
-  sm: 5,
-  md: 6,
-  lg: 8,
-  xl: 12,
-  '2xl': 16,
-  pill: 32,
-  full: 9999,
-};
