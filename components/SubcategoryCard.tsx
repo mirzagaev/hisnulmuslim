@@ -46,7 +46,7 @@ export default function SubcategoryCard({ title, items, onSelect }: SubcategoryC
             tw`flex-row items-center justify-between py-3`,
             pressed ? tw`bg-neutral-300/30` : tw`bg-transparent`,
             isWide ? tw`px-10` : tw`px-7`,
-            i === items.length - 1 ? tw`pb-5` : tw`pb-3`,
+            (i === items.length - 1 && title) ? tw`pb-5` : tw`pb-3`,
           ]}
         >
           <Text style={[tw`flex-1 text-sm leading-5`, dark ? tw`text-white` : tw`text-gray-800`]}>
