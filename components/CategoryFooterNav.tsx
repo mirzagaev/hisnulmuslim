@@ -43,7 +43,7 @@ export default function CategoryFooterNav({
         style={[
           tw`flex py-2`,
           vertical ? tw`flex-col px-5 py-4` : tw`flex-row`,
-          !isWide && tw`py-3`,
+          !isWide && tw`pb-3 pt-1`,
         ]}
       >
         {CATEGORY_IDS.map((id) => {
