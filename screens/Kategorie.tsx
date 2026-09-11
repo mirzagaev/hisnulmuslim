@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, ImageBackground, useWindowDimensions } from 'react-native';
+import { View, Text, ScrollView, ImageBackground, useWindowDimensions } from 'react-native';
 import tw from 'twrnc';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { tabBarStruktur, buildDuaRouteParams } from "../interfaces/KapitelSchema"
-import { CATEGORY_COLORS } from '../theme/colors';
+import { CATEGORY_COLORS, BRAND } from '../theme/colors';
 import { useAppTheme } from "../theme/ThemeContext";
 import SubcategoryCard from '../components/SubcategoryCard';
 
 function Kategorie({navigation}) {
-  const kapiteln = useSelector((state: RootState) => state.kapiteln.kapiteln);
+  const kapiteln = useSelector((state: RootState) => state.kapiteln.filteredKapiteln);
+  // Bei aktiver Suche soll innerhalb einer Kategorie trotzdem über die gesamte
+  // Datenbank gesucht werden (wie im Suche-Screen), statt nur innerhalb der
+  // gerade geöffneten Kategorie zu filtern.
+  const searchTerm = useSelector((state: RootState) => state.kapiteln.searchTerm);
+  const isSearching = searchTerm.length >= 2;
   const [catId, setCatId] = useState<any>(1);
   const theme = useAppTheme();
   const dark = theme === 'dark';
@@ -29,13 +34,24 @@ function Kategorie({navigation}) {
   const cat = tabBarStruktur[String(catId)];
   const catColor = CATEGORY_COLORS[String(catId)];
 
+  // Ohne aktive Suche: nur die Themen der gerade geöffneten Kategorie.
+  // Mit aktiver Suche: Treffer aus allen Kategorien, mit Kategorienamen als Überschrift.
+  const visibleKapiteln = isSearching
+    ? kapiteln
+    : kapiteln.filter((kapitel) => kapitel.id == catId);
+
   const list = (
     <ScrollView
       style={tw`flex-1`}
       contentContainerStyle={isWide ? tw`px-5 gap-5` : tw`p-5 gap-5`}
     >
-      {kapiteln.map((kapitel) => (kapitel.id == catId) &&
-        <View key={catId} style={tw`gap-5`}>
+      {visibleKapiteln.map((kapitel) =>
+        <View key={kapitel.id} style={tw`gap-5`}>
+          {isSearching &&
+            <Text style={[tw`text-lg font-medium`, { color: tabBarStruktur[String(kapitel.id)]?.colorItem ?? BRAND.primary }]}>
+              {kapitel.kategorie}
+            </Text>
+          }
           {kapitel.unterkategorien.map((unterkat) => (
             unterkat.themen.length > 0 &&
             <SubcategoryCard

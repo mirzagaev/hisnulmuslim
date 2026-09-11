@@ -29,6 +29,10 @@ interface KapitelState {
       }>
     }>
   }>;
+  // Aktuell aktiver Suchbegriff (leer, wenn gerade nicht gesucht wird). Damit
+  // können Screens wie Kategorie.tsx erkennen, ob gefiltert wird, und bei
+  // aktiver Suche über alle Kategorien statt nur die eigene durchsuchen.
+  searchTerm: string;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
@@ -36,6 +40,7 @@ interface KapitelState {
 const initialState: KapitelState = {
   kapiteln: [],
   filteredKapiteln: [],
+  searchTerm: '',
   status: 'idle',
   error: null,
 };
@@ -57,6 +62,7 @@ const kapitelSlice = createSlice({
     ) => {
       const { searchTerm: rawSearchTerm, duas } = action.payload;
       const searchTerm = rawSearchTerm.toLowerCase();
+      state.searchTerm = rawSearchTerm;
 
       // Ein Thema hat einen Treffer im Inhalt, wenn eines seiner Bittgebete
       // (verknüpft über kapitel_id) in einem seiner Items (Arabisch, Übersetzung,
@@ -107,6 +113,7 @@ const kapitelSlice = createSlice({
     },
     clearFilteredKapiteln: (state) => {
       state.filteredKapiteln = state.kapiteln;
+      state.searchTerm = '';
     },
   },
   extraReducers: (builder) => {
