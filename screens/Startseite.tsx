@@ -42,7 +42,7 @@ export default function Startseite() {
         />
       ) : (
         <ImageBackground
-          source={require('../assets/backgrounds/startseite.jpg')}
+          source={require('../assets/backgrounds/startseite_xl.jpg')}
           style={tw`absolute inset-0 w-full h-full`}
           resizeMode="cover"
         />
@@ -56,7 +56,7 @@ export default function Startseite() {
         />
       ) : (
         <LinearGradient
-          colors={['rgba(241, 241, 241, 0.95)', 'rgba(226, 226, 226, 0.5)']}
+          colors={['rgba(241, 241, 241, 0.5)', 'rgba(226, 226, 226, 0.5)']}
           start={isWide ? { x: 0, y: 0 } : { x: 0, y: 1 }}
           end={isWide ? { x: 1, y: 0 } : { x: 0, y: 0 }}
           style={tw`absolute inset-0`}
@@ -82,7 +82,7 @@ export default function Startseite() {
             isWide && tw`max-w-[640px]`,
           ]}
         >
-          Alle Bittgebete aus dem klassischen Hisnul Muslim, neu kategorisiert für einfachen Zugang.
+          Salam Alaykum!
         </Text>
       </ScrollView>
     </View>

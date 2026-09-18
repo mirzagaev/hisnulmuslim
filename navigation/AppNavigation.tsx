@@ -32,13 +32,19 @@ const config = {
                     path: '',
                     screens: {
                         home: '',
-                        '1': `kategorie/${CATEGORY_SLUGS['1']}`,
-                        '2': `kategorie/${CATEGORY_SLUGS['2']}`,
-                        '3': `kategorie/${CATEGORY_SLUGS['3']}`,
-                        '4': `kategorie/${CATEGORY_SLUGS['4']}`,
-                        '5': `kategorie/${CATEGORY_SLUGS['5']}`,
-                        '6': `kategorie/${CATEGORY_SLUGS['6']}`,
-                        '7': `kategorie/${CATEGORY_SLUGS['7']}`,
+                        // Die 7 Kategorien liegen im verschachtelten Wisch-Karussell
+                        // (CategoriesGroup), siehe CategoryTabShell.tsx.
+                        CategoriesGroup: {
+                            screens: {
+                                '1': `kategorie/${CATEGORY_SLUGS['1']}`,
+                                '2': `kategorie/${CATEGORY_SLUGS['2']}`,
+                                '3': `kategorie/${CATEGORY_SLUGS['3']}`,
+                                '4': `kategorie/${CATEGORY_SLUGS['4']}`,
+                                '5': `kategorie/${CATEGORY_SLUGS['5']}`,
+                                '6': `kategorie/${CATEGORY_SLUGS['6']}`,
+                                '7': `kategorie/${CATEGORY_SLUGS['7']}`,
+                            },
+                        },
                     },
                 },
                 Favoriten: 'favorites',
@@ -288,7 +294,13 @@ const AppNavigation = () => {
         <ThemeContext.Provider value={colorScheme}>
             <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
                 <RootStack.Navigator id={undefined} screenOptions={{ headerShown: false }}>
-                    <RootStack.Screen name="Root" component={DrawerNavigator} />
+                    <RootStack.Screen
+                        name="Root"
+                        component={DrawerNavigator}
+                        options={{
+                            contentStyle: { backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff" },
+                        }}
+                    />
                     <RootStack.Screen
                         name="Bittgebete"
                         component={Bittgebete}
@@ -296,6 +308,10 @@ const AppNavigation = () => {
                             headerShown: true,
                             title: 'Bittgebete',
                             animation: 'slide_from_right',
+                            // Ohne diese Option zeigt iOS im Zurück-Button den Namen des vorherigen
+                            // Screens an ("Root", der Name des RootStack-Screens). 'minimal' blendet
+                            // den Text aus und zeigt nur den Zurück-Pfeil.
+                            headerBackButtonDisplayMode: 'minimal',
                             headerStyle: { backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff" },
                             headerShadowVisible: false,
                             headerTintColor: colorScheme === "dark" ? "#ffffff" : "#000000",
