@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterKapiteln, clearFilteredKapiteln } from '../redux/slices/kapitelSlice';
 import { RootState } from '../redux/store';
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, DrawerActions } from '@react-navigation/native'
 import { Image, Text, View } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,7 +12,6 @@ import Info from '../screens/Info';
 import Impressum from '../screens/Impressum';
 import Datenschutz from '../screens/Datenschutz';
 import Bittgebete from '../screens/Bittgebete';
-import Favoriten from '../screens/Favoriten';
 import Transkript from '../screens/Transkript';
 import NotFound from '../screens/NotFound';
 import Suche from '../screens/Suche';
@@ -32,8 +31,6 @@ const config = {
                     path: '',
                     screens: {
                         home: '',
-                        // Die 7 Kategorien liegen im verschachtelten Wisch-Karussell
-                        // (CategoriesGroup), siehe CategoryTabShell.tsx.
                         CategoriesGroup: {
                             screens: {
                                 '1': `kategorie/${CATEGORY_SLUGS['1']}`,
@@ -47,7 +44,6 @@ const config = {
                         },
                     },
                 },
-                Favoriten: 'favorites',
                 Transkript: 'transkript',
                 Info: 'information',
                 Impressum: 'impressum',
@@ -83,14 +79,6 @@ function DrawerNavigator() {
     const renderDrawerContent = (props: any) => (
         <View style={tw`flex-1`}>
             <DrawerContentScrollView {...props}>
-                <Text
-                    style={[
-                        tw`text-xl font-bold px-4 pb-6 pt-3`,
-                        colorScheme === "dark" ? tw`text-white` : tw`text-[#171717]`,
-                    ]}
-                >
-                    Hisnul Muslim
-                </Text>
                 <DrawerItemList {...props} />
             </DrawerContentScrollView>
             <View
@@ -149,6 +137,7 @@ function DrawerNavigator() {
                         setSearch('');
                         dispatch(clearFilteredKapiteln());
                         navigation.navigate('Kategorien', { screen: 'home' });
+                        navigation.dispatch(DrawerActions.closeDrawer());
                     },
                 })}
                 options={({ navigation }) => {
@@ -204,23 +193,14 @@ function DrawerNavigator() {
                             />
                         ),
                         headerTitleAlign: 'left',
-                        drawerLabel: "Themenübersicht"
+                        drawerLabel: "Hisnul Muslim"
                     };
                 }}
 
             />
             <Drawer.Screen
-                name="Favoriten"
-                children={(props) => <CategoryTabShell contentName="Favoriten" content={Favoriten} navigation={props.navigation} />}
-                options={{
-                    drawerIcon: ({ focused }) => (
-                    focused ? <Image source={require('../assets/icons/00-active.png')} style={tw`w-[30px] h-[30px]`} /> : <Image source={require('../assets/icons/00-inactive.png')} style={tw`w-[30px] h-[30px]`} />
-                    ),
-                }}
-            />
-            <Drawer.Screen
                 name="Transkript"
-                children={(props) => <CategoryTabShell contentName="Transkript" content={Transkript} navigation={props.navigation} />}
+                children={(props) => <CategoryTabShell contentName="TranskriptTab" content={Transkript} navigation={props.navigation} />}
                 options={{
                     headerTitle: "Transkript",
                     drawerLabel: "Transkript",
@@ -274,7 +254,7 @@ function DrawerNavigator() {
             />
             <Drawer.Screen
                 name="Suche"
-                children={(props) => <CategoryTabShell contentName="Suche" content={Suche} navigation={props.navigation} />}
+                children={(props) => <CategoryTabShell contentName="SucheTab" content={Suche} navigation={props.navigation} />}
                 options={{
                     title: 'Suche',
                     drawerItemStyle: {
