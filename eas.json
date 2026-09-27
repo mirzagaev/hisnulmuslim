@@ -25,7 +25,7 @@
   "submit": {
     "production": {
       "android": {
-        "serviceAccountKeyPath": "../Google-Play-Console/webza-466713-f327d69b91bf.json",
+        "serviceAccountKeyPath": "../Google-Play-Console/api-project-142258836147-6b3f62e35c69.json",
         "track": "internal"
       },
       "ios": {
