@@ -95,7 +95,8 @@ export default function Startseite({ navigation }) {
       {favoriteThemen.length > 0 && (
         <View
           style={[
-            tw`absolute left-0 right-0 bottom-0 border-t rounded-t-2xl overflow-hidden`,
+            tw`absolute left-0 right-0 bottom-0 rounded-2xl overflow-hidden`,
+            isWide ? tw`my-5 mx-14` : tw`m-3`,
             dark ? tw`bg-black/85 border-neutral-800` : tw`bg-white/90 border-neutral-200`,
           ]}
         >
@@ -103,12 +104,12 @@ export default function Startseite({ navigation }) {
             onPress={toggleFavoriten}
             style={[
               tw`flex-row items-center justify-between`,
-              isWide ? tw`px-14` : tw`px-7`,
+              isWide ? tw`px-6` : tw`px-5`,
               { height: FOOTER_BAR_HEIGHT },
             ]}
           >
             <View style={tw`flex-row items-center justify-center`}>
-              <Image source={require('../assets/icons/00-active.png')} style={tw`w-[22px] h-[22px] mr-2`} />
+              <Image source={require('../assets/icons/00-active.png')} style={tw`w-[22px] h-[22px] mr-4`} />
               <Text style={[tw`text-lg font-semibold`, dark ? tw`text-white` : tw`text-gray-800`]}>
                 Favoriten
               </Text>
@@ -122,7 +123,7 @@ export default function Startseite({ navigation }) {
           {favoritenOffen && (
             <ScrollView
               style={{ maxHeight: height * 0.45 }}
-              contentContainerStyle={isWide ? tw`px-14 pb-4` : tw`px-7 pb-3`}
+              contentContainerStyle={isWide ? tw`pb-4` : tw`pb-1`}
             >
               {favoriteThemen.map((thema) => (
                 <Pressable
@@ -133,6 +134,7 @@ export default function Startseite({ navigation }) {
                   }}
                   style={({ pressed }) => [
                     tw`flex-row items-center justify-between py-3`,
+                    isWide ? tw`px-16` : tw`px-5`,
                     pressed ? tw`bg-neutral-300/30` : tw`bg-transparent`,
                   ]}
                 >
